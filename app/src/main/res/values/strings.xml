@@ -1,3 +1,13 @@
 <resources>
     <string name="app_name">TuitionBD</string>
+
+    <string name="get_started">Get Started</string>
+    <string name="findTutor">Find A Tutor</string>
+    <string name="findTuition">Find A Tuition</string>
+    <string name="justExplore">Just Explore</string>
+    <string name="description1">Find Tutor Any Where Any Time </string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+
 </resources>
