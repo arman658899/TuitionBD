@@ -65,7 +65,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:text="Full Name"
+            android:text="Subject"
             android:textColor="@android:color/black"
             android:textSize="14sp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -81,7 +81,7 @@
             android:layout_marginEnd="10dp"
             android:background="@drawable/edit_text_shape"
             android:ems="10"
-            android:hint="Adullah Al Hossain"
+            android:hint="Math,phy,Chem"
             android:inputType="textPersonName"
             android:paddingStart="10dp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -142,91 +142,50 @@
             android:paddingStart="10dp"
             android:paddingEnd="10dp"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.687"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView7" />
 
         <TextView
-            android:id="@+id/textView8"
-            android:layout_width="80dp"
-            android:layout_height="30dp"
-            android:layout_marginStart="30dp"
-            android:layout_marginTop="10dp"
-            android:gravity="center"
-            android:text="Medium"
-            android:textColor="@android:color/black"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName5" />
-
-        <TextView
-            android:id="@+id/textView9"
-            android:layout_width="80dp"
-            android:layout_height="30dp"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="10dp"
-            android:gravity="center"
-            android:text="Group"
-            android:textColor="@android:color/black"
-            app:layout_constraintBottom_toBottomOf="@+id/spinner2"
-            app:layout_constraintStart_toEndOf="@+id/spinner2"
-            app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName5" />
-
-        <Spinner
-            android:id="@+id/spinner2"
-            android:layout_width="80dp"
-            android:layout_height="30dp"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="10dp"
-            app:layout_constraintBottom_toBottomOf="@+id/textView8"
-            app:layout_constraintStart_toEndOf="@+id/textView8"
-            app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName5" />
-
-        <Spinner
-            android:id="@+id/spinner3"
-            android:layout_width="80dp"
-            android:layout_height="30dp"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="10dp"
-            app:layout_constraintBottom_toBottomOf="@+id/textView9"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/textView9"
-            app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName5" />
-
-        <TextView
             android:id="@+id/textView10"
-            android:layout_width="80dp"
-            android:layout_height="30dp"
-            android:layout_marginStart="92dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginEnd="55dp"
-            android:gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="8dp"
             android:text="Class"
             android:textColor="@android:color/black"
-            app:layout_constraintEnd_toStartOf="@+id/spinner4"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView8" />
-
-        <Spinner
-            android:id="@+id/spinner4"
-            android:layout_width="80dp"
-            android:layout_height="30dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginEnd="95dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView9" />
+            app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName5" />
 
         <Button
             android:id="@+id/button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="150dp"
-            android:layout_marginTop="25dp"
+            android:layout_marginTop="30dp"
             android:layout_marginEnd="150dp"
-            android:text="Post"
             android:background="@drawable/button_round_shape"
+            android:text="Post"
             android:textColor="@android:color/white"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName6" />
+
+        <EditText
+            android:id="@+id/editTextTextPersonName6"
+            android:layout_width="370dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="10dp"
+            android:background="@drawable/edit_text_shape"
+            android:ems="10"
+            android:hint="10-12"
+            android:inputType="number"
+            android:paddingStart="10dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView10" />
     </androidx.constraintlayout.widget.ConstraintLayout>

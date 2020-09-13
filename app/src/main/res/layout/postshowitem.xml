@@ -8,7 +8,7 @@
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="250dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:layout_marginStart="10dp"
         android:layout_marginEnd="10dp"
@@ -24,7 +24,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
+            android:orientation="vertical"
             >
             <TextView
                 android:layout_width="wrap_content"
@@ -34,7 +34,7 @@
                 android:textStyle="bold"
                 android:textColor="@android:color/black"
                 android:layout_marginTop="2dp"
-                android:layout_marginStart="10dp"
+                android:layout_marginStart="25dp"
                 >
             </TextView>
         </LinearLayout>
@@ -47,37 +47,37 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Abdullah Al Hossain"
+                android:text="Tuition Id"
                 android:textSize="18dp"
-                android:textColor="@android:color/black"
-                android:layout_marginStart="10dp"
+                android:layout_marginStart="25dp"
                 >
             </TextView>
-        </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
+            <TextView
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginTop="10dp"
+                android:text="2345"
+                android:textSize="18dp"
+                android:layout_marginStart="30dp"
                 >
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="International Islamic Univeristy Chittagong"
-                    android:textSize="16dp"
-                    android:textColor="@android:color/black"
-                    android:layout_marginStart="10dp"
-                    >
-                </TextView>
-            </LinearLayout>
+            </TextView>
 
-            <LinearLayout
-                android:layout_width="match_parent"
+            <TextView
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
+                android:text="Posted"
+                android:textSize="18dp"
+                android:layout_marginStart="40dp"
+                >
+            </TextView>
+
+        </LinearLayout>
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 >
                 <ImageView
+                    android:id="@+id/icon_image"
                     android:layout_width="15dp"
                     android:layout_height="15dp"
                     android:src="@drawable/ic_tk"
@@ -85,49 +85,56 @@
                     >
                 </ImageView>
                 <TextView
-                    android:layout_width="200dp"
-                    android:layout_height="match_parent"
-                    android:text="Salary Per month"
-                    android:textSize="16dp"
-                    android:textColor="@android:color/black"
-                    android:layout_marginStart="5dp"
-                    >
-                </TextView>
-                <TextView
+                    android:id="@+id/salary_id"
+                    android:layout_toRightOf="@id/icon_image"
                     android:layout_width="150dp"
                     android:layout_height="wrap_content"
-                    android:text="Medium"
+                    android:text="Salary"
                     android:textSize="16dp"
                     android:layout_marginStart="5dp"
                     >
                 </TextView>
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginTop="10dp"
-                >
                 <TextView
-                    android:layout_width="200dp"
-                    android:layout_height="match_parent"
-                    android:paddingStart="10dp"
-                    android:text="Group"
+                    android:layout_below="@id/salary_id"
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:text="4000-5000"
                     android:textSize="16dp"
                     android:textColor="@android:color/black"
+                    android:layout_marginStart="25dp"
+                    >
+                </TextView>
+                <LinearLayout
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
                     android:layout_marginStart="10dp"
+                    android:layout_toRightOf="@id/salary_id"
                     >
-                </TextView>
-                <TextView
-                    android:layout_width="150dp"
-                    android:layout_height="match_parent"
-                    android:text="Class"
-                    android:textSize="16dp"
-                    android:layout_marginStart="30dp"
-                    >
-                </TextView>
-            </LinearLayout>
-
+                    <TextView
+                        android:id="@+id/sub_id"
+                        android:layout_toRightOf="@id/icon_image"
+                        android:layout_width="150dp"
+                        android:layout_height="wrap_content"
+                        android:text="Subject"
+                        android:textStyle="bold"
+                        android:textColor="@android:color/black"
+                        android:textSize="16dp"
+                        android:layout_marginStart="25dp"
+                        >
+                    </TextView>
+                    <TextView
+                        android:layout_below="@id/salary_id"
+                        android:layout_width="150dp"
+                        android:layout_height="wrap_content"
+                        android:text="Eng, Phy, math"
+                        android:textSize="16dp"
+                        android:textColor="@android:color/black"
+                        android:layout_marginStart="25dp"
+                        >
+                    </TextView>
+                </LinearLayout>
+            </RelativeLayout>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -150,33 +157,6 @@
                     android:layout_marginStart="5dp"
                     >
                 </TextView>
-                <TextView
-                    android:layout_width="150dp"
-                    android:layout_height="match_parent"
-                    android:text="Posted"
-                    android:textSize="16dp"
-                    android:layout_marginStart="5dp"
-                    >
-                </TextView>
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginStart="280dp"
-                android:layout_marginTop="5dp"
-                >
-                <Button
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:textColor="@android:color/white"
-                    android:textStyle="bold"
-                    android:paddingStart="10dp"
-                    android:paddingEnd="10dp"
-                    android:background="@drawable/button_round_shape"
-                   android:text="See profile"
-                    >
-                </Button>
             </LinearLayout>
 
         </LinearLayout>
