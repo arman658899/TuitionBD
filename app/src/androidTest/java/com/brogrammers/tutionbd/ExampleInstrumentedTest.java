@@ -1,4 +1,4 @@
-package com.brogrammers.tuitionbd;
+package com.brogrammers.tutionbd;
 
 import android.content.Context;
 

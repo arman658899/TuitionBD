@@ -1,4 +1,4 @@
-package com.brogrammers.tuitionbd;
+package com.brogrammers.tutionbd.views;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -11,6 +11,10 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.brogrammers.tutionbd.R;
+import com.brogrammers.tutionbd.views.introslideractivity.IntroSliderActivity;
+import com.brogrammers.tutionbd.views.mainactivity.MainActivity;
 
 public class SplashScreen extends AppCompatActivity {
 
@@ -48,7 +52,7 @@ public class SplashScreen extends AppCompatActivity {
                     editor.putBoolean( "firstTime" ,true);
                     editor.apply();
 
-                    Intent intent=new Intent (SplashScreen.this, IntroSlider.class);
+                    Intent intent=new Intent (SplashScreen.this, IntroSliderActivity.class);
                     startActivity( intent );
                     finish();
                 }

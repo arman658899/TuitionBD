@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "805694955093",
+    "firebase_url": "https://tutionbd-app.firebaseio.com",
+    "project_id": "tutionbd-app",
+    "storage_bucket": "tutionbd-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:805694955093:android:86fbeee4533a712415bedc",
+        "android_client_info": {
+          "package_name": "com.brogrammers.tutionbd"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "805694955093-q0jmk1fekdbd3liif58atigcsak91813.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.brogrammers.tutionbd",
+            "certificate_hash": "4e7b5b08bc26b6440afc1fd2b5f0f38003d2ec01"
+          }
+        },
+        {
+          "client_id": "805694955093-3h3jbqck99fpa298klrqnlavhgu7i5dq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBPbzDx4KxSfFzy2IcLeB7Wm5CNf7tQIL8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "805694955093-3h3jbqck99fpa298klrqnlavhgu7i5dq.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

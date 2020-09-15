@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".Find_A_Tuition">
+    tools:context=".views.Find_A_Tuition">
 
     <LinearLayout
         android:orientation="vertical"
@@ -28,7 +28,6 @@
             android:background="@android:color/holo_green_light"
             android:padding="8dp"
             android:gravity="center"
-            android:text="@string/delivery_details"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/toolbar" />
@@ -59,14 +58,12 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="@string/total_order"
                     android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/textView_total_order"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
                     android:layout_weight="1"
                     android:gravity="end"
                     android:textColor="@android:color/holo_red_light"
@@ -92,7 +89,6 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="@string/delivery_charge"
                     android:textStyle="bold" />
 
                 <TextView
@@ -104,7 +100,8 @@
                     android:gravity="end"
                     android:textColor="@android:color/holo_red_light"
                     android:textSize="18sp"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    android:layout_marginLeft="10dp" />
 
             </LinearLayout>
 
@@ -125,7 +122,6 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="@string/total"
                     android:textStyle="bold" />
 
                 <TextView
@@ -137,7 +133,8 @@
                     android:gravity="end"
                     android:textColor="@android:color/holo_red_light"
                     android:textSize="18sp"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    android:layout_marginLeft="10dp" />
 
             </LinearLayout>
 
@@ -159,7 +156,6 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
                     android:gravity="center"
-                    android:text="@string/deliveryman_details"
                     android:textStyle="bold" />
 
             </LinearLayout>

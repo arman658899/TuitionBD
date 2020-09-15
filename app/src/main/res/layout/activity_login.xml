@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".OtpLogIn">
+    tools:context=".views.loginactivity.LoginActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraint1"
@@ -27,6 +28,7 @@
             android:id="@+id/textView3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
             android:text="Find a near by tuition or tutor"
             android:textColor="@android:color/black"
             android:textSize="16dp"
@@ -38,6 +40,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -51,7 +54,8 @@
             android:layout_marginTop="8dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_profile" />
+            app:srcCompat="@drawable/ic_profile"
+            android:layout_marginLeft="10dp" />
 
         <TextView
             android:id="@+id/textView4"
@@ -65,7 +69,8 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toEndOf="@+id/imageView6"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginLeft="20dp" />
 
         <EditText
             android:id="@+id/editTextTextPersonName"
@@ -74,13 +79,14 @@
             android:layout_marginTop="5dp"
             android:background="@drawable/edit_text_shape"
             android:ems="10"
-            android:hint="Abdullah Al Hossain"
+            android:hint="Mr/Mrs X"
             android:inputType="textPersonName"
             android:paddingStart="10dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.384"
             app:layout_constraintStart_toEndOf="@+id/imageView6"
-            app:layout_constraintTop_toBottomOf="@+id/textView4" />
+            app:layout_constraintTop_toBottomOf="@+id/textView4"
+            android:paddingLeft="10dp" />
 
         <EditText
             android:id="@+id/editTextTextPersonName2"
@@ -89,25 +95,28 @@
             android:layout_marginTop="8dp"
             android:background="@drawable/edit_text_shape"
             android:ems="10"
-            android:hint="01843658899"
+            android:hint="01XXXXXXXXX"
             android:inputType="number"
             android:paddingStart="10dp"
             app:layout_constraintStart_toStartOf="@+id/editTextTextPersonName"
-            app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName" />
+            app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName"
+            android:paddingLeft="10dp" />
 
         <EditText
+            android:visibility="gone"
             android:id="@+id/editTextTextPersonName3"
             android:layout_width="280dp"
             android:layout_height="35dp"
             android:layout_marginTop="8dp"
             android:background="@drawable/edit_text_shape"
             android:ems="10"
-            android:hint="code"
+            android:hint="OTP Code"
             android:inputType="number"
             android:paddingStart="10dp"
             app:layout_constraintEnd_toEndOf="@+id/editTextTextPersonName2"
             app:layout_constraintStart_toStartOf="@+id/editTextTextPersonName2"
-            app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName2" />
+            app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName2"
+            android:paddingLeft="10dp" />
 
         <Button
             android:id="@+id/go_button"
@@ -125,14 +134,19 @@
             app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName3"
             app:layout_constraintVertical_bias="0.0" />
 
-        <Spinner
+        <TextView
             android:id="@+id/spinner"
             android:layout_width="50dp"
             android:layout_height="35dp"
-            android:layout_marginStart="16dp"
+            android:background="@drawable/button_round_shape"
+            android:gravity="center"
+            android:text="+88"
+            android:textColor="@android:color/white"
+            android:textSize="16sp"
+            android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="@+id/editTextTextPersonName2"
-            app:layout_constraintEnd_toStartOf="@+id/editTextTextPersonName2"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintEnd_toEndOf="@+id/imageView6"
+            app:layout_constraintStart_toStartOf="@+id/imageView6" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
