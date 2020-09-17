@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 
 import com.brogrammers.tutionbd.views.loginactivity.LoginActivity;
+import com.brogrammers.tutionbd.views.signupactivity.SignUpActivity;
 
 public class IntroSliderActivityPresenter implements IntroSliderActivityVP.Presenter {
     private Context context;
@@ -17,7 +18,7 @@ public class IntroSliderActivityPresenter implements IntroSliderActivityVP.Prese
 
     @Override
     public void onSkipButtonClicked() {
-        Intent intent = new Intent( context, LoginActivity.class);
+        Intent intent = new Intent( context, SignUpActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK);
         view.navigateToActivity(intent);
     }

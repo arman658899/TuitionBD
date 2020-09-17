@@ -11,6 +11,8 @@
         android:id="@+id/constraint1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/constraintLayout3"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -37,92 +39,63 @@
             app:layout_constraintTop_toBottomOf="@+id/imageView5" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <LinearLayout
+        android:orientation="vertical"
+        android:id="@+id/constraintLayout3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_margin="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/constraint1">
 
-        <ImageView
-            android:id="@+id/imageView6"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="8dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_profile"
-            android:layout_marginLeft="10dp" />
+        <LinearLayout
+            android:weightSum="4"
+            android:layout_gravity="center"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-        <TextView
-            android:id="@+id/textView4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="10dp"
-            android:text="Name"
-            android:textColor="@android:color/black"
-            android:textSize="16sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toEndOf="@+id/imageView6"
-            app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginLeft="20dp" />
+            <TextView
+                android:id="@+id/spinner"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="35dp"
+                android:layout_margin="8dp"
+                android:background="@drawable/button_round_shape"
+                android:gravity="center"
+                android:text="+88"
+                android:textColor="@android:color/white"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@+id/editTextTextPersonName2"
+                tools:layout_editor_absoluteX="15dp" />
 
-        <EditText
-            android:id="@+id/editTextTextPersonName"
-            android:layout_width="280dp"
-            android:layout_height="35dp"
-            android:layout_marginTop="5dp"
-            android:background="@drawable/edit_text_shape"
-            android:ems="10"
-            android:hint="Mr/Mrs X"
-            android:inputType="textPersonName"
-            android:paddingStart="10dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.384"
-            app:layout_constraintStart_toEndOf="@+id/imageView6"
-            app:layout_constraintTop_toBottomOf="@+id/textView4"
-            android:paddingLeft="10dp" />
+            <EditText
+                android:id="@+id/editTextTextPersonName2"
+                android:layout_weight="3"
+                android:layout_width="0dp"
+                android:layout_height="35dp"
+                android:layout_margin="8dp"
+                android:background="@drawable/edit_text_shape"
+                android:ems="10"
+                android:hint="01XXXXXXXXX"
+                android:inputType="number"
+                android:paddingStart="10dp"
+                android:paddingLeft="10dp"
+                tools:layout_editor_absoluteX="131dp"
+                tools:layout_editor_absoluteY="80dp" />
 
-        <EditText
-            android:id="@+id/editTextTextPersonName2"
-            android:layout_width="280dp"
-            android:layout_height="35dp"
-            android:layout_marginTop="8dp"
-            android:background="@drawable/edit_text_shape"
-            android:ems="10"
-            android:hint="01XXXXXXXXX"
-            android:inputType="number"
-            android:paddingStart="10dp"
-            app:layout_constraintStart_toStartOf="@+id/editTextTextPersonName"
-            app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName"
-            android:paddingLeft="10dp" />
 
-        <EditText
-            android:visibility="gone"
-            android:id="@+id/editTextTextPersonName3"
-            android:layout_width="280dp"
-            android:layout_height="35dp"
-            android:layout_marginTop="8dp"
-            android:background="@drawable/edit_text_shape"
-            android:ems="10"
-            android:hint="OTP Code"
-            android:inputType="number"
-            android:paddingStart="10dp"
-            app:layout_constraintEnd_toEndOf="@+id/editTextTextPersonName2"
-            app:layout_constraintStart_toStartOf="@+id/editTextTextPersonName2"
-            app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName2"
-            android:paddingLeft="10dp" />
+        </LinearLayout>
 
         <Button
+            android:layout_gravity="center"
             android:id="@+id/go_button"
-            android:layout_width="150dp"
+            android:layout_width="200dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
+            android:layout_margin="8dp"
             android:background="@drawable/button_round_shape"
             android:text="Let's Go"
             android:textColor="@android:color/white"
@@ -134,19 +107,5 @@
             app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName3"
             app:layout_constraintVertical_bias="0.0" />
 
-        <TextView
-            android:id="@+id/spinner"
-            android:layout_width="50dp"
-            android:layout_height="35dp"
-            android:background="@drawable/button_round_shape"
-            android:gravity="center"
-            android:text="+88"
-            android:textColor="@android:color/white"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="@+id/editTextTextPersonName2"
-            app:layout_constraintEnd_toEndOf="@+id/imageView6"
-            app:layout_constraintStart_toStartOf="@+id/imageView6" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

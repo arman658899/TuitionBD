@@ -99,7 +99,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="30dp"
             android:fontFamily="sans-serif-medium"
-            android:text="@string/findTutor"
+            android:text="Find A Tuition"
             android:textColor="@android:color/black"
             android:textSize="18sp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -141,7 +141,8 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_just_explore" />
+            app:srcCompat="@drawable/ic_just_explore"
+            android:paddingLeft="10dp" />
 
         <TextView
             android:id="@+id/justExploreTv"

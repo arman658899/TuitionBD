@@ -4,49 +4,32 @@ import android.content.Context;
 import android.content.Intent;
 
 import com.brogrammers.tutionbd.ApplicationHelper;
+import com.brogrammers.tutionbd.managers.ProfileManager;
 import com.brogrammers.tutionbd.views.otpactivity.OtpVarificationActivity;
 
 public class LoginActivityPresenter implements LoginActivityVP.Presenter {
     private Context context;
     private LoginActivityVP.View view;
 
-    public LoginActivityPresenter(Context context, LoginActivityVP.View view){
+    public LoginActivityPresenter(Context context,LoginActivityVP.View view){
         this.context = context;
         this.view = view;
         this.view.setPresenter(this);
     }
     @Override
-    public void onGoButtonClicked(String userName,final String mobileNumber) {
-        if (userName.isEmpty()){
-            view.onNotifyEdittextName();
-            return;
-        }
-        if (!isValidPhoneNumber(mobileNumber)){
-            view.onNotifyEdittextPhone();
-            return;
-        }
-
-        Intent intent = new Intent(context, OtpVarificationActivity.class);
-        intent.putExtra("user_name",userName);
-        intent.putExtra("mobile_number",mobileNumber);
-        view.onNavigateToActivity(intent);
-    }
-
-    @Override
-    public void onRetryButtonClicked() {
-        if (ApplicationHelper.getUtilsHelper().isConnected()){
-            view.onDismissNoNetworkDialog();
-        }else view.onShowNoNetworkDialog();
-    }
-
-    @Override
-    public void onExceptionHandle(String message) {
-        view.onShowSnackbarMessage(message);
+    public void onGoButtonClicked(String mobileNumber) {
+        if (isValidPhoneNumber(mobileNumber)){
+            Intent intent = new Intent(context, OtpVarificationActivity.class);
+            intent.putExtra("mobile_number",mobileNumber);
+            view.onNavigateToActivity(intent);
+        }else view.onNotifyEdittextMobile("Invalid mobile number.");
     }
 
     @Override
     public void onStart() {
-        this.view.onShowNoNetworkDialog();
+        if (ApplicationHelper.getUtilsHelper().isConnected()){
+            view.onDismissNoNetworkDialog();
+        }else view.onShowNoNetworkDialog();
     }
 
     private boolean isValidPhoneNumber(String mobileNumber){

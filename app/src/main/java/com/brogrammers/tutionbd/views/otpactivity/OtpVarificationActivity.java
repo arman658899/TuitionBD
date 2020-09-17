@@ -3,6 +3,7 @@ package com.brogrammers.tutionbd.views.otpactivity;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -15,11 +16,15 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.brogrammers.tutionbd.AppPreferences;
 import com.brogrammers.tutionbd.ApplicationHelper;
+import com.brogrammers.tutionbd.Constants;
 import com.brogrammers.tutionbd.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.snackbar.BaseTransientBottomBar;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.FirebaseException;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
@@ -32,23 +37,30 @@ import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.TimeUnit;
 
-public class OtpVarificationActivity extends AppCompatActivity {
+import static android.graphics.Color.BLACK;
+import static android.graphics.Color.YELLOW;
+
+public class OtpVarificationActivity extends AppCompatActivity implements OtpVerificationActivityVP.View {
+    private OtpVerificationActivityVP.Presenter presenter;
+
     private EditText etOtpCode;
-    private Button resendButton,btnVerify;
-    private TextView tvOtpMobileNo,tvTimer;
+    private Button resendButton, btnVerify;
+    private TextView tvOtpMobileNo, tvTimer;
 
 
     //temp variable
-    private  int sec;
+    private int sec;
 
     //timer
-    private Timer timerForSecond,timerForLate;
+    private Timer timerForSecond;
 
     private PhoneAuthProvider.OnVerificationStateChangedCallbacks mCallbacks;
     private PhoneAuthProvider.ForceResendingToken OTP_RESENDING_TOKEN;
     private String OTP_VERIFICATION_CODE;
-    private String formatedPhoneNumber,userName;
-    private ProgressDialog pd;
+    private String formatedPhoneNumber;
+
+
+    private Dialog loadingDialog;
 
 
     @Override
@@ -56,9 +68,12 @@ public class OtpVarificationActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_otp_varification);
 
-        formatedPhoneNumber = "+88"+getIntent().getStringExtra("mobile_number");
-        userName = ""+getIntent().getStringExtra("user_name");
+        formatedPhoneNumber = "+88" + getIntent().getStringExtra("mobile_number");
 
+        loadingDialog = ApplicationHelper.getUtilsHelper().getLoadingDialog(this);
+        loadingDialog.setCancelable(false);
+
+        presenter = new OtpVarificatonActivityPresenter(this, this);
 
         tvTimer = findViewById(R.id.textView11);
         etOtpCode = findViewById(R.id.otp_view);
@@ -67,76 +82,23 @@ public class OtpVarificationActivity extends AppCompatActivity {
         resendButton = findViewById(R.id.button_resend_otp);
         tvOtpMobileNo = findViewById(R.id.textView42);
 
-        tvOtpMobileNo.setText("Please type the verification code sent to \n"+formatedPhoneNumber);
+        tvOtpMobileNo.setText("Please type the verification code sent to \n" + formatedPhoneNumber);
 
 
-       /* otpView.setOtpCompletionListener(new OnOtpCompletionListener() {
-            @Override
-            public void onOtpCompleted(String otpCode) {
-
-                PhoneAuthCredential credential = PhoneAuthProvider.getCredential(OTP_VERIFICATION_CODE,otpCode);
-                signInWithPhoneAuthCredential(credential);
-
-            }
-        });*/
-
-        btnVerify.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String otpCode = ""+etOtpCode.getText().toString().trim();
-                if (otpCode.isEmpty()) return;
-                try {
-                    PhoneAuthCredential credential = PhoneAuthProvider.getCredential(OTP_VERIFICATION_CODE,otpCode);
-                    signInWithPhoneAuthCredential(credential);
-                }catch (Exception e){
-                    Toast.makeText(OtpVarificationActivity.this, R.string.invalid_otp, Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
-
-
-
-        //back button image
-        findViewById(R.id.imageview_otp_activity_back_button).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onBackPressed();
-            }
-        });
-
-        resendButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                resendCode(formatedPhoneNumber);
-            }
-        });
-
-        //checkInternetStatus();
-
+        btnVerify.setOnClickListener(v -> presenter.onVerifyButtonClicked("" + etOtpCode.getText().toString()));
+        findViewById(R.id.imageview_otp_activity_back_button).setOnClickListener(v -> presenter.onBackButtonClicked());
+        resendButton.setOnClickListener(v -> presenter.onResendButtonClicked());
 
     }
 
-    private void checkInternetStatus() {
-        if (ApplicationHelper.getUtilsHelper().isConnected()){
-            sendOtpCodeToPhone(formatedPhoneNumber);
-        }else{
-            final Dialog myDialog = new Dialog(this);
-            myDialog.setContentView(R.layout.sampleview_no_internet);
-            myDialog.findViewById(R.id.button_retry).setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    checkInternetStatus();
-                    myDialog.dismiss();
-                }
-            });
-            myDialog.setCancelable(false);
-            //myDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-            myDialog.show();
-        }
+    @Override
+    protected void onResume() {
+        super.onResume();
+        presenter.onStart();
     }
 
     private void sendOtpCodeToPhone(String phoneNumber) {
-        if (phoneNumber.isEmpty()){
+        if (phoneNumber.isEmpty()) {
             AlertDialog.Builder builder = new AlertDialog.Builder(this)
                     .setTitle("Invalid Number")
                     .setMessage("You have provided invalid phone number. Please try again...")
@@ -153,10 +115,7 @@ public class OtpVarificationActivity extends AppCompatActivity {
 
             return;
         }
-        Toast.makeText(this, phoneNumber, Toast.LENGTH_SHORT).show();
-        Log.d("PHONE_NUMBER", phoneNumber);
-
-       setUpVerificationCallbacks();
+        setUpVerificationCallbacks();
 
         PhoneAuthProvider.getInstance().verifyPhoneNumber(
                 phoneNumber,        // Phone number to verify
@@ -183,12 +142,13 @@ public class OtpVarificationActivity extends AppCompatActivity {
                     public void run() {
                         tvTimer.setText(convertToString(sec));
                         sec++;
-                        if (sec==60){
-                            resendButton.setVisibility(View.VISIBLE);
-                            tvTimer.setVisibility(View.INVISIBLE);
+                        if (sec == 60) {
+                            presenter.onTimeOut();
                             timerForSecond.cancel();
                         }
-                    };
+                    }
+
+                    ;
                 });
             }
         }, 0, 1000);
@@ -198,7 +158,7 @@ public class OtpVarificationActivity extends AppCompatActivity {
 
     private String convertToString(int i) {
         String text = String.valueOf(i);
-        if (text.length()==1) text = "0"+text;
+        if (text.length() == 1) text = "0" + text;
         return text;
     }
 
@@ -231,57 +191,56 @@ public class OtpVarificationActivity extends AppCompatActivity {
             public void onVerificationFailed(@NonNull FirebaseException e) {
                 Toast.makeText(OtpVarificationActivity.this, e.getMessage(), Toast.LENGTH_LONG).show();
             }
+
             @Override
             public void onCodeSent(String s, @NotNull PhoneAuthProvider.ForceResendingToken forceResendingToken) {
                 super.onCodeSent(s, forceResendingToken);
                 OTP_VERIFICATION_CODE = s;
                 OTP_RESENDING_TOKEN = forceResendingToken;
-               //otpView.setText(s);
             }
         };
     }
 
     private void signInWithPhoneAuthCredential(PhoneAuthCredential credential) {
-        showProgressDialog();
+        onShowLoadingDialog();
+
         ApplicationHelper.getDatabaseHelper().getAuth().signInWithCredential(credential)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            String userUid = ""+ApplicationHelper.getDatabaseHelper().getAuth().getCurrentUser().getUid();
-                           /* User user = new User("username",formatedPhoneNumber,"address",userUid);
-                            collRefUsers.document(userUid)
-                                    .set(user)
-                                    .addOnCompleteListener(new OnCompleteListener<Void>() {
-                                        @Override
-                                        public void onComplete(@NonNull Task<Void> task) {
-                                            Toast.makeText(OtpVarificationActivity.this, "Login successful.", Toast.LENGTH_SHORT).show();
-                                            onBackPressed();
-                                        }
-                                    });*/
+                            if (ApplicationHelper.getDatabaseHelper().getAuth().getCurrentUser()!=null) {
+                                AppPreferences.UserInfo.setUserMobileNumber(
+                                        OtpVarificationActivity.this, formatedPhoneNumber
+                                );
 
+                                presenter.onCheckNewUserOrNot(
+                                        ApplicationHelper.getDatabaseHelper().getAuth().getCurrentUser().getUid()
+                                );
+                            } else
+                                Log.d(Constants.TAG, "onComplete: getCurrentUser is null");
+                                onShowSnackbarMessage("Something error happened. Please try again.");
                         } else {
                             if (task.getException() instanceof
                                     FirebaseAuthInvalidCredentialsException) {
                                 // The verification code entered was invalid
-                                pd.dismiss();
+                                onDismissLoadingDialog();
                                 Toast.makeText(OtpVarificationActivity.this, R.string.invalid_otp,
-                                        Toast.LENGTH_SHORT).show();
+                                        Toast.LENGTH_LONG).show();
                             }
                         }
                     }
                 }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-                pd.dismiss();
-                Toast.makeText(OtpVarificationActivity.this,R.string.invalid_otp, Toast.LENGTH_SHORT).show();
-                //constraintLayoutOtp.setVisibility(View.VISIBLE);
+                onShowLoadingDialog();
+                onShowSnackbarMessage(getResources().getString(R.string.invalid_otp));
             }
         });
     }
 
     public void resendCode(String phoneNumber) {
-        if (phoneNumber.isEmpty()){
+        if (phoneNumber.isEmpty()) {
             AlertDialog.Builder builder = new AlertDialog.Builder(this)
                     .setTitle("Invalid Number")
                     .setMessage("You have provided invalid phone number. Please try again...")
@@ -313,16 +272,100 @@ public class OtpVarificationActivity extends AppCompatActivity {
         startTimer();
     }
 
-    private void showProgressDialog(){
-        pd = new ProgressDialog(this);
-        pd.setMessage("Please wait...");
-        pd.show();
+
+    @Override
+    public void onNavigateToActivity(Intent intent) {
+        startActivity(intent);
+    }
+
+    @Override
+    public void onShowLoadingDialog() {
+        loadingDialog.show();
+    }
+
+    @Override
+    public void onDismissLoadingDialog() {
+        loadingDialog.dismiss();
+    }
+
+    @Override
+    public void onShowSnackbarMessage(String message) {
+        Snackbar.make(etOtpCode, message, BaseTransientBottomBar.LENGTH_LONG)
+                .setBackgroundTint(YELLOW)
+                .setTextColor(BLACK)
+                .show();
+    }
+
+    @Override
+    public void onShowTimer() {
+
+    }
+
+    @Override
+    public void onSendOtpCode() {
+        checkInternetStatus();
+    }
+
+    @Override
+    public void onResendOtpCode() {
+        resendCode(formatedPhoneNumber);
+    }
+
+    @Override
+    public void onMakeResendButtonVisible() {
+        resendButton.setVisibility(View.VISIBLE);
+        btnVerify.setVisibility(View.GONE);
+        tvTimer.setVisibility(View.INVISIBLE);
+    }
+
+    @Override
+    public void onMakeResendButtonGone() {
+        resendButton.setVisibility(View.GONE);
+        btnVerify.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void onBackPressedClicked() {
+        onBackPressed();
+    }
+
+    @Override
+    public void onVerifyOtpCode(String otpCode) {
+        try {
+            PhoneAuthCredential credential = PhoneAuthProvider.getCredential(OTP_VERIFICATION_CODE, otpCode);
+            signInWithPhoneAuthCredential(credential);
+        } catch (Exception e) {
+            onShowSnackbarMessage("Invalid OTP Code.");
+        }
+    }
+
+    @Override
+    public void setPresenter(OtpVerificationActivityVP.Presenter presenter) {
+        this.presenter = presenter;
+    }
+
+    private void checkInternetStatus() {
+        if (ApplicationHelper.getUtilsHelper().isConnected()) {
+            sendOtpCodeToPhone(formatedPhoneNumber);
+        } else {
+            final Dialog myDialog = new Dialog(this);
+            myDialog.setContentView(R.layout.sampleview_no_internet);
+            myDialog.findViewById(R.id.button_retry).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    checkInternetStatus();
+                    myDialog.dismiss();
+                }
+            });
+            myDialog.setCancelable(false);
+            //myDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+            myDialog.show();
+        }
     }
 
     @Override
     protected void onStop() {
         super.onStop();
-        if (timerForSecond!=null) timerForSecond.cancel();
-        if (timerForLate!=null) timerForLate.cancel();
+        if (timerForSecond != null) timerForSecond.cancel();
     }
 }

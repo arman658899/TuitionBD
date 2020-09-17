@@ -3,9 +3,10 @@ package com.brogrammers.tutionbd;
 import android.app.Application;
 import android.app.Dialog;
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.view.View;
 
 public class UtilsHelper {
     private Context context;
@@ -35,6 +36,20 @@ public class UtilsHelper {
         myDialog.setCancelable(false);
         //myDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         //myDialog.show();
+        return myDialog;
+    }
+
+    public Dialog getLoadingDialog(Context viewContext) {
+        final Dialog myDialog = new Dialog(viewContext);
+        myDialog.setContentView(R.layout.dialog_loading_animation);
+        myDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        return myDialog;
+    }
+
+    public Dialog getLottieLoadingBeHappy(Context viewContext) {
+        final Dialog myDialog = new Dialog(viewContext);
+        myDialog.setContentView(R.layout.dialogview_loading_be_happy);
+        myDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         return myDialog;
     }
 
