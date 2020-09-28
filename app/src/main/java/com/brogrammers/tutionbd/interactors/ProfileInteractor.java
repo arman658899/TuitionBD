@@ -73,14 +73,15 @@ public class ProfileInteractor {
     }
 
     public void findUserByUid(String userUid, final OnExistListener listener){
-        collUsers.orderBy("userUid")
-                .whereEqualTo("userUid",userUid)
+        collUsers.whereEqualTo("userUid",userUid)
                 .limit(1)
                 .get()
                 .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
                     @Override
                     public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                        listener.onExist(!queryDocumentSnapshots.isEmpty());
+                        if (queryDocumentSnapshots.isEmpty()){
+                            listener.onExist(false);
+                        }else listener.onExist(true);
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {

@@ -40,7 +40,6 @@ public class SignUpActivity extends AppCompatActivity implements SignUpActivityV
     private Dialog networkDialog,loadingDialog;
     private Button go_Button;
     private EditText etUserName;
-    private TextView tvMobileNumber;
     private Bitmap selectedImageBitmap;
     private ImageView imageView;
 
@@ -64,8 +63,6 @@ public class SignUpActivity extends AppCompatActivity implements SignUpActivityV
         });
 
         imageView = findViewById(R.id.imageView6);
-        tvMobileNumber = findViewById(R.id.editTextTextPersonName2);
-        tvMobileNumber.setText(AppPreferences.UserInfo.getUserMobileNumber(SignUpActivity.this));
         etUserName = findViewById(R.id.editTextTextPersonName);
 
         go_Button=findViewById( R.id.go_button );
@@ -139,7 +136,7 @@ public class SignUpActivity extends AppCompatActivity implements SignUpActivityV
 
     @Override
     public void onLoadingDialog(boolean isLoading) {
-        if (isLoading) loadingDialog.dismiss();
+        if (isLoading) loadingDialog.show();
         else loadingDialog.dismiss();
     }
 

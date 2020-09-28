@@ -218,6 +218,7 @@ public class OtpVarificationActivity extends AppCompatActivity implements OtpVer
                                         ApplicationHelper.getDatabaseHelper().getAuth().getCurrentUser().getUid()
                                 );
                             } else
+                                onDismissLoadingDialog();
                                 Log.d(Constants.TAG, "onComplete: getCurrentUser is null");
                                 onShowSnackbarMessage("Something error happened. Please try again.");
                         } else {

@@ -5,6 +5,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
     <application
         android:name=".AppInitializer"
@@ -14,11 +15,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".views.PostForTuitionActivity"></activity>
+        <activity android:name=".views.ProfileActivity"></activity>
+        <activity android:name=".views.ShowFindTuitionPostDetailsActivity" />
+        <activity android:name=".views.ShowFindTeacherPostDetailsActivity" />
+        <activity android:name=".views.PostForTeacherActivity" />
+        <activity android:name=".views.locationactivity.SelectLocationActivity" />
+        <activity android:name=".views.PostForTuitionActivity" />
         <activity android:name=".views.loginactivity.LoginActivity" />
-        <activity android:name=".views.UserTypeActivity" />
-        <activity android:name=".views.signupactivity.SignUpActivity" />
-        <activity android:name=".views.otpactivity.OtpVarificationActivity" />
         <activity android:name=".views.mainactivity.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -26,11 +29,21 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".views.signupactivity.SignUpActivity" />
+        <activity android:name=".views.otpactivity.OtpVarificationActivity" />
+        <activity android:name=".views.findtuitionortutoractivity.FindTuitionOrTutorActivity" />
         <activity android:name=".views.introslideractivity.IntroSliderActivity" />
         <activity android:name=".views.SplashScreen" />
         <activity
             android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
             android:theme="@style/Base.Theme.AppCompat" />
+
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyAdxN9B_XwTuifTiDLywe4beJYLwT_yeE0" />
     </application>
 
 </manifest>

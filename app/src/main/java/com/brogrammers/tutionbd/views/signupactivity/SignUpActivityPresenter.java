@@ -13,10 +13,8 @@ import com.brogrammers.tutionbd.beans.User;
 import com.brogrammers.tutionbd.listeners.OnImageUploadListener;
 import com.brogrammers.tutionbd.listeners.OnUploadListener;
 import com.brogrammers.tutionbd.managers.ProfileManager;
-import com.brogrammers.tutionbd.views.UserTypeActivity;
-import com.brogrammers.tutionbd.views.loginactivity.LoginActivity;
 import com.brogrammers.tutionbd.views.mainactivity.MainActivity;
-import com.brogrammers.tutionbd.views.otpactivity.OtpVarificationActivity;
+import com.brogrammers.tutionbd.views.loginactivity.LoginActivity;
 
 import java.io.File;
 import java.io.IOException;
@@ -66,8 +64,7 @@ public class SignUpActivityPresenter implements SignUpActivityVP.Presenter {
                             view.onLoadingDialog(false);
 
                             AppPreferences.UserInfo.setUserInfo(context,user);
-
-                            Intent intent = new Intent(context, UserTypeActivity.class);
+                            Intent intent = new Intent(context, MainActivity.class);
                             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK);
                             view.onNavigateToActivity(intent);
                         }

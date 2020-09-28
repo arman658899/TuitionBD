@@ -2,12 +2,14 @@ package com.brogrammers.tutionbd.views.otpactivity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 
 import com.brogrammers.tutionbd.listeners.OnExistListener;
 import com.brogrammers.tutionbd.managers.ProfileManager;
-import com.brogrammers.tutionbd.views.UserTypeActivity;
 import com.brogrammers.tutionbd.views.mainactivity.MainActivity;
 import com.brogrammers.tutionbd.views.signupactivity.SignUpActivity;
+
+import static com.brogrammers.tutionbd.Constants.TAG;
 
 public class OtpVarificatonActivityPresenter implements OtpVerificationActivityVP.Presenter {
     private Context context;
@@ -51,7 +53,7 @@ public class OtpVarificatonActivityPresenter implements OtpVerificationActivityV
             public void onExist(boolean isExist) {
                 view.onDismissLoadingDialog();
                 if (isExist){
-                    Intent intent = new Intent(context, UserTypeActivity.class);
+                    Intent intent = new Intent(context, MainActivity.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     view.onNavigateToActivity(intent);
                 }else{
@@ -64,6 +66,7 @@ public class OtpVarificatonActivityPresenter implements OtpVerificationActivityV
             @Override
             public void onError() {
                 view.onShowSnackbarMessage("Something error happened. Please try again.");
+                Log.d(TAG, "onCheckNewUserOrNot onError: Something error happened....");
             }
         });
     }

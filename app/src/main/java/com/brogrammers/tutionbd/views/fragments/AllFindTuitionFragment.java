@@ -6,13 +6,16 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
+import com.brogrammers.tutionbd.AppPreferences;
 import com.brogrammers.tutionbd.ApplicationHelper;
 import com.brogrammers.tutionbd.Constants;
 import com.brogrammers.tutionbd.R;
@@ -33,15 +36,13 @@ import java.util.List;
 import static android.graphics.Color.BLACK;
 import static android.graphics.Color.YELLOW;
 
-/**
- * A simple {@link Fragment} subclass.
- */
 public class AllFindTuitionFragment extends Fragment {
     private List<AdInfo> ads;
-    private CollectionReference collRef = ApplicationHelper.getDatabaseHelper().getDb().collection(Constants.DB_FIND_TUITION);
+    private CollectionReference collRef;
 
     private AdsAdapter adsAdapter;
     private RecyclerView recyclerView;
+    private TextView tvNoPostFound;
     private Dialog loadingDialog;
 
     public AllFindTuitionFragment() {
@@ -57,6 +58,19 @@ public class AllFindTuitionFragment extends Fragment {
 
         loadingDialog = ApplicationHelper.getUtilsHelper().getLoadingDialog(requireActivity());
         loadingDialog.setCancelable(false);
+
+        switch (AppPreferences.getProfileType(requireActivity())){
+            case Constants.PROFILE_FIND_TUITION_TEACHER:{
+                collRef = ApplicationHelper.getDatabaseHelper().getDb().collection(Constants.DB_FIND_TUTOR_TO_TEACHER);
+                break;
+            }
+            case Constants.PROFILE_FIND_TUTOR_GUARDIAN:{
+                collRef = ApplicationHelper.getDatabaseHelper().getDb().collection(Constants.DB_FIND_TUITION_TO_GUARDIAN);
+                break;
+
+            }
+            default:
+        }
     }
 
     @Override
@@ -70,9 +84,12 @@ public class AllFindTuitionFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        tvNoPostFound = view.findViewById(R.id.textview_no_post_found);
+
         recyclerView = view.findViewById(R.id.recyclerview);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(requireActivity()));
+        recyclerView.addItemDecoration(new DividerItemDecoration(recyclerView.getContext(), DividerItemDecoration.VERTICAL));
         recyclerView.setAdapter(adsAdapter);
     }
 
@@ -81,6 +98,7 @@ public class AllFindTuitionFragment extends Fragment {
         super.onResume();
         loadingDialog.show();
         collRef.orderBy("createdTime", Query.Direction.DESCENDING)
+                .limit(20)
                 .get()
                 .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
                     @Override

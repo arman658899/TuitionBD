@@ -14,5 +14,14 @@
     <string name="resend_code">Resend OTP</string>
     <string name="invalid_otp">Invalid OTP code.</string>
 
+    <string name="update_profile">Update Profile</string>
+    <string name="department">Department :</string>
+    <string name="year">Year :</string>
+    <string name="contact_number">Contact Number</string>
+    <string name="address_location">Address/Location</string>
+    <string name="nid_student_id">NID/Student ID</string>
+    <string name="university_college">University/College</string>
+    <string name="content_description">image</string>
+
 
 </resources>

@@ -7,6 +7,9 @@ import com.brogrammers.tutionbd.beans.User;
 
 public class AppPreferences {
     private static final String DATABASE_NAME = "@@*--*@@";
+    private static final String PROFILE_TYPE = "profiling_activity";
+    private static final String USER_LATITUDE = "latitude";
+    private static final String USER_LONGITUDE = "longitude";
 
     public static class Login{
         static String IS_FIRST_TIME_LOGIN = "is_first_time_login";
@@ -72,6 +75,33 @@ public class AppPreferences {
             return context.getSharedPreferences(DATABASE_NAME,Context.MODE_PRIVATE).getString(USER_DOC_ID,"");
         }
 
+    }
+
+    public static void setProfileType(Context context, int profile){
+        SharedPreferences sharedPreferences = context.getSharedPreferences(DATABASE_NAME,Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putInt(PROFILE_TYPE,profile);
+        editor.apply();
+    }
+
+    public static int getProfileType(Context context){
+        return context.getSharedPreferences(DATABASE_NAME,Context.MODE_PRIVATE).getInt(PROFILE_TYPE,-1);
+    }
+
+    public static void setUserLocation(Context context, double latitude, double longitude){
+        SharedPreferences sharedPreferences = context.getSharedPreferences(DATABASE_NAME,Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString(USER_LATITUDE,String.valueOf(latitude));
+        editor.putString(USER_LONGITUDE,String.valueOf(longitude));
+        editor.apply();
+    }
+
+    public static double getUserLatitude(Context context){
+        return Double.parseDouble(context.getSharedPreferences(DATABASE_NAME,Context.MODE_PRIVATE).getString(USER_LATITUDE,"23.7104"));
+    }
+
+    public static double getUserLongitude(Context context){
+        return Double.parseDouble(context.getSharedPreferences(DATABASE_NAME,Context.MODE_PRIVATE).getString(USER_LONGITUDE,"90.40744"));
     }
 
 }

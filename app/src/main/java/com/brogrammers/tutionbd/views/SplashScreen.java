@@ -14,7 +14,7 @@ import android.widget.TextView;
 
 import com.brogrammers.tutionbd.R;
 import com.brogrammers.tutionbd.views.introslideractivity.IntroSliderActivity;
-import com.brogrammers.tutionbd.views.mainactivity.MainActivity;
+import com.brogrammers.tutionbd.views.findtuitionortutoractivity.FindTuitionOrTutorActivity;
 
 public class SplashScreen extends AppCompatActivity {
 
@@ -57,7 +57,7 @@ public class SplashScreen extends AppCompatActivity {
                     finish();
                 }
                 else {
-                    Intent intent=new Intent (SplashScreen.this, MainActivity.class);
+                    Intent intent=new Intent (SplashScreen.this, FindTuitionOrTutorActivity.class);
                     startActivity( intent );
                     finish();
                 }

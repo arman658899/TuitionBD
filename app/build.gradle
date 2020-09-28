@@ -4,13 +4,13 @@ apply plugin: 'com.google.firebase.crashlytics'
 
 
 android {
-    compileSdkVersion 29
-    buildToolsVersion "29.0.3"
+    compileSdkVersion 30
+    buildToolsVersion '30.0.2'
 
     defaultConfig {
         applicationId "com.brogrammers.tutionbd"
         minSdkVersion 16
-        targetSdkVersion 29
+        targetSdkVersion 30
         versionCode 1
         versionName "1.0"
 
@@ -84,6 +84,13 @@ dependencies {
     implementation 'com.google.firebase:firebase-inappmessaging-display:19.1.1'
     implementation 'com.google.firebase:firebase-inappmessaging:19.1.1'
     implementation 'com.google.firebase:firebase-analytics:17.5.0'
+
+    implementation 'com.google.android.gms:play-services-maps:17.0.0'
+    implementation 'com.google.android.gms:play-services-location:17.0.0'
+
+    //geo firestore
+    implementation 'com.github.imperiumlabs:GeoFirestore-Android:v1.5.0'
+
 
     // Add the Firebase Crashlytics SDK.
     implementation 'com.google.firebase:firebase-crashlytics:17.2.1'
