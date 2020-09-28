@@ -40,7 +40,6 @@ public class AdsAdapter extends RecyclerView.Adapter<AdViewHolder> {
         holder.tvSalary.setText(ads.get(position).getSalary());
         holder.tvSubject.setText(ads.get(position).getSubject());
         holder.tvPostedDate.setText(getFormatedDate(ads.get(position).getCreatedTime()));
-        holder.tvAdId.setText(ads.get(position).getPostId());
         holder.container.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -3,20 +3,22 @@ package com.brogrammers.tutionbd.beans;
 import java.io.Serializable;
 
 public class AdInfo implements Serializable {
-    String tittle,salary,location,subject,studentClass,postId,documentId;
+    String tittle,salary,location,subject,studentClass,language,schedule,tuitionTime,documentId;
     String userUid;
     long createdTime;
 
     public AdInfo() {
     }
 
-    public AdInfo(String tittle, String salary, String location, String subject, String studentClass, String postId, String documentId, String userUid, long createdTime) {
+    public AdInfo(String tittle, String salary, String location, String subject, String studentClass, String language, String schedule, String tuitionTime, String documentId, String userUid, long createdTime) {
         this.tittle = tittle;
         this.salary = salary;
         this.location = location;
         this.subject = subject;
         this.studentClass = studentClass;
-        this.postId = postId;
+        this.language = language;
+        this.schedule = schedule;
+        this.tuitionTime = tuitionTime;
         this.documentId = documentId;
         this.userUid = userUid;
         this.createdTime = createdTime;
@@ -62,12 +64,28 @@ public class AdInfo implements Serializable {
         this.studentClass = studentClass;
     }
 
-    public String getPostId() {
-        return postId;
+    public String getLanguage() {
+        return language;
     }
 
-    public void setPostId(String postId) {
-        this.postId = postId;
+    public void setLanguage(String language) {
+        this.language = language;
+    }
+
+    public String getSchedule() {
+        return schedule;
+    }
+
+    public void setSchedule(String schedule) {
+        this.schedule = schedule;
+    }
+
+    public String getTuitionTime() {
+        return tuitionTime;
+    }
+
+    public void setTuitionTime(String tuitionTime) {
+        this.tuitionTime = tuitionTime;
     }
 
     public String getDocumentId() {

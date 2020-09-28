@@ -18,7 +18,7 @@ public class IntroSliderActivityPresenter implements IntroSliderActivityVP.Prese
 
     @Override
     public void onSkipButtonClicked() {
-        Intent intent = new Intent( context, SignUpActivity.class);
+        Intent intent = new Intent( context, LoginActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK);
         view.navigateToActivity(intent);
     }

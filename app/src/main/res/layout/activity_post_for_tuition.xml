@@ -11,6 +11,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
         android:layout_margin="8dp"
         android:orientation="vertical">
 
@@ -32,7 +33,7 @@
             android:layout_marginStart="16dp"
             android:layout_marginLeft="16dp"
             android:gravity="center"
-            android:text="Post for Tuition"
+            tools:text="Post for Tuition"
             android:textStyle="bold"
             android:textColor="@android:color/white"
             android:textSize="18sp"
@@ -61,7 +62,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:text="Title Of Tuition"
+                android:text="Title Of Post"
                 android:textColor="@android:color/black"
                 android:textSize="14sp"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -81,7 +82,7 @@
                 android:layout_marginRight="8dp"
                 android:background="@drawable/edit_text_shape"
                 android:ems="10"
-                android:hint="Need A Tuition"
+                android:hint="Add tittle for post"
                 android:inputType="text|textMultiLine"
                 android:scrollbars="vertical"
                 android:paddingStart="10dp"
@@ -90,6 +91,38 @@
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="@+id/title_tv"
                 app:layout_constraintTop_toBottomOf="@+id/title_tv" />
+
+            <TextView
+                android:id="@+id/textView10"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="Class"
+                android:textColor="@android:color/black"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName5" />
+
+            <EditText
+                android:id="@+id/editTextTextPersonName6"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginRight="8dp"
+                android:layout_marginBottom="16dp"
+                android:background="@drawable/edit_text_shape"
+                android:ems="10"
+                android:hint="10-12"
+                android:inputType="text"
+                android:paddingStart="10dp"
+                android:paddingLeft="10dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView10" />
 
             <TextView
                 android:id="@+id/fullName_tv"
@@ -104,8 +137,108 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/title_et" />
 
+
+
             <EditText
                 android:id="@+id/fullName_Et"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginRight="8dp"
+                android:background="@drawable/edit_text_shape"
+                android:ems="10"
+                android:hint="Math,phy,Chem"
+                android:inputType="text|textMultiLine"
+                android:scrollbars="vertical"
+                android:paddingStart="10dp"
+                android:paddingLeft="10dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.058"
+                app:layout_constraintStart_toStartOf="@+id/fullName_tv"
+                app:layout_constraintTop_toBottomOf="@+id/fullName_tv" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="Language Medium"
+                android:textColor="@android:color/black"
+                android:textSize="14sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.076"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <Spinner
+                android:id="@+id/spinner_language"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginRight="8dp"
+                android:background="@drawable/edit_text_shape"
+                android:ems="10"
+                android:inputType="text|textMultiLine"
+                android:scrollbars="vertical"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="@+id/title_tv"
+                app:layout_constraintTop_toBottomOf="@+id/title_tv" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="Weekly Scedule"
+                android:textColor="@android:color/black"
+                android:textSize="14sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.076"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <Spinner
+                android:id="@+id/spinner_weekly_scedule"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginRight="8dp"
+                android:background="@drawable/edit_text_shape"
+                android:ems="10"
+                android:inputType="text|textMultiLine"
+                android:scrollbars="vertical"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="@+id/title_tv"
+                app:layout_constraintTop_toBottomOf="@+id/title_tv" />
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="Preferred Tuition Time"
+                android:textColor="@android:color/black"
+                android:textSize="14sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.075"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/title_et" />
+
+
+            <EditText
+                android:id="@+id/edittext_tuition_time"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:layout_marginStart="8dp"
@@ -115,7 +248,7 @@
                 android:layout_marginRight="8dp"
                 android:background="@drawable/edit_text_shape"
                 android:ems="10"
-                tools:hint="Math,phy,Chem"
+                android:hint="7:30 PM-8:30 PM"
                 android:inputType="text"
                 android:paddingStart="10dp"
                 android:paddingLeft="10dp"
@@ -190,37 +323,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView7" />
 
-            <TextView
-                android:id="@+id/textView10"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:text="Class"
-                android:textColor="@android:color/black"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName5" />
 
-            <EditText
-                android:id="@+id/editTextTextPersonName6"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginLeft="8dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginRight="8dp"
-                android:layout_marginBottom="16dp"
-                android:background="@drawable/edit_text_shape"
-                android:ems="10"
-                android:hint="10-12"
-                android:inputType="text"
-                android:paddingStart="10dp"
-                android:paddingLeft="10dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="1.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView10" />
         </LinearLayout>
 
         <Button
@@ -232,7 +335,7 @@
             android:layout_marginTop="32dp"
             android:layout_marginEnd="32dp"
             android:layout_marginRight="32dp"
-            android:layout_marginBottom="8dp"
+            android:layout_marginBottom="32dp"
             android:background="@drawable/button_round_shape"
             android:text="Post"
             android:textColor="@android:color/white"

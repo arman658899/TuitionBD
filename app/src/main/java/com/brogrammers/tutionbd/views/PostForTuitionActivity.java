@@ -13,7 +13,9 @@ import android.location.LocationManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -33,30 +35,33 @@ import org.imperiumlabs.geofirestore.GeoFirestore;
 import java.util.Calendar;
 
 public class PostForTuitionActivity extends AppCompatActivity {
-    private EditText etTittle,etSalary,etClass,etSubject;
+    private EditText etTittle,etSalary,etClass,etSubject,etTuitionTime;
     private Dialog loadingDialog;
-    private TextView tvLocation;
-
+    private TextView tvLocation,tvTittle;
+    private Spinner spinnerLanguage,spinnerSchedule;
     private CollectionReference collRef,locationRef;
 
     private static final int SELECT_LOCATION_REQUEST = 110;
     private double mLat,mLon;
-    private String mAddress;
+    private String mAddress,schedule = "",language = "";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_post_for_tuition);
 
+        tvTittle = findViewById(R.id.textView5);
 
         switch (AppPreferences.getProfileType(this)){
             case Constants.PROFILE_FIND_TUITION_TEACHER:{
                 collRef = ApplicationHelper.getDatabaseHelper().getDb().collection(Constants.DB_FIND_TUITION_TO_GUARDIAN);
                 locationRef = ApplicationHelper.getDatabaseHelper().getDb().collection(Constants.DB_FIND_TUITION_LOCATION);
+                tvTittle.setText("Post for Tuition");
                 break;
             }
             case Constants.PROFILE_FIND_TUTOR_GUARDIAN:{
                 collRef = ApplicationHelper.getDatabaseHelper().getDb().collection(Constants.DB_FIND_TUTOR_TO_TEACHER);
                 locationRef = ApplicationHelper.getDatabaseHelper().getDb().collection(Constants.DB_FIND_TUTOR_LOCATION);
+                tvTittle.setText("Post for Tutor");
                 break;
 
             }
@@ -78,7 +83,13 @@ public class PostForTuitionActivity extends AppCompatActivity {
         etSalary = findViewById(R.id.editTextTextPersonName5);
         etClass = findViewById(R.id.editTextTextPersonName6);
         tvLocation = findViewById(R.id.editTextTextPersonName4);
+        etTuitionTime = findViewById(R.id.edittext_tuition_time);
 
+        spinnerLanguage = findViewById(R.id.spinner_language);
+        spinnerSchedule = findViewById(R.id.spinner_weekly_scedule);
+
+        spinnerLanguage.setAdapter(new ArrayAdapter<String>(PostForTuitionActivity.this,R.layout.sampleview_only_textview,R.id.textview_item,Constants.LANGUAGE_MEDIUM));
+        spinnerSchedule.setAdapter(new ArrayAdapter<String>(PostForTuitionActivity.this,R.layout.sampleview_only_textview,R.id.textview_item,Constants.WEEKLY_SCHEDULE));
         tvLocation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -91,11 +102,15 @@ public class PostForTuitionActivity extends AppCompatActivity {
             public void onClick(View v) {
                 //post for tuition
 
-                String tittle,subject,salary,studentClass;
+                String tittle,subject,salary,studentClass,tuitionTime;
                 tittle = ""+etTittle.getText().toString();
                 subject = ""+etSubject.getText().toString();
                 salary = ""+etSalary.getText().toString();
                 studentClass = ""+etClass.getText().toString();
+                tuitionTime = ""+etTuitionTime.getText().toString();
+
+                schedule = Constants.WEEKLY_SCHEDULE[spinnerSchedule.getSelectedItemPosition()];
+                language = Constants.LANGUAGE_MEDIUM[spinnerLanguage.getSelectedItemPosition()];
 
                 if (tittle.isEmpty()){
                     etTittle.setError("Please add proper tittle.");
@@ -117,6 +132,23 @@ public class PostForTuitionActivity extends AppCompatActivity {
                     etClass.requestFocus();
                     return;
                 }
+
+                if (schedule.isEmpty()){
+                    Toast.makeText(PostForTuitionActivity.this, "Please select weekly schedule.", Toast.LENGTH_SHORT).show();
+                    return;
+               }
+
+                if (language.isEmpty()){
+                    Toast.makeText(PostForTuitionActivity.this, "Please select preferred language.", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                if (tuitionTime.isEmpty()){
+                    etTuitionTime.setError("Please add preferred tuition time.");
+                    etTuitionTime.requestFocus();
+                    return;
+                }
+
                 if (mAddress.isEmpty()){
                     tvLocation.setError("Please add proper location.");
                     tvLocation.requestFocus();
@@ -130,7 +162,7 @@ public class PostForTuitionActivity extends AppCompatActivity {
                 loadingDialog.show();
                 String documentId = collRef.document().getId();
 
-                AdInfo adInfo = new AdInfo(tittle,salary,mAddress,subject,studentClass,getPostId(documentId),documentId,ApplicationHelper.getDatabaseHelper().getAuth().getCurrentUser().getUid(), Calendar.getInstance().getTimeInMillis());
+                AdInfo adInfo = new AdInfo(tittle,salary,mAddress,subject,studentClass,language,schedule,tuitionTime,documentId,ApplicationHelper.getDatabaseHelper().getAuth().getCurrentUser().getUid(), Calendar.getInstance().getTimeInMillis());
 
                 collRef.document(documentId)
                         .set(adInfo)
