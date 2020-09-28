@@ -34,11 +34,17 @@ public class SignUpActivityPresenter implements SignUpActivityVP.Presenter {
     }
 
     @Override
-    public void onGoButtonClicked(String userName, String mobileNumber, Bitmap bitmap) {
+    public void onGoButtonClicked(String userName,String gender, String mobileNumber, Bitmap bitmap) {
         if (userName.isEmpty()){
             view.onNotifyEdittextName();
             return;
         }
+
+        if (gender.isEmpty()){
+            view.onShowSnackbarMessage("Please select your gender.");
+            return;
+        }
+
         if (bitmap==null){
             view.onShowSnackbarMessage("Please select profile image.");
             return;
@@ -50,12 +56,17 @@ public class SignUpActivityPresenter implements SignUpActivityVP.Presenter {
                 @Override
                 public void onUploaded(String downloadLink) {
 
+                    //uid and document id same!
                     User user = new User(
                             userName,
+                            gender,
                             mobileNumber,
                             ApplicationHelper.getDatabaseHelper().getAuth().getCurrentUser().getUid(),
                             downloadLink,
-                            profileManager.getUserDocumentId()
+                            ApplicationHelper.getDatabaseHelper().getAuth().getCurrentUser().getUid(),  //profileManager.getUserDocumentId(),
+                            "",
+                            "",
+                            ""
                     );
 
                     profileManager.createUser(user, new OnUploadListener() {

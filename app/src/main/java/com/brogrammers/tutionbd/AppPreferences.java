@@ -44,6 +44,9 @@ public class AppPreferences {
         static final String USER_IMAGE = "user_image";
         static final String USER_UID = "user_uid";
         static final String USER_DOC_ID = "user_doc_id";
+        static final String USER_COLLEGE = "user_college";
+        static final String USER_SUBJECT = "user_subject";
+        static final String USER_NID_SID = "user_sid_nid";
         public static void setUserMobileNumber(Context context, String mobileNumber){
             SharedPreferences sharedPreferences = context.getSharedPreferences(DATABASE_NAME,Context.MODE_PRIVATE);
             SharedPreferences.Editor editor = sharedPreferences.edit();
@@ -63,6 +66,9 @@ public class AppPreferences {
             editor.putString(USER_UID,user.getUserUid());
             editor.putString(USER_DOC_ID,user.getDocumentId());
             editor.putString(MOBILE_NUMBER,user.getUserMobile());
+            editor.putString(USER_COLLEGE,user.getCollege());
+            editor.putString(USER_SUBJECT,user.getSubject());
+            editor.putString(USER_NID_SID,user.getIdCardLink());
             editor.apply();
         }
         public static String getUserName(Context context){
@@ -73,6 +79,15 @@ public class AppPreferences {
         }
         public static String getUserDocId(Context context){
             return context.getSharedPreferences(DATABASE_NAME,Context.MODE_PRIVATE).getString(USER_DOC_ID,"");
+        }
+        public static String getUserCollete(Context context){
+            return context.getSharedPreferences(DATABASE_NAME,Context.MODE_PRIVATE).getString(USER_COLLEGE,"");
+        }
+        public static String getUserSubject(Context context){
+            return context.getSharedPreferences(DATABASE_NAME,Context.MODE_PRIVATE).getString(USER_SUBJECT,"");
+        }
+        public static String getUserStudentIDorNID(Context context){
+            return context.getSharedPreferences(DATABASE_NAME,Context.MODE_PRIVATE).getString(USER_NID_SID,"");
         }
 
     }

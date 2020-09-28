@@ -17,6 +17,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -39,9 +41,11 @@ public class SignUpActivity extends AppCompatActivity implements SignUpActivityV
     private SignUpActivityVP.Presenter presenter;
     private Dialog networkDialog,loadingDialog;
     private Button go_Button;
+    private RadioGroup radioGroup;
     private EditText etUserName;
     private Bitmap selectedImageBitmap;
     private ImageView imageView;
+    private String gender = "";
 
     private static final int REQUEST_STORAGE_PERMISSION = 100;
     private static final int OTP_REQUEST_CODE = 111;
@@ -62,6 +66,15 @@ public class SignUpActivity extends AppCompatActivity implements SignUpActivityV
             }
         });
 
+        radioGroup = findViewById(R.id.radioGroup);
+        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                RadioButton button = findViewById(checkedId);
+                gender = button.getText().toString();
+            }
+        });
+
         imageView = findViewById(R.id.imageView6);
         etUserName = findViewById(R.id.editTextTextPersonName);
 
@@ -72,6 +85,7 @@ public class SignUpActivity extends AppCompatActivity implements SignUpActivityV
                 try {
                     presenter.onGoButtonClicked(
                             ""+etUserName.getText().toString(),
+                            gender,
                             AppPreferences.UserInfo.getUserMobileNumber(SignUpActivity.this),
                             selectedImageBitmap
                     );

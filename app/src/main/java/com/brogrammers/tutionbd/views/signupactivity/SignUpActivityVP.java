@@ -19,7 +19,7 @@ public interface SignUpActivityVP {
     }
 
     interface Presenter extends BasePresenter{
-        void onGoButtonClicked(String userName, String mobileNumber,Bitmap bitmap) throws Exception;
+        void onGoButtonClicked(String userName, String gender,String mobileNumber,Bitmap bitmap) throws Exception;
         void onRetryButtonClicked();
         void onExceptionHandle(String message);
         void onProfileImageClicked();

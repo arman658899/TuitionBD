@@ -1,6 +1,7 @@
 package com.brogrammers.tutionbd.viewholders;
 
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -10,6 +11,7 @@ import com.brogrammers.tutionbd.R;
 
 public class AdViewHolder extends RecyclerView.ViewHolder {
     public TextView tvTittle,tvAdId,tvPostedDate,tvSalary,tvSubject,tvLocation;
+    public LinearLayout container;
     public AdViewHolder(@NonNull View itemView) {
         super(itemView);
         tvTittle = itemView.findViewById(R.id.tv_tittle);
@@ -18,5 +20,7 @@ public class AdViewHolder extends RecyclerView.ViewHolder {
         tvSalary = itemView.findViewById(R.id.tv_salary);
         tvSubject = itemView.findViewById(R.id.tv_subject);
         tvLocation = itemView.findViewById(R.id.tv_location);
+
+        container = itemView.findViewById(R.id.linearlayout_container);
     }
 }

@@ -6,6 +6,7 @@ import android.graphics.Bitmap;
 import com.brogrammers.tutionbd.Constants;
 import com.brogrammers.tutionbd.beans.User;
 import com.brogrammers.tutionbd.interactors.ProfileInteractor;
+import com.brogrammers.tutionbd.listeners.OnDataDownloadListener;
 import com.brogrammers.tutionbd.listeners.OnExistListener;
 import com.brogrammers.tutionbd.listeners.OnImageUploadListener;
 import com.brogrammers.tutionbd.listeners.OnUploadListener;
@@ -39,6 +40,14 @@ public class ProfileManager {
 
     public void checkUserExitOnDbOrNot(String uerUid, final OnExistListener listener){
         profileInteractor.findUserByUid(uerUid,listener);
+    }
+
+    public void getSingleUserDataSnapshot(String uid, final OnDataDownloadListener<User> listener){
+        profileInteractor.getSingleUserDataSnapshot(uid,listener);
+    }
+
+    public void updateUserChildValue(String documentId, String childKey, String value, final OnUploadListener listener){
+        profileInteractor.updateUserChildValue(documentId,childKey,value,listener);
     }
 
 }

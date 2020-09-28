@@ -1,6 +1,7 @@
 package com.brogrammers.tutionbd.views.fragments;
 
 import android.app.Dialog;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -10,6 +11,7 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,6 +23,9 @@ import com.brogrammers.tutionbd.Constants;
 import com.brogrammers.tutionbd.R;
 import com.brogrammers.tutionbd.adapters.AdsAdapter;
 import com.brogrammers.tutionbd.beans.AdInfo;
+import com.brogrammers.tutionbd.listeners.OnRecyclerViewItemClickListener;
+import com.brogrammers.tutionbd.views.ShowFindTeacherPostDetailsActivity;
+import com.brogrammers.tutionbd.views.ShowFindTuitionPostDetailsActivity;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.snackbar.BaseTransientBottomBar;
@@ -35,8 +40,9 @@ import java.util.List;
 
 import static android.graphics.Color.BLACK;
 import static android.graphics.Color.YELLOW;
+import static com.brogrammers.tutionbd.Constants.TAG;
 
-public class AllFindTuitionFragment extends Fragment {
+public class AllFindTuitionFragment extends Fragment implements OnRecyclerViewItemClickListener<AdInfo> {
     private List<AdInfo> ads;
     private CollectionReference collRef;
 
@@ -54,7 +60,7 @@ public class AllFindTuitionFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         ads = new ArrayList<>();
-        adsAdapter = new AdsAdapter(requireActivity(),ads);
+        adsAdapter = new AdsAdapter(requireActivity(),ads,this);
 
         loadingDialog = ApplicationHelper.getUtilsHelper().getLoadingDialog(requireActivity());
         loadingDialog.setCancelable(false);
@@ -103,6 +109,9 @@ public class AllFindTuitionFragment extends Fragment {
                 .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
                     @Override
                     public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                        String source = queryDocumentSnapshots.getMetadata().isFromCache() ? "From Cache":"From Server";
+                        Log.d(TAG, "getAllAds source: "+source);
+
                         ads.clear();
                         for (DocumentSnapshot ds: queryDocumentSnapshots){
                             try{
@@ -131,5 +140,26 @@ public class AllFindTuitionFragment extends Fragment {
                 .setBackgroundTint(YELLOW)
                 .setTextColor(BLACK)
                 .show();
+    }
+
+    @Override
+    public void onItemSelected(AdInfo adInfo) {
+        switch (AppPreferences.getProfileType(requireActivity())){
+            case Constants.PROFILE_FIND_TUITION_TEACHER:{
+                //show post for teacher
+                Intent intent = new Intent(requireActivity(), ShowFindTuitionPostDetailsActivity.class);
+                intent.putExtra("ad",adInfo);
+                startActivity(intent);
+                break;
+            }
+            case Constants.PROFILE_FIND_TUTOR_GUARDIAN:{
+                //show post for guardian
+                Intent intent = new Intent(requireActivity(), ShowFindTeacherPostDetailsActivity.class);
+                intent.putExtra("ad",adInfo);
+                startActivity(intent);
+                break;
+            }
+            default:
+        }
     }
 }

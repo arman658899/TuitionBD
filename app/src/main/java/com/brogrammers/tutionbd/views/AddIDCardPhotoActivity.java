@@ -6,11 +6,11 @@ import android.os.Bundle;
 
 import com.brogrammers.tutionbd.R;
 
-public class PostForTeacherActivity extends AppCompatActivity {
-    //Guardian will use this activity
+public class AddIDCardPhotoActivity extends AppCompatActivity {
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_post_for_teacher);
+        setContentView(R.layout.activity_add_i_d_card_photo);
     }
 }

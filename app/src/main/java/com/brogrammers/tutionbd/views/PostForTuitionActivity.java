@@ -63,6 +63,12 @@ public class PostForTuitionActivity extends AppCompatActivity {
             default:
         }
 
+        findViewById(R.id.imageView9).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
 
         loadingDialog = ApplicationHelper.getUtilsHelper().getLottieLoadingBeHappy(this);
         loadingDialog.setCancelable(false);

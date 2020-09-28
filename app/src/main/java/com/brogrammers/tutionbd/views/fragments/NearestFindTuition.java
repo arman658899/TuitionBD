@@ -1,6 +1,7 @@
 package com.brogrammers.tutionbd.views.fragments;
 
 import android.app.Dialog;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -22,6 +23,9 @@ import com.brogrammers.tutionbd.Constants;
 import com.brogrammers.tutionbd.R;
 import com.brogrammers.tutionbd.adapters.AdsAdapter;
 import com.brogrammers.tutionbd.beans.AdInfo;
+import com.brogrammers.tutionbd.listeners.OnRecyclerViewItemClickListener;
+import com.brogrammers.tutionbd.views.ShowFindTeacherPostDetailsActivity;
+import com.brogrammers.tutionbd.views.ShowFindTuitionPostDetailsActivity;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
@@ -35,19 +39,21 @@ import org.imperiumlabs.geofirestore.listeners.GeoQueryEventListener;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static android.graphics.Color.BLACK;
 import static android.graphics.Color.YELLOW;
 import static com.brogrammers.tutionbd.Constants.TAG;
 
-public class NearestFindTuition extends Fragment {
+public class NearestFindTuition extends Fragment implements OnRecyclerViewItemClickListener<AdInfo> {
     private TextView tvNoPostFound;
     private RecyclerView recyclerView;
     private AdsAdapter adsAdapter;
     private List<AdInfo> ads;
     private Dialog loadingDialog;
-
+    private Map<String,String> mappedKey;
 
     private CollectionReference collRef,locationRef;
     private GeoFirestore geoFirestore;
@@ -63,8 +69,9 @@ public class NearestFindTuition extends Fragment {
         super.onCreate(savedInstanceState);
 
         ads = new ArrayList<>();
+        mappedKey = new HashMap<>();
         nearestPostIds = new ArrayList<>();
-        adsAdapter = new AdsAdapter(requireActivity(),ads);
+        adsAdapter = new AdsAdapter(requireActivity(),ads,this);
 
         loadingDialog = ApplicationHelper.getUtilsHelper().getLoadingDialog(requireActivity());
         loadingDialog.setCancelable(false);
@@ -116,7 +123,7 @@ public class NearestFindTuition extends Fragment {
         super.onResume();
 
         loadingDialog.show();
-
+        nearestPostIds.clear();
         //AppPreferences.getUserLatitude(requireActivity())
         //AppPreferences.getUserLongitude(requireActivity()
 
@@ -146,7 +153,10 @@ public class NearestFindTuition extends Fragment {
                .addGeoQueryEventListener(new GeoQueryEventListener() {
                    @Override
                    public void onKeyEntered(@NotNull String s, @NotNull GeoPoint geoPoint) {
-                       nearestPostIds.add(s);
+                       if (!mappedKey.containsValue(s)){
+                           nearestPostIds.add(s);
+                           mappedKey.put(s,s);
+                       }
                    }
 
                    @Override
@@ -202,5 +212,26 @@ public class NearestFindTuition extends Fragment {
                 .setBackgroundTint(YELLOW)
                 .setTextColor(BLACK)
                 .show();
+    }
+
+    @Override
+    public void onItemSelected(AdInfo adInfo) {
+        switch (AppPreferences.getProfileType(requireActivity())){
+            case Constants.PROFILE_FIND_TUITION_TEACHER:{
+                //show post for teacher
+                Intent intent = new Intent(requireActivity(), ShowFindTuitionPostDetailsActivity.class);
+                intent.putExtra("ad",adInfo);
+                startActivity(intent);
+                break;
+            }
+            case Constants.PROFILE_FIND_TUTOR_GUARDIAN:{
+                //show post for guardian
+                Intent intent = new Intent(requireActivity(), ShowFindTeacherPostDetailsActivity.class);
+                intent.putExtra("ad",adInfo);
+                startActivity(intent);
+                break;
+            }
+            default:
+        }
     }
 }

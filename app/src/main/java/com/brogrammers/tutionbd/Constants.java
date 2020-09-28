@@ -9,6 +9,14 @@ public class Constants {
     public static final String DB_FIND_TUTOR_TO_TEACHER = "FIND_TUTOR_POSTS"; //guardian will post here
     public static final String DB_FIND_TUTOR_LOCATION = "FIND_TUTOR_LOCATION";
 
+    //contents for posta
+    public static final String[] LANGUAGE_MEDIUM = {"Bangla Medium", "English Medium", "Both"};
+    public static final String[] WEEKLY_SCHEDULE = {"Any Day","Sat-Mon-Wed","Sun-Tue-Thu","Everyday","Negotiable"};
+
+    //gender types
+    public static final String MALE = "Male";
+    public static final String FEMALE = "Female";
+    public static final String OTHERS = "Others";
 
     //profiling type
     public static final int PROFILE_FIND_TUTOR_GUARDIAN = 100;
