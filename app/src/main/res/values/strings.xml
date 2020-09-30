@@ -15,7 +15,7 @@
     <string name="invalid_otp">Invalid OTP code.</string>
 
     <string name="update_profile">Update Profile</string>
-    <string name="department">Department :</string>
+    <string name="department">Department/Subject:</string>
     <string name="year">Year :</string>
     <string name="contact_number">Contact :</string>
     <string name="address_location">Address/Location</string>
@@ -33,6 +33,13 @@ We send various text messages and PUSH notifications to students/parents and tut
 We do not sell or rent your personal information to third parties for their marketing purposes without your explicit consent and we only use your information as described in the Privacy Policy. If you object to your information being transferred or used in this way please do not use our services.\n\n
 Liability Limit\n
 In no event will we, nor other party involved in the design, development and maintenance of the site, be liable for lost profits or any special, incidental or consequential damages arising out of or in connection with our app, our services or this agreement (however arising, including negligence).</string>
-    We do not guarantee that we will meet user's requirements. We do not guarantee continuous, uninterrupted, secure access or error free operations to our services. The operation of this Site may be interfered with by numerous factors outside of our control./n
-    You agree not to reproduce, duplicate, copy, sell, resell or exploit for any commercial purposes, any portion of the information provided by us, including any intellectual property rights of Tuition App or any person, firm or corporation having posted information for availability through the Services provided by us .\n
+    <string name="open">Open</string>
+    <string name="close">Close</string>
+    We do not guarantee that we will meet user's requirements. We do not guarantee continuous,
+    uninterrupted, secure access or error free operations to our services. The operation of this
+    Site may be interfered with by numerous factors outside of our control./n
+    You agree not to reproduce, duplicate, copy, sell, resell or exploit for any commercial
+    purposes, any portion of the information provided by us, including any intellectual property
+    rights of Tuition App or any person, firm or corporation having posted information for
+    availability through the Services provided by us .\n
 </resources>

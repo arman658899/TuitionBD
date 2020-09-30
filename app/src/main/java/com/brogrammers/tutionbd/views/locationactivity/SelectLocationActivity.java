@@ -18,6 +18,7 @@ import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 
 import com.brogrammers.tutionbd.AppPreferences;
 import com.brogrammers.tutionbd.Constants;
@@ -38,7 +39,7 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Locale;
 
-public class SelectLocationActivity extends AppCompatActivity implements OnMapReadyCallback{
+public class SelectLocationActivity extends AppCompatActivity implements OnMapReadyCallback {
     private SupportMapFragment mapFragment;
     private FusedLocationProviderClient providerClient;
     private GoogleMap mMap;
@@ -46,11 +47,15 @@ public class SelectLocationActivity extends AppCompatActivity implements OnMapRe
     private boolean locationPermissionGranted = false;
 
     private String mAddress = "";
-    private double mLat=23.7104,mLon=90.40744;
+    private double mLat, mLon;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_select_location);
+
+        mLat = AppPreferences.getUserLatitude(this);
+        mLon = AppPreferences.getUserLongitude(this);
 
         mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map_fragment);
@@ -58,6 +63,15 @@ public class SelectLocationActivity extends AppCompatActivity implements OnMapRe
         providerClient = LocationServices.getFusedLocationProviderClient(this);
 
         //getLocationPermission();
+
+        //select current location
+        findViewById(R.id.button_select_current_location).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getDeviceLocation();
+            }
+        });
+
 
     }
 
@@ -86,7 +100,7 @@ public class SelectLocationActivity extends AppCompatActivity implements OnMapRe
                 if (grantResults.length > 0
                         && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     locationPermissionGranted = true;
-                   // setUpCurrentLocationToMap();
+                    // setUpCurrentLocationToMap();
                     getDeviceLocation();
                 }
                 break;
@@ -97,7 +111,6 @@ public class SelectLocationActivity extends AppCompatActivity implements OnMapRe
     private void setUpCurrentLocationToMap() {
 
 
-
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             return;
         }
@@ -106,7 +119,7 @@ public class SelectLocationActivity extends AppCompatActivity implements OnMapRe
         task.addOnSuccessListener(new OnSuccessListener<Location>() {
             @Override
             public void onSuccess(Location location) {
-                if (location!=null){
+                if (location != null) {
                     mapFragment.getMapAsync(new OnMapReadyCallback() {
                         @Override
                         public void onMapReady(GoogleMap googleMap) {
@@ -146,22 +159,22 @@ public class SelectLocationActivity extends AppCompatActivity implements OnMapRe
                                 mLat = mLocation.getLatitude();
                                 mLon = mLocation.getLongitude();
 
-                                AppPreferences.setUserLocation(SelectLocationActivity.this,mLat,mLon);
+                                AppPreferences.setUserLocation(SelectLocationActivity.this, mLat, mLon);
 
                                 Geocoder geocoder = new Geocoder(SelectLocationActivity.this, Locale.getDefault());
                                 List<Address> addresses = null;
                                 try {
                                     addresses = geocoder.getFromLocation(
                                             mLat,
-                                           mLon,
+                                            mLon,
                                             1
                                     );
 
-                                    if (addresses!=null &&addresses.get(0)!=null){
+                                    if (addresses != null && addresses.get(0) != null) {
                                         /*longitude = addresses.get(0).getLongitude();
                                         latitude = addresses.get(0).getLatitude();*/
 
-                                        mAddress = ""+addresses.get(0).getAddressLine(0);
+                                        mAddress = "" + addresses.get(0).getAddressLine(0);
                                     }
 
                                 } catch (IOException e) {
@@ -169,13 +182,12 @@ public class SelectLocationActivity extends AppCompatActivity implements OnMapRe
                                 }
 
 
-
                                 mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(
                                         new LatLng(mLat, mLon), 10));
                                 MarkerOptions options = new MarkerOptions()
-                                        .position(new LatLng(mLat,mLon))
+                                        .position(new LatLng(mLat, mLon))
                                         .title(mAddress);
-                                mMap.animateCamera(CameraUpdateFactory.newLatLngZoom((new LatLng(mLat, mLon)),10));
+                                mMap.animateCamera(CameraUpdateFactory.newLatLngZoom((new LatLng(mLat, mLon)), 15f));
                                 mMap.addMarker(options);
 
                                 showConfirmDialog(mAddress);
@@ -185,7 +197,7 @@ public class SelectLocationActivity extends AppCompatActivity implements OnMapRe
                             Log.d(Constants.TAG, "Current location is null. Using defaults.");
                             Log.e(Constants.TAG, "Exception: %s", task.getException());
 
-                            LatLng latLng = new LatLng(mLat,mLon);
+                            LatLng latLng = new LatLng(mLat, mLon);
 
                             Geocoder geocoder = new Geocoder(SelectLocationActivity.this, Locale.getDefault());
                             List<Address> addresses = null;
@@ -196,11 +208,11 @@ public class SelectLocationActivity extends AppCompatActivity implements OnMapRe
                                         1
                                 );
 
-                                if (addresses!=null &&addresses.get(0)!=null){
+                                if (addresses != null && addresses.get(0) != null) {
                                         /*longitude = addresses.get(0).getLongitude();
                                         latitude = addresses.get(0).getLatitude();*/
 
-                                    mAddress = ""+addresses.get(0).getAddressLine(0);
+                                    mAddress = "" + addresses.get(0).getAddressLine(0);
                                 }
 
                             } catch (IOException e) {
@@ -208,14 +220,14 @@ public class SelectLocationActivity extends AppCompatActivity implements OnMapRe
                             }
 
                             mMap.moveCamera(CameraUpdateFactory
-                                    .newLatLngZoom(latLng, 10));
+                                    .newLatLngZoom(latLng, 15f));
                             mMap.getUiSettings().setMyLocationButtonEnabled(false);
 
 
                             MarkerOptions options = new MarkerOptions()
                                     .position(latLng)
                                     .title(mAddress);
-                            mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng ,10));
+                            mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15f));
                             mMap.addMarker(options);
 
                             showConfirmDialog(mAddress);
@@ -223,7 +235,7 @@ public class SelectLocationActivity extends AppCompatActivity implements OnMapRe
                     }
                 });
             }
-        } catch (SecurityException e)  {
+        } catch (SecurityException e) {
             Log.e("Exception: %s", e.getMessage(), e);
         }
 
@@ -231,11 +243,11 @@ public class SelectLocationActivity extends AppCompatActivity implements OnMapRe
 
     public void statusCheck() {
         final LocationManager manager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-        try{
+        try {
             if (!manager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
                 showOnLocationAlert();
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -272,7 +284,7 @@ public class SelectLocationActivity extends AppCompatActivity implements OnMapRe
                 mLocation = null;
                 getLocationPermission();
             }
-        } catch (SecurityException e)  {
+        } catch (SecurityException e) {
             Log.e("Exception: %s", e.getMessage());
         }
     }
@@ -280,6 +292,17 @@ public class SelectLocationActivity extends AppCompatActivity implements OnMapRe
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
+        /*if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            return;
+        }
+        mMap.setMyLocationEnabled(true);*/
 
         mMap.setOnMapLongClickListener(new GoogleMap.OnMapLongClickListener() {
             @Override
@@ -313,7 +336,7 @@ public class SelectLocationActivity extends AppCompatActivity implements OnMapRe
                 MarkerOptions options = new MarkerOptions()
                         .position(new LatLng(latLng.latitude, latLng.longitude))
                         .title(mAddress);
-                mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng,5));
+                mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng,15f));
                 mMap.addMarker(options);
 
                 showConfirmDialog(mAddress);

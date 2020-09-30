@@ -130,7 +130,7 @@ public class ProfileInteractor {
     }
 
     public void getSingleUserDataSnapshot(String uid, final OnDataDownloadListener<User> listener){
-        collUsers.whereEqualTo("uid",uid)
+        collUsers.whereEqualTo("userUid",uid)
                 .limit(1)
                 .addSnapshotListener(new EventListener<QuerySnapshot>() {
                     @Override

@@ -9,6 +9,8 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.brogrammers.tutionbd.AppPreferences;
+import com.brogrammers.tutionbd.Constants;
 import com.brogrammers.tutionbd.R;
 import com.brogrammers.tutionbd.beans.AdInfo;
 import com.brogrammers.tutionbd.listeners.OnRecyclerViewItemClickListener;
@@ -46,6 +48,18 @@ public class AdsAdapter extends RecyclerView.Adapter<AdViewHolder> {
                 if (listener!=null) listener.onItemSelected(ads.get(position));
             }
         });
+        holder.tvTime.setText(ads.get(position).getTuitionTime());
+        holder.tvSchedule.setText(ads.get(position).getSchedule());
+        holder.tvLanguage.setText(ads.get(position).getLanguage());
+
+        if (AppPreferences.getProfileType(context)== Constants.PROFILE_FIND_TUITION_TEACHER){
+            //post for tuition
+            holder.tvPostType.setText("Need Tutor");
+        }else if (AppPreferences.getProfileType(context)==Constants.PROFILE_FIND_TUTOR_GUARDIAN){
+            //post for tutor
+            holder.tvPostType.setText("Need Tuition");
+        }
+
     }
 
     private String getFormatedDate(long createdTime) {

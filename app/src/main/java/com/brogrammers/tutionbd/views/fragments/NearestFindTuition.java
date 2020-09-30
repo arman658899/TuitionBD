@@ -24,8 +24,8 @@ import com.brogrammers.tutionbd.R;
 import com.brogrammers.tutionbd.adapters.AdsAdapter;
 import com.brogrammers.tutionbd.beans.AdInfo;
 import com.brogrammers.tutionbd.listeners.OnRecyclerViewItemClickListener;
-import com.brogrammers.tutionbd.views.ShowFindTeacherPostDetailsActivity;
-import com.brogrammers.tutionbd.views.ShowFindTuitionPostDetailsActivity;
+import com.brogrammers.tutionbd.views.ShowTeacherDetailsActivity;
+import com.brogrammers.tutionbd.views.ShowGuardianDetailsActivity;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
@@ -219,14 +219,14 @@ public class NearestFindTuition extends Fragment implements OnRecyclerViewItemCl
         switch (AppPreferences.getProfileType(requireActivity())){
             case Constants.PROFILE_FIND_TUITION_TEACHER:{
                 //show post for teacher
-                Intent intent = new Intent(requireActivity(), ShowFindTuitionPostDetailsActivity.class);
+                Intent intent = new Intent(requireActivity(), ShowGuardianDetailsActivity.class);
                 intent.putExtra("ad",adInfo);
                 startActivity(intent);
                 break;
             }
             case Constants.PROFILE_FIND_TUTOR_GUARDIAN:{
                 //show post for guardian
-                Intent intent = new Intent(requireActivity(), ShowFindTeacherPostDetailsActivity.class);
+                Intent intent = new Intent(requireActivity(), ShowTeacherDetailsActivity.class);
                 intent.putExtra("ad",adInfo);
                 startActivity(intent);
                 break;

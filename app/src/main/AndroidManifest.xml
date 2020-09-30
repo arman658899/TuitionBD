@@ -15,10 +15,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".views.AddIDCardPhotoActivity"></activity>
+        <activity android:name=".views.PrivacyPolicyActivity"></activity>
+        <activity android:name=".views.AddIDCardPhotoActivity" />
         <activity android:name=".views.ProfileActivity" />
-        <activity android:name=".views.ShowFindTuitionPostDetailsActivity" />
-        <activity android:name=".views.ShowFindTeacherPostDetailsActivity" />
+        <activity android:name=".views.ShowGuardianDetailsActivity" />
+        <activity android:name=".views.ShowTeacherDetailsActivity" />
         <activity android:name=".views.locationactivity.SelectLocationActivity" />
         <activity android:name=".views.PostForTuitionActivity" />
         <activity android:name=".views.loginactivity.LoginActivity" />

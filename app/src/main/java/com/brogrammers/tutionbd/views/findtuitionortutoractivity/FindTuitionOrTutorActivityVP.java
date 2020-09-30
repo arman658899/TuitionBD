@@ -16,6 +16,7 @@ public interface FindTuitionOrTutorActivityVP {
         void onShowHighlightedItems(List<HighlightItem> items);
         void onShowUpdateDialogBox(String tittle, String buttonName, String childKey);
         void onLoadingDialog(boolean isLoading);
+        void onCheckLocationStatus();
     }
 
     interface Presenter extends BasePresenter{

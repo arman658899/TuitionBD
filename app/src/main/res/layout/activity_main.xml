@@ -6,20 +6,12 @@
     android:layout_height="match_parent"
     tools:context=".views.findtuitionortutoractivity.FindTuitionOrTutorActivity">
 
-    <com.google.android.material.navigation.NavigationView
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        app:headerLayout="@layout/header"
-        app:menu="@menu/menu"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-    </com.google.android.material.navigation.NavigationView>
+
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
+        android:layout_marginTop="16dp"
         android:fontFamily="sans-serif-medium"
         android:text="Where do you want to start?"
         android:textColor="@android:color/black"
@@ -27,7 +19,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.086"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageview_menu" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraint1"
@@ -193,19 +185,5 @@
         app:layout_constraintTop_toBottomOf="@+id/constraintLayout2"
         app:srcCompat="@drawable/ic_bottom_anim" />
 
-    <ImageView
-        android:id="@+id/imageview_menu"
-        android:layout_gravity="center_vertical"
-        app:srcCompat="@drawable/icon_menu_drawer"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginStart="10dp"
-        android:background="@android:color/holo_blue_dark"
-        app:layout_constraintEnd_toStartOf="@+id/textView"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginLeft="10dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

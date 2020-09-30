@@ -7,6 +7,7 @@ import com.brogrammers.tutionbd.beans.User;
 
 public class AppPreferences {
     private static final String DATABASE_NAME = "@@*--*@@";
+    private static final String LOGIN_DATABASE_NAME = "@@__login__@@";
     private static final String PROFILE_TYPE = "profiling_activity";
     private static final String USER_LATITUDE = "latitude";
     private static final String USER_LONGITUDE = "longitude";

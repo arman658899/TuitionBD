@@ -1,256 +1,393 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+<androidx.coordinatorlayout.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/constraintLayout6"
+
+    <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/design_default_color_secondary"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:layout_height="wrap_content">
 
-        <com.mikhaellopez.circularimageview.CircularImageView
-            android:id="@+id/circularImageView"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginLeft="8dp"
-            android:layout_marginTop="20dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:src="@drawable/image_background"/>
+        <com.google.android.material.appbar.CollapsingToolbarLayout
+            app:contentScrim="?attr/colorPrimary"
+            android:theme="@style/Theme.AppCompat.Light.DarkActionBar"
+            app:layout_scrollFlags="scroll|enterAlways|exitUntilCollapsed"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-        <TextView
-            android:id="@+id/tuition_fee_range"
-            android:layout_width="150dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginLeft="8dp"
-            android:text="4000-5000/ month"
-            android:textColor="@android:color/black"
-            android:textSize="16sp"
-            app:layout_constraintBottom_toBottomOf="@+id/imageView10"
-            app:layout_constraintStart_toEndOf="@+id/imageView10"
-            app:layout_constraintTop_toTopOf="@+id/imageView10"
-            app:layout_constraintVertical_bias="0.0" />
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraintLayout6"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="?attr/actionBarSize"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
 
-        <TextView
-            android:id="@+id/textView21"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="Days"
-            android:textColor="@android:color/black"
-            android:textSize="16sp"
-            app:layout_constraintStart_toStartOf="@+id/tuition_fee_range"
-            app:layout_constraintTop_toBottomOf="@+id/tuition_fee_range" />
+                <com.mikhaellopez.circularimageview.CircularImageView
+                    android:id="@+id/circularImageView"
+                    android:layout_width="150dp"
+                    android:layout_height="150dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginTop="20dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:src="@drawable/image_placeholder" />
 
-        <TextView
-            android:id="@+id/textView22"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginLeft="8dp"
-            android:layout_marginTop="20dp"
-            android:text="4/week"
-            android:textColor="@android:color/black"
-            android:textSize="16sp"
-            app:layout_constraintBottom_toBottomOf="@+id/textView21"
-            app:layout_constraintStart_toEndOf="@+id/textView21"
-            app:layout_constraintTop_toTopOf="@+id/textView21"
-            app:layout_constraintVertical_bias="1.0" />
 
-        <ImageView
-            android:id="@+id/contact_tv"
-            android:layout_width="25dp"
-            android:layout_height="25dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginLeft="8dp"
-            android:layout_marginTop="8dp"
-            android:src="@drawable/common_full_open_on_phone"
-            app:layout_constraintStart_toEndOf="@+id/circularImageView"
-            app:layout_constraintTop_toBottomOf="@+id/textView21" />
+                <ImageView
+                    android:id="@+id/contact_tv"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginLeft="8dp"
+                    android:src="@drawable/common_full_open_on_phone"
+                    app:layout_constraintStart_toEndOf="@+id/circularImageView"
+                    app:layout_constraintTop_toTopOf="@+id/circularImageView" />
 
-        <TextView
-            android:id="@+id/contact_number_tv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginLeft="8dp"
-            android:text="01843658899"
-            android:textColor="@android:color/black"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="@+id/contact_tv"
-            app:layout_constraintStart_toEndOf="@+id/contact_tv"
-            app:layout_constraintTop_toTopOf="@+id/contact_tv"
-            app:layout_constraintVertical_bias="1.0" />
 
-        <ImageView
-            android:id="@+id/imageView8"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginLeft="8dp"
-            android:layout_marginTop="12dp"
-            app:layout_constraintStart_toEndOf="@+id/circularImageView"
-            app:layout_constraintTop_toBottomOf="@+id/contact_tv"
-            app:srcCompat="@drawable/ic_location"/>
+                <TextView
+                    android:id="@+id/contact_number_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginLeft="8dp"
+                    android:text="01843658899"
+                    android:textColor="@android:color/white"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="@+id/contact_tv"
+                    app:layout_constraintStart_toEndOf="@+id/contact_tv"
+                    app:layout_constraintTop_toTopOf="@+id/contact_tv"
+                    app:layout_constraintVertical_bias="1.0" />
 
-        <TextView
-            android:id="@+id/address_tv"
-            android:layout_width="180dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginLeft="8dp"
-            android:textColor="@android:color/black"
-            android:textSize="12sp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="@+id/imageView8"
-            app:layout_constraintStart_toEndOf="@+id/imageView8"
-            app:layout_constraintTop_toTopOf="@+id/imageView8"
-            app:layout_constraintVertical_bias="0.0"
-            tools:text="Fatema villa,Dc road, Chawkbazar,chittagong" />
+                <TextView
+                    android:id="@+id/name_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:textColor="@android:color/white"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="@+id/circularImageView"
+                    app:layout_constraintTop_toBottomOf="@+id/circularImageView"
+                    tools:text="Abdullah Al Hossain" />
 
-        <TextView
-            android:id="@+id/tuition_title_id"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="15dp"
-            android:layout_marginTop="24dp"
-            tools:text="Post Tittle Here"
-            android:textColor="@android:color/black"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/circularImageView"
-            android:layout_marginLeft="15dp" />
-        <TextView
-            android:id="@+id/name_tv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="15dp"
-            android:layout_marginTop="15dp"
-            tools:text="Abdullah Al Hossain"
-            android:textColor="@android:color/black"
-            android:textSize="18sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tuition_title_id"
-            android:layout_marginLeft="15dp" />
 
-        <ImageView
-            android:id="@+id/imageView10"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginLeft="8dp"
-            android:src="@drawable/ic_tk"
-            app:layout_constraintStart_toEndOf="@+id/circularImageView"
-            app:layout_constraintTop_toTopOf="@+id/circularImageView" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/constraintLayout7"
+                <TextView
+                    android:id="@+id/textView4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/university_college"
+                    android:textColor="@android:color/white"
+                    android:textSize="12sp"
+                    app:layout_constraintStart_toStartOf="@+id/name_tv"
+                    app:layout_constraintTop_toBottomOf="@+id/name_tv" />
+
+                <TextView
+                    android:id="@+id/uni_clg_name_tv"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginRight="8dp"
+                    android:textColor="@android:color/white"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="@+id/textView4"
+                    app:layout_constraintTop_toBottomOf="@+id/textView4"
+                    tools:text="International Islamic University Chittagong" />
+
+                <TextView
+                    android:id="@+id/textView11"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/department"
+                    android:textColor="@android:color/white"
+                    android:textSize="12sp"
+                    app:layout_constraintStart_toStartOf="@+id/uni_clg_name_tv"
+                    app:layout_constraintTop_toBottomOf="@+id/uni_clg_name_tv" />
+
+                <TextView
+                    android:id="@+id/department_name_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:textColor="@android:color/white"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="@+id/textView11"
+                    app:layout_constraintTop_toBottomOf="@+id/textView11"
+                    tools:text="Cse" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:theme="@style/ThemeOverlay.AppCompat.Light"
+                app:layout_collapseMode="pin"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize">
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <ImageView
+                        android:id="@+id/imageview_back"
+                        android:layout_gravity="center"
+                        app:srcCompat="@drawable/icon_back_circular"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"/>
+
+                    <TextView
+                        android:id="@+id/textview_toolbar_tittle"
+                        android:layout_marginStart="8dp"
+                        android:layout_gravity="center"
+                        android:textColor="@color/colorWhite"
+                        android:textSize="18sp"
+                        android:text="Details Information"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="8dp" />
+
+                </LinearLayout>
+
+            </androidx.appcompat.widget.Toolbar>
+
+        </com.google.android.material.appbar.CollapsingToolbarLayout>
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <LinearLayout
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/constraintLayout6">
-        <TextView
-            android:id="@+id/textView4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="15dp"
-            android:layout_marginTop="10dp"
-            android:text="@string/university_college"
-            android:textColor="@android:color/black"
-            android:textSize="16sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginLeft="15dp" />
-        <TextView
-            android:id="@+id/uni_clg_name_tv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            tools:text="International Islamic University Chittagong"
-            android:textColor="@android:color/black"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="@+id/textView4"
-            app:layout_constraintTop_toBottomOf="@+id/textView4" />
-        <TextView
-            android:id="@+id/textView11"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="40dp"
-            android:layout_marginTop="10dp"
-            android:text="@string/department"
-            android:textColor="@android:color/black"
-            android:textSize="16sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/uni_clg_name_tv"
-            android:layout_marginLeft="40dp" />
-        <TextView
-            android:id="@+id/department_name_tv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="25dp"
-            android:layout_marginTop="10dp"
-            tools:text="Cse"
-            android:textColor="@android:color/black"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            app:layout_constraintStart_toEndOf="@+id/textView11"
-            app:layout_constraintTop_toBottomOf="@+id/uni_clg_name_tv"
-            android:layout_marginLeft="25dp" />
-        <TextView
-            android:id="@+id/textView13"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="35dp"
-            android:layout_marginTop="10dp"
-            android:text="@string/year"
-            android:textColor="@android:color/black"
-            android:textSize="16sp"
-            app:layout_constraintStart_toEndOf="@+id/department_name_tv"
-            app:layout_constraintTop_toBottomOf="@+id/uni_clg_name_tv"
-            android:layout_marginLeft="35dp" />
-        <TextView
-            android:id="@+id/year_tv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="25dp"
-            android:layout_marginTop="10dp"
-            tools:text="3rd"
-            android:textColor="@android:color/black"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            app:layout_constraintStart_toEndOf="@+id/textView13"
-            app:layout_constraintTop_toBottomOf="@+id/uni_clg_name_tv"
-            android:layout_marginLeft="25dp" />
+        android:layout_height="match_parent">
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        <LinearLayout
+            android:id="@+id/linearlayout_container"
+            android:padding="8dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
-    <ImageView
-        android:id="@+id/imageView9"
-        android:layout_width="380dp"
-        android:layout_height="250dp"
-        android:layout_marginTop="16dp"
-        android:background="@drawable/edit_text_shape"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/constraintLayout7" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+            <LinearLayout
+                android:orientation="horizontal"
+                android:weightSum="2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/post_type"
+                    android:layout_weight="1"
+                    android:drawableStart="@drawable/icon_info"
+                    android:drawablePadding="4dp"
+                    android:textSize="12sp"
+                    tools:text="Need Tuition"
+                    android:textColor="@color/colorBlue50"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:drawableLeft="@drawable/icon_info" />
+
+                <TextView
+                    android:id="@+id/tv_posted_time"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="end"
+                    android:textSize="12sp"
+                    tools:text="22-02-3030" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/imageView10"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginLeft="16dp"
+                    android:src="@drawable/ic_tk"
+                    app:layout_constraintStart_toEndOf="@+id/circularImageView"
+                    app:layout_constraintTop_toTopOf="@+id/circularImageView" />
+
+                <TextView
+                    android:id="@+id/tuition_fee_range"
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginLeft="8dp"
+                    android:text="4000-5000/ month"
+                    android:textColor="@android:color/black"
+                    android:textSize="16sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/imageView10"
+                    app:layout_constraintStart_toEndOf="@+id/imageView10"
+                    app:layout_constraintTop_toTopOf="@+id/imageView10"
+                    app:layout_constraintVertical_bias="0.0" />
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_weight="3"
+                android:id="@+id/tv_tittle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@android:color/black"
+                android:textStyle="bold"
+                tools:text="TITLE"/>
+
+            <LinearLayout
+                android:weightSum="2"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp">
+
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:drawableStart="@drawable/icon_clock"
+                        android:drawablePadding="4dp"
+                        android:text="Preferred Time"
+
+                        android:drawableLeft="@drawable/icon_clock" />
+                    <TextView
+                        android:id="@+id/textview_time"
+                        android:layout_marginStart="18dp"
+                        android:textColor="@android:color/black"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        tools:text="7:30PM-8:30PM"
+                        android:layout_marginLeft="8dp" />
+
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:drawableStart="@drawable/icon_schedule"
+                        android:drawablePadding="4dp"
+                        android:text="Weekly Schedule"
+                        android:drawableLeft="@drawable/icon_schedule" />
+
+                    <TextView
+                        android:id="@+id/textview_weekly_schedule"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="18dp"
+                        android:textColor="@android:color/black"
+                        android:textSize="16dp"
+                        tools:text="Sat-Mon-Wed"
+                        android:layout_marginLeft="18dp" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:weightSum="2"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp">
+
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:drawableStart="@drawable/icon_language"
+                        android:drawablePadding="4dp"
+                        android:text="Language"
+                        android:drawableLeft="@drawable/icon_language" />
+                    <TextView
+                        android:id="@+id/textview_language"
+                        android:layout_marginStart="18dp"
+                        android:textColor="@android:color/black"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        tools:text="English Medium"
+                        android:layout_marginLeft="8dp" />
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:drawableStart="@drawable/icon_schedule"
+                        android:drawablePadding="4dp"
+                        android:text="Tuition Subject"
+                        android:drawableLeft="@drawable/icon_schedule" />
+
+                    <TextView
+                        android:id="@+id/tv_subject"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="18dp"
+                        android:textColor="@android:color/black"
+                        android:textSize="16dp"
+                        tools:text="Math-English"
+                        android:layout_marginLeft="18dp" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tv_location"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawableStart="@drawable/ic_location"
+                    android:drawablePadding="4dp"
+                    android:textColor="@android:color/black"
+                    android:layout_gravity="center_vertical"
+                    tools:text="Chittagong"
+                    android:drawableLeft="@drawable/ic_location" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
