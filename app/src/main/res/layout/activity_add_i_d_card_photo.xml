@@ -5,35 +5,33 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/textView24"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
-        android:text="Select Your NID/Upload"
-        android:textColor="@android:color/black"
-        android:textSize="18sp"
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        app:titleTextColor="@color/colorWhite"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/colorPrimary"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+
     <Button
         android:id="@+id/button2"
-        android:padding="8dp"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="16dp"
+        android:layout_margin="16dp"
         android:background="@drawable/button_round_shape"
-        android:text="Select Student ID/NID"
+        android:padding="8dp"
+        android:text="Select Picture"
         app:layout_constraintEnd_toEndOf="@+id/textView24"
         app:layout_constraintStart_toStartOf="@+id/textView24"
-        app:layout_constraintTop_toBottomOf="@+id/textView24" />
+        app:layout_constraintTop_toBottomOf="@+id/toolbar" />
 
     <ImageView
         android:id="@+id/imageView12"
-        android:layout_width="350dp"
+        android:visibility="gone"
+        android:layout_width="300dp"
         android:layout_height="200dp"
         android:layout_marginTop="20dp"
         android:background="@drawable/edit_text_shape"
@@ -44,9 +42,10 @@
 
     <Button
         android:id="@+id/button4"
-        android:layout_width="wrap_content"
+        android:visibility="gone"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_margin="16dp"
         android:background="@drawable/button_round_shape"
         android:text="Upload"
         app:layout_constraintEnd_toEndOf="@+id/imageView12"

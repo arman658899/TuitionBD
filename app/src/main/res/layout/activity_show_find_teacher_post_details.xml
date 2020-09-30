@@ -263,16 +263,16 @@
                         android:layout_height="wrap_content"
                         android:drawableStart="@drawable/icon_clock"
                         android:drawablePadding="4dp"
-                        android:text="Preferred Time"
+                        android:text="Class"
 
                         android:drawableLeft="@drawable/icon_clock" />
                     <TextView
-                        android:id="@+id/textview_time"
+                        android:id="@+id/textview_class"
                         android:layout_marginStart="18dp"
                         android:textColor="@android:color/black"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        tools:text="7:30PM-8:30PM"
+                        tools:text="Class 7"
                         android:layout_marginLeft="8dp" />
 
 

@@ -28,16 +28,19 @@
                 android:layout_height="wrap_content">
 
                 <LinearLayout
+                    android:visibility="gone"
+                    android:layout_marginTop="?attr/actionBarSize"
                     android:id="@+id/linearlayout_container"
                     android:orientation="vertical"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/recyclerview_into_collapse"
-                        android:layout_marginTop="?attr/actionBarSize"
+                    <ViewFlipper
+                        android:layout_margin="4dp"
+                        android:autoStart="true"
+                        android:id="@+id/viewflipper"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="200dp"/>
 
                     <LinearLayout
                         android:layout_margin="4dp"

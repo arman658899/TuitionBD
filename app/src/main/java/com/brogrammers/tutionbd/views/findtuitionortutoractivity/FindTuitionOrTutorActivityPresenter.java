@@ -9,6 +9,7 @@ import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
 import android.os.Looper;
+import android.util.Log;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
@@ -17,8 +18,10 @@ import com.brogrammers.tutionbd.AppPreferences;
 import com.brogrammers.tutionbd.ApplicationHelper;
 import com.brogrammers.tutionbd.Constants;
 import com.brogrammers.tutionbd.beans.HighlightItem;
+import com.brogrammers.tutionbd.beans.Slider;
 import com.brogrammers.tutionbd.beans.User;
 import com.brogrammers.tutionbd.listeners.OnDataDownloadListener;
+import com.brogrammers.tutionbd.listeners.OnMultipleDownloadListener;
 import com.brogrammers.tutionbd.listeners.OnUploadListener;
 import com.brogrammers.tutionbd.managers.PostManager;
 import com.brogrammers.tutionbd.managers.ProfileManager;
@@ -35,12 +38,15 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
+import static com.brogrammers.tutionbd.Constants.TAG;
+
 public class FindTuitionOrTutorActivityPresenter implements FindTuitionOrTutorActivityVP.Presenter {
     private Context context;
     private PostManager postManager;
     private ProfileManager profileManager;
     private FindTuitionOrTutorActivityVP.View view;
     private List<HighlightItem> highlightItems;
+    private List<Slider> sliderList;
 
     public FindTuitionOrTutorActivityPresenter(Context context, FindTuitionOrTutorActivityVP.View view) {
         this.view = view;
@@ -50,6 +56,7 @@ public class FindTuitionOrTutorActivityPresenter implements FindTuitionOrTutorAc
         //post manager should add before setPresenter.
         this.view.setPresenter(this);
         highlightItems = new ArrayList<>();
+        sliderList = new ArrayList<>();
     }
 
     @Override
@@ -83,10 +90,34 @@ public class FindTuitionOrTutorActivityPresenter implements FindTuitionOrTutorAc
                 }
             });
 
+            postManager.getImageSlider(new OnMultipleDownloadListener<Slider>() {
+                @Override
+                public void onStarted() {
+                    sliderList.clear();
+
+                }
+
+                @Override
+                public void onFinished() {
+                    view.onInitializeViewFlipper(sliderList);
+                    Log.d(TAG, "sliders size = "+sliderList.size());
+                }
+
+                @Override
+                public void onDownloaded(List<Slider> list) {
+                    sliderList.addAll(list);
+                }
+
+                @Override
+                public void onError() {
+
+                }
+            });
+
             view.onSetupProfileUi();
         }
 
-        highlightItems.clear();
+        /*highlightItems.clear();
 
         if (AppPreferences.UserInfo.getUserCollete(context).isEmpty()) {
             highlightItems.add(new HighlightItem("Add your University/College", "Please add your educational institute information for better response from Guardians.", "college", "ADD"));
@@ -103,7 +134,7 @@ public class FindTuitionOrTutorActivityPresenter implements FindTuitionOrTutorAc
         } else
             highlightItems.add(new HighlightItem("Update STUDENT_ID/NID", "You have already added your Identification card.", "idCardLink", "UPDATE"));
 
-        view.onShowHighlightedItems(highlightItems);
+        view.onShowHighlightedItems(highlightItems);*/
 
         initializeLocationSetup();
 
@@ -115,45 +146,6 @@ public class FindTuitionOrTutorActivityPresenter implements FindTuitionOrTutorAc
         view.navigateToActivity(intent);
     }
 
-    @Override
-    public void onHighlightItemClicked(HighlightItem highlightItem) {
-        if (highlightItem.getChildKey().equals("idCardLink")) {
-
-            Intent intent = new Intent(context, AddIDCardPhotoActivity.class);
-            view.navigateToActivity(intent);
-
-        } else
-            view.onShowUpdateDialogBox(highlightItem.getTittle(), highlightItem.getButtonName(), highlightItem.getChildKey());
-    }
-
-    @Override
-    public void onAddOrUpdateHighlightedItem(String value, String childKey) {
-        if (value.isEmpty()) {
-            view.showSnackBarMessage("Empty value can't be used.");
-            return;
-        }
-
-        if (ApplicationHelper.getDatabaseHelper().getAuth().getCurrentUser() != null) {
-            view.onLoadingDialog(true);
-            profileManager.updateUserChildValue(ApplicationHelper.getDatabaseHelper().getAuth().getCurrentUser().getUid(), childKey, value, new OnUploadListener() {
-                @Override
-                public void onUploaded() {
-                    view.onLoadingDialog(false);
-                    view.showSnackBarMessage("Update successful.");
-                }
-
-                @Override
-                public void onFailed() {
-                    view.onLoadingDialog(false);
-                    view.showSnackBarMessage("Update failed.");
-                }
-            });
-        } else {
-            view.showSnackBarMessage("Please login to update information.");
-
-        }
-
-    }
 
     private void initializeLocationSetup() {
         if (ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION)

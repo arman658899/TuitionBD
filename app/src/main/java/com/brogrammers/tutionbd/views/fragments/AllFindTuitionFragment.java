@@ -26,6 +26,8 @@ import com.brogrammers.tutionbd.beans.AdInfo;
 import com.brogrammers.tutionbd.listeners.OnRecyclerViewItemClickListener;
 import com.brogrammers.tutionbd.views.ShowTeacherDetailsActivity;
 import com.brogrammers.tutionbd.views.ShowGuardianDetailsActivity;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.snackbar.BaseTransientBottomBar;
@@ -34,6 +36,7 @@ import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.firestore.Source;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,7 +48,7 @@ import static com.brogrammers.tutionbd.Constants.TAG;
 public class AllFindTuitionFragment extends Fragment implements OnRecyclerViewItemClickListener<AdInfo> {
     private List<AdInfo> ads;
     private CollectionReference collRef;
-
+    private AdView mAdView;
     private AdsAdapter adsAdapter;
     private RecyclerView recyclerView;
     private TextView tvNoPostFound;
@@ -77,6 +80,9 @@ public class AllFindTuitionFragment extends Fragment implements OnRecyclerViewIt
             }
             default:
         }
+
+
+
     }
 
     @Override
@@ -90,6 +96,12 @@ public class AllFindTuitionFragment extends Fragment implements OnRecyclerViewIt
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        //test ad
+        mAdView = view.findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
+
+
         tvNoPostFound = view.findViewById(R.id.textview_no_post_found);
 
         recyclerView = view.findViewById(R.id.recyclerview);
@@ -100,12 +112,18 @@ public class AllFindTuitionFragment extends Fragment implements OnRecyclerViewIt
     }
 
     @Override
-    public void onResume() {
-        super.onResume();
+    public void onStart() {
+        super.onStart();
+
         loadingDialog.show();
+        getDataFromCache();
+
+    }
+
+    private void getDataFromCache() {
         collRef.orderBy("createdTime", Query.Direction.DESCENDING)
                 .limit(20)
-                .get()
+                .get(Source.CACHE)
                 .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
                     @Override
                     public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
@@ -123,7 +141,9 @@ public class AllFindTuitionFragment extends Fragment implements OnRecyclerViewIt
                         }
                         loadingDialog.dismiss();
                         adsAdapter.notifyDataSetChanged();
-                        if (ads.size()<=0) showSnackbarMessage("No ads found.");
+                        if (ads.size()<=0) {
+                           getAdDataFromServer();
+                        }
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
@@ -132,6 +152,47 @@ public class AllFindTuitionFragment extends Fragment implements OnRecyclerViewIt
                         loadingDialog.dismiss();
                     }
                 });
+    }
+
+    private void getAdDataFromServer() {
+        loadingDialog.show();
+        collRef.orderBy("createdTime", Query.Direction.DESCENDING)
+                .limit(20)
+                .get(Source.SERVER)
+                .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                    @Override
+                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                        String source = queryDocumentSnapshots.getMetadata().isFromCache() ? "From Cache":"From Server";
+                        Log.d(TAG, "getAllAds source: "+source);
+
+                        ads.clear();
+                        for (DocumentSnapshot ds: queryDocumentSnapshots){
+                            try{
+                                AdInfo adInfo = ds.toObject(AdInfo.class);
+                                ads.add(adInfo);
+                            }catch (Exception e){
+                                e.printStackTrace();
+                            }
+                        }
+                        loadingDialog.dismiss();
+                        adsAdapter.notifyDataSetChanged();
+                        if (ads.size()<=0) {
+                            getAdDataFromServer();
+                        }
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        loadingDialog.dismiss();
+                    }
+                });
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
 
     }
 
@@ -148,14 +209,42 @@ public class AllFindTuitionFragment extends Fragment implements OnRecyclerViewIt
             case Constants.PROFILE_FIND_TUITION_TEACHER:{
                 //show post for teacher
                 Intent intent = new Intent(requireActivity(), ShowGuardianDetailsActivity.class);
-                intent.putExtra("ad",adInfo);
+
+                Bundle bundle = new Bundle();
+                bundle.putString("tittle",adInfo.getTittle());
+                bundle.putString("salary",adInfo.getSalary());
+                bundle.putString("location",adInfo.getLocation());
+                bundle.putString("subject",adInfo.getSubject());
+                bundle.putString("class",adInfo.getStudentClass());
+                bundle.putString("language",adInfo.getLanguage());
+                bundle.putString("schedule",adInfo.getSchedule());
+                bundle.putString("documentId",adInfo.getDocumentId());
+                bundle.putString("userUid",adInfo.getUserUid());
+                bundle.putLong("time",adInfo.getCreatedTime());
+
+                intent.putExtras(bundle);
                 startActivity(intent);
                 break;
             }
             case Constants.PROFILE_FIND_TUTOR_GUARDIAN:{
                 //show post for guardian
+
+
                 Intent intent = new Intent(requireActivity(), ShowTeacherDetailsActivity.class);
-                intent.putExtra("ad",adInfo);
+                Bundle bundle = new Bundle();
+                bundle.putString("tittle",adInfo.getTittle());
+                bundle.putString("salary",adInfo.getSalary());
+                bundle.putString("location",adInfo.getLocation());
+                bundle.putString("subject",adInfo.getSubject());
+                bundle.putString("class",adInfo.getStudentClass());
+                bundle.putString("language",adInfo.getLanguage());
+                bundle.putString("schedule",adInfo.getSchedule());
+                bundle.putString("documentId",adInfo.getDocumentId());
+                bundle.putString("userUid",adInfo.getUserUid());
+                bundle.putLong("time",adInfo.getCreatedTime());
+
+                intent.putExtras(bundle);
+
                 startActivity(intent);
                 break;
             }

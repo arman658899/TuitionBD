@@ -3,6 +3,7 @@ package com.brogrammers.tutionbd.views;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
@@ -46,14 +47,32 @@ import id.zelory.compressor.Compressor;
 
 public class AddIDCardPhotoActivity extends AppCompatActivity {
     private static final int REQUEST_STORAGE_PERMISSION = 100;
+    private Toolbar toolbar;
     ImageView imageView;
     Bitmap selectedImageBitmap;
     Dialog loadingDialog;
-    private final String CHILD_KEY_NID = "idCardLink";
+    //from intent
+    private String CHILD_KEY_NID;
+    private boolean isProfile = false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_i_d_card_photo);
+
+        CHILD_KEY_NID = getIntent().getStringExtra("child");
+        isProfile = getIntent().getBooleanExtra("mode",false);
+
+        toolbar = findViewById(R.id.toolbar);
+        toolbar.setNavigationIcon(R.drawable.icon_back_arrow);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
+        if (isProfile){
+            toolbar.setTitle("Update Profile Photo");
+        }else toolbar.setTitle("Update Student ID/NID Photo");
 
         imageView = findViewById(R.id.imageView12);
 
@@ -82,7 +101,10 @@ public class AddIDCardPhotoActivity extends AppCompatActivity {
     }
 
     private void uploadImage() {
-        StorageReference storageIDs = ApplicationHelper.getDatabaseHelper().getStorage().getReference("ID_PHOTOS");
+        StorageReference storageIDs;
+        if (isProfile){
+            storageIDs = ApplicationHelper.getDatabaseHelper().getStorage().getReference(Constants.DB_USERS);
+        }else storageIDs = ApplicationHelper.getDatabaseHelper().getStorage().getReference("ID_PHOTOS");
         final StorageReference imageName = storageIDs.child(ApplicationHelper.getDatabaseHelper().getAuth().getCurrentUser().getUid());
 
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
@@ -174,6 +196,11 @@ public class AddIDCardPhotoActivity extends AppCompatActivity {
                         if (croppedImage.length()>100*1024){
                             selectedImageBitmap = compressImage(resultUri.getPath());
                         }
+
+                        if (selectedImageBitmap!=null){
+                            imageView.setVisibility(View.VISIBLE);
+                            findViewById(R.id.button4).setVisibility(View.VISIBLE);
+                        }else return;
 
                         Glide.with(this)
                                 .load(selectedImageBitmap)

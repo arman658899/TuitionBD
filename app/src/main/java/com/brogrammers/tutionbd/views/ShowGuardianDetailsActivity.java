@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.Dialog;
 import android.os.Bundle;
 import android.text.format.DateFormat;
+import android.util.Log;
 import android.widget.TextView;
 
 import com.brogrammers.tutionbd.AppPreferences;
@@ -14,6 +15,7 @@ import com.brogrammers.tutionbd.R;
 import com.brogrammers.tutionbd.beans.AdInfo;
 import com.brogrammers.tutionbd.beans.User;
 import com.brogrammers.tutionbd.listeners.OnDataDownloadListener;
+import com.brogrammers.tutionbd.managers.PostManager;
 import com.brogrammers.tutionbd.managers.ProfileManager;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
@@ -28,8 +30,9 @@ import static android.graphics.Color.YELLOW;
 
 public class ShowGuardianDetailsActivity extends AppCompatActivity {
     private AdInfo adInfo;
+    private PostManager postManager;
     private TextView tvToolbarTittle;
-    public TextView tvTittle,tvPostedDate,tvSalary,tvSubject,tvLocation,tvTime,tvSchedule,tvLanguage,tvPostType;
+    public TextView tvTittle,tvPostedDate,tvSalary,tvSubject,tvLocation,tvClass,tvSchedule,tvLanguage,tvPostType;
 
     //user ui
     private CircularImageView circularImageView;
@@ -37,12 +40,20 @@ public class ShowGuardianDetailsActivity extends AppCompatActivity {
 
     ProfileManager profileManager;
     Dialog loadingDialog;
+
+    //post details
+    private String USER_UID;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_find_tuition_post_details);
 
-        adInfo = (AdInfo) getIntent().getSerializableExtra("ad");
+        //adInfo = (AdInfo) getIntent().getExtras().getSerializable("ad");
+
+        USER_UID = getIntent().getStringExtra("userUid");
+
+
 
         loadingDialog = ApplicationHelper.getUtilsHelper().getLoadingDialog(this);
         loadingDialog.setCancelable(false);
@@ -59,11 +70,11 @@ public class ShowGuardianDetailsActivity extends AppCompatActivity {
         //adview
         tvTittle = findViewById(R.id.tv_tittle);
         tvPostedDate = findViewById(R.id.tv_posted_time);
-        tvSalary = findViewById(R.id.tv_salary);
+        tvSalary = findViewById(R.id.tuition_fee_range);
         tvSubject = findViewById(R.id.tv_subject);
         tvLocation = findViewById(R.id.tv_location);
         tvLanguage = findViewById(R.id.textview_language);
-        tvTime = findViewById(R.id.textview_time);
+        tvClass = findViewById(R.id.textview_class);
         tvSchedule = findViewById(R.id.textview_weekly_schedule);
 
         tvPostType = findViewById(R.id.post_type);
@@ -76,15 +87,6 @@ public class ShowGuardianDetailsActivity extends AppCompatActivity {
 
     private void updateAdUi() {
         try{
-            tvLocation.setText(adInfo.getLocation());
-            tvTittle.setText(adInfo.getTittle());
-            tvSalary.setText(adInfo.getSalary());
-            tvSubject.setText(adInfo.getSubject());
-            tvTime.setText(adInfo.getTuitionTime());
-            tvSchedule.setText(adInfo.getSchedule());
-            tvLanguage.setText(adInfo.getLanguage());
-            tvPostedDate.setText(getFormatedDate(adInfo.getCreatedTime()));
-
             if (AppPreferences.getProfileType(this)== Constants.PROFILE_FIND_TUITION_TEACHER){
                 //post for tuition
                 tvPostType.setText("Need Tutor");
@@ -92,6 +94,16 @@ public class ShowGuardianDetailsActivity extends AppCompatActivity {
                 //post for tutor
                 tvPostType.setText("Need Tuition");
             }
+            tvLocation.setText(getIntent().getStringExtra("location"));
+            tvTittle.setText(getIntent().getStringExtra("tittle"));
+            tvSalary.setText(getIntent().getStringExtra("salary"));
+            tvSubject.setText(getIntent().getStringExtra("subject"));
+            tvClass.setText(getIntent().getStringExtra("class"));
+            tvLanguage.setText(getIntent().getStringExtra("language"));
+            tvSchedule.setText(getIntent().getStringExtra("schedule"));
+            tvPostedDate.setText(getFormatedDate(getIntent().getLongExtra("time",Calendar.getInstance().getTimeInMillis())));
+
+
         }catch (Exception e){
             e.printStackTrace();
             showSnackbarMessage("Something error happened.");
@@ -110,9 +122,9 @@ public class ShowGuardianDetailsActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
 
-        if (adInfo!=null && adInfo.getUserUid()!=null){
+        if (USER_UID!=null){
             loadingDialog.show();
-            profileManager.getSingleUserDataSnapshot(adInfo.getUserUid(), new OnDataDownloadListener<User>() {
+            profileManager.getSingleUserDataSnapshot(USER_UID, new OnDataDownloadListener<User>() {
                 @Override
                 public void onStarted() {
 

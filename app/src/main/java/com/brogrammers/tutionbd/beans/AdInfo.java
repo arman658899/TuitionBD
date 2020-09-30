@@ -3,14 +3,14 @@ package com.brogrammers.tutionbd.beans;
 import java.io.Serializable;
 
 public class AdInfo implements Serializable {
-    String tittle,salary,location,subject,studentClass,language,schedule,tuitionTime,documentId;
+    String tittle,salary,location,subject,studentClass,language,schedule,documentId;
     String userUid;
     long createdTime;
 
     public AdInfo() {
     }
 
-    public AdInfo(String tittle, String salary, String location, String subject, String studentClass, String language, String schedule, String tuitionTime, String documentId, String userUid, long createdTime) {
+    public AdInfo(String tittle, String salary, String location, String subject, String studentClass, String language, String schedule, String documentId, String userUid, long createdTime) {
         this.tittle = tittle;
         this.salary = salary;
         this.location = location;
@@ -18,7 +18,6 @@ public class AdInfo implements Serializable {
         this.studentClass = studentClass;
         this.language = language;
         this.schedule = schedule;
-        this.tuitionTime = tuitionTime;
         this.documentId = documentId;
         this.userUid = userUid;
         this.createdTime = createdTime;
@@ -80,14 +79,6 @@ public class AdInfo implements Serializable {
         this.schedule = schedule;
     }
 
-    public String getTuitionTime() {
-        return tuitionTime;
-    }
-
-    public void setTuitionTime(String tuitionTime) {
-        this.tuitionTime = tuitionTime;
-    }
-
     public String getDocumentId() {
         return documentId;
     }
@@ -111,4 +102,6 @@ public class AdInfo implements Serializable {
     public void setCreatedTime(long createdTime) {
         this.createdTime = createdTime;
     }
+
+
 }

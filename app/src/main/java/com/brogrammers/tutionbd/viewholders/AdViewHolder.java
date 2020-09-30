@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.brogrammers.tutionbd.R;
 
 public class AdViewHolder extends RecyclerView.ViewHolder {
-    public TextView tvTittle,tvPostedDate,tvSalary,tvSubject,tvLocation,tvTime,tvSchedule,tvLanguage,tvPostType;
+    public TextView tvTittle,tvClass,tvPostedDate,tvSalary,tvSubject,tvLocation,tvSchedule,tvLanguage,tvPostType;
     public LinearLayout container;
     public AdViewHolder(@NonNull View itemView) {
         super(itemView);
@@ -21,8 +21,8 @@ public class AdViewHolder extends RecyclerView.ViewHolder {
         tvLocation = itemView.findViewById(R.id.tv_location);
         tvPostType = itemView.findViewById(R.id.post_type);
         tvLanguage = itemView.findViewById(R.id.textview_language);
-        tvTime = itemView.findViewById(R.id.textview_time);
         tvSchedule = itemView.findViewById(R.id.textview_weekly_schedule);
+        tvClass = itemView.findViewById(R.id.textview_class);
 
         container = itemView.findViewById(R.id.linearlayout_container);
     }

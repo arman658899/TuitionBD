@@ -6,8 +6,6 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
 import android.app.Dialog;
@@ -18,34 +16,32 @@ import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.Html;
-import android.util.Log;
-import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.ViewFlipper;
 
 import com.brogrammers.tutionbd.AppPreferences;
 import com.brogrammers.tutionbd.ApplicationHelper;
 import com.brogrammers.tutionbd.Constants;
 import com.brogrammers.tutionbd.R;
-import com.brogrammers.tutionbd.adapters.InformationHighlightAdapter;
 import com.brogrammers.tutionbd.adapters.TabAdapter;
-import com.brogrammers.tutionbd.beans.HighlightItem;
+import com.brogrammers.tutionbd.beans.Slider;
 import com.brogrammers.tutionbd.views.PostForTuitionActivity;
 import com.brogrammers.tutionbd.views.PrivacyPolicyActivity;
 import com.brogrammers.tutionbd.views.ProfileActivity;
 import com.brogrammers.tutionbd.views.loginactivity.LoginActivity;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.tabs.TabLayout;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import static android.graphics.Color.BLACK;
@@ -56,9 +52,6 @@ public class FindTuitionOrTutorActivity extends AppCompatActivity implements Fin
     private CollapsingToolbarLayout collapsingToolbarLayout;
     private ViewPager viewPager;
     private TabLayout tab;
-    private RecyclerView recyclerView;
-    private InformationHighlightAdapter adapter;
-    private List<HighlightItem> highlightItems;
     private AlertDialog dialogBoxForUpdate;
     private TextView tvPostHere;
     private Dialog loadingDialog;
@@ -71,6 +64,7 @@ public class FindTuitionOrTutorActivity extends AppCompatActivity implements Fin
     private static DrawerLayout drawerLayout;
     private static NavigationView navigationView;
     private ActionBarDrawerToggle mToggle;
+    private ViewFlipper viewFlipper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,6 +73,7 @@ public class FindTuitionOrTutorActivity extends AppCompatActivity implements Fin
 
         presenter = new FindTuitionOrTutorActivityPresenter(this,this);
 
+        viewFlipper = findViewById(R.id.viewflipper);
         drawerLayout = findViewById( R.id.drawerlayout);
         navigationView=findViewById( R.id.nav_view );
         navigationView.setNavigationItemSelectedListener(this);
@@ -87,9 +82,6 @@ public class FindTuitionOrTutorActivity extends AppCompatActivity implements Fin
         mToggle=new ActionBarDrawerToggle(FindTuitionOrTutorActivity.this,drawerLayout,R.string.open,R.string.close);
         drawerLayout.addDrawerListener(mToggle);
         mToggle.syncState();
-
-        highlightItems = new ArrayList<>();
-        adapter = new InformationHighlightAdapter(this,highlightItems,presenter);
 
         loadingDialog = ApplicationHelper.getUtilsHelper().getLoadingDialog(this);
         loadingDialog.setCancelable(false);
@@ -134,34 +126,20 @@ public class FindTuitionOrTutorActivity extends AppCompatActivity implements Fin
         //menu button
         findViewById(R.id.imageview_menu).setOnClickListener(v -> openDrawer());
 
-        recyclerView = findViewById(R.id.recyclerview_into_collapse);
-        recyclerView.setHasFixedSize(true);
-        LinearLayoutManager layoutManager = new LinearLayoutManager(this,RecyclerView.HORIZONTAL,false);
-        recyclerView.setLayoutManager(layoutManager);
-        recyclerView.setAdapter(adapter);
 
+        viewFlipper.addOnLayoutChangeListener(new View.OnLayoutChangeListener() {
+            @Override
+            public void onLayoutChange(View v, int left, int top, int right, int bottom, int oldLeft, int oldTop, int oldRight, int oldBottom) {
+                addDots(viewFlipper.getDisplayedChild(),viewFlipper.getChildCount());
+            }
+        });
 
-        Log.d(Constants.TAG, "onCreate: "+AppPreferences.getProfileType(this));
-        if (AppPreferences.getProfileType(this) == Constants.PROFILE_FIND_TUTOR_GUARDIAN){
-            //post for tutor
-            linearLayoutContainer.setVisibility(View.GONE);
-        }else{
-            recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
-                @Override
-                public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
-                    super.onScrolled(recyclerView, dx, dy);
-
-                    addDots(layoutManager.findFirstVisibleItemPosition());
-
-                }
-            });
-        }
 
     }
 
 
-    private void addDots(int position){
-        dots = new TextView [highlightItems.size()];
+    private void addDots(int position, int totalSize){
+        dots = new TextView [totalSize];
         dotsLayout.removeAllViews();
         for (int i=0; i<dots.length ; i++){
             dots[i] = new TextView( this );
@@ -201,7 +179,7 @@ public class FindTuitionOrTutorActivity extends AppCompatActivity implements Fin
 
     @Override
     public void showSnackBarMessage(String message) {
-        Snackbar.make(recyclerView,message, BaseTransientBottomBar.LENGTH_LONG)
+        Snackbar.make(tvPostHere,message, BaseTransientBottomBar.LENGTH_LONG)
                 .setBackgroundTint(YELLOW)
                 .setTextColor(BLACK)
                 .show();
@@ -212,48 +190,7 @@ public class FindTuitionOrTutorActivity extends AppCompatActivity implements Fin
         startActivity(intent);
     }
 
-    @Override
-    public void onShowHighlightedItems(List<HighlightItem> items) {
-        highlightItems.clear();
-        highlightItems.addAll(items);
-        adapter.notifyDataSetChanged();
-        if (highlightItems.size()>0) addDots(0);
-    }
 
-    @Override
-    public void onShowUpdateDialogBox(String tittle, String buttonName, String childKey) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(FindTuitionOrTutorActivity.this);
-        View itemView = getLayoutInflater().inflate(R.layout.diaglogview_update_data,null,false);
-
-        TextView tvTittle = itemView.findViewById(R.id.textview_tittle);
-        EditText etInfo = itemView.findViewById(R.id.textview_details);
-        Button buttonCancel = itemView.findViewById(R.id.button_cancel);
-        Button buttonAddOrUpdate = itemView.findViewById(R.id.button_add);
-
-        buttonAddOrUpdate.setText(buttonName);
-        tvTittle.setText(tittle);
-
-        buttonCancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (dialogBoxForUpdate!=null) dialogBoxForUpdate.cancel();
-            }
-        });
-
-        buttonAddOrUpdate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                presenter.onAddOrUpdateHighlightedItem(""+etInfo.getText().toString(),childKey);
-                if (dialogBoxForUpdate!=null) dialogBoxForUpdate.cancel();
-            }
-        });
-
-        builder.setView(itemView);
-
-        dialogBoxForUpdate = builder.create();
-        dialogBoxForUpdate.show();
-
-    }
 
     @Override
     public void onLoadingDialog(boolean isLoading) {
@@ -273,6 +210,28 @@ public class FindTuitionOrTutorActivity extends AppCompatActivity implements Fin
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public void onInitializeViewFlipper(List<Slider> sliders) {
+        if (sliders.size()>0){
+            linearLayoutContainer.setVisibility(View.VISIBLE);
+            for (Slider banner: sliders){
+                ImageView imageView = new ImageView(FindTuitionOrTutorActivity.this);
+                Glide.with(FindTuitionOrTutorActivity.this)
+                        .load(banner.getLink())
+                        .diskCacheStrategy(DiskCacheStrategy.ALL)
+                        .into(imageView);
+                //imageView1.setBackgroundResource(images[0]);
+                viewFlipper.addView(imageView);
+                viewFlipper.setAutoStart(true);
+                viewFlipper.setFlipInterval(3000);
+                viewFlipper.setInAnimation(this,android.R.anim.slide_in_left);
+                viewFlipper.setOutAnimation(this,android.R.anim.slide_out_right);
+            }
+
+
+        }else  linearLayoutContainer.setVisibility(View.GONE);
     }
 
     @Override

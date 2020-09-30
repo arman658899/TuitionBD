@@ -35,7 +35,7 @@ import org.imperiumlabs.geofirestore.GeoFirestore;
 import java.util.Calendar;
 
 public class PostForTuitionActivity extends AppCompatActivity {
-    private EditText etTittle,etSalary,etClass,etSubject,etTuitionTime;
+    private EditText etTittle,etSalary,etClass,etSubject;
     private Dialog loadingDialog;
     private TextView tvLocation,tvTittle;
     private Spinner spinnerLanguage,spinnerSchedule;
@@ -83,7 +83,6 @@ public class PostForTuitionActivity extends AppCompatActivity {
         etSalary = findViewById(R.id.editTextTextPersonName5);
         etClass = findViewById(R.id.editTextTextPersonName6);
         tvLocation = findViewById(R.id.editTextTextPersonName4);
-        etTuitionTime = findViewById(R.id.edittext_tuition_time);
 
         spinnerLanguage = findViewById(R.id.spinner_language);
         spinnerSchedule = findViewById(R.id.spinner_weekly_scedule);
@@ -102,12 +101,11 @@ public class PostForTuitionActivity extends AppCompatActivity {
             public void onClick(View v) {
                 //post for tuition
 
-                String tittle,subject,salary,studentClass,tuitionTime;
+                String tittle,subject,salary,studentClass;
                 tittle = ""+etTittle.getText().toString();
                 subject = ""+etSubject.getText().toString();
                 salary = ""+etSalary.getText().toString();
                 studentClass = ""+etClass.getText().toString();
-                tuitionTime = ""+etTuitionTime.getText().toString();
 
                 schedule = Constants.WEEKLY_SCHEDULE[spinnerSchedule.getSelectedItemPosition()];
                 language = Constants.LANGUAGE_MEDIUM[spinnerLanguage.getSelectedItemPosition()];
@@ -143,12 +141,6 @@ public class PostForTuitionActivity extends AppCompatActivity {
                     return;
                 }
 
-                if (tuitionTime.isEmpty()){
-                    etTuitionTime.setError("Please add preferred tuition time.");
-                    etTuitionTime.requestFocus();
-                    return;
-                }
-
                 if (mAddress.isEmpty()){
                     tvLocation.setError("Please add proper location.");
                     tvLocation.requestFocus();
@@ -162,7 +154,7 @@ public class PostForTuitionActivity extends AppCompatActivity {
                 loadingDialog.show();
                 String documentId = collRef.document().getId();
 
-                AdInfo adInfo = new AdInfo(tittle,salary,mAddress,subject,studentClass,language,schedule,tuitionTime,documentId,ApplicationHelper.getDatabaseHelper().getAuth().getCurrentUser().getUid(), Calendar.getInstance().getTimeInMillis());
+                AdInfo adInfo = new AdInfo(tittle,salary,mAddress,subject,studentClass,language,schedule,documentId,ApplicationHelper.getDatabaseHelper().getAuth().getCurrentUser().getUid(), Calendar.getInstance().getTimeInMillis());
 
                 collRef.document(documentId)
                         .set(adInfo)

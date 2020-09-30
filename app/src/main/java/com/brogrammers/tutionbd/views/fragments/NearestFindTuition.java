@@ -26,6 +26,8 @@ import com.brogrammers.tutionbd.beans.AdInfo;
 import com.brogrammers.tutionbd.listeners.OnRecyclerViewItemClickListener;
 import com.brogrammers.tutionbd.views.ShowTeacherDetailsActivity;
 import com.brogrammers.tutionbd.views.ShowGuardianDetailsActivity;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
@@ -59,6 +61,9 @@ public class NearestFindTuition extends Fragment implements OnRecyclerViewItemCl
     private GeoFirestore geoFirestore;
 
     private List<String> nearestPostIds;
+
+    //google ads
+    AdView mAdView;
 
     public NearestFindTuition() {
         // Required empty public constructor
@@ -107,6 +112,11 @@ public class NearestFindTuition extends Fragment implements OnRecyclerViewItemCl
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        //test ad
+        mAdView = view.findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
 
         tvNoPostFound = view.findViewById(R.id.textview_no_post_found);
 
@@ -220,14 +230,40 @@ public class NearestFindTuition extends Fragment implements OnRecyclerViewItemCl
             case Constants.PROFILE_FIND_TUITION_TEACHER:{
                 //show post for teacher
                 Intent intent = new Intent(requireActivity(), ShowGuardianDetailsActivity.class);
-                intent.putExtra("ad",adInfo);
+                Bundle bundle = new Bundle();
+                bundle.putString("tittle",adInfo.getTittle());
+                bundle.putString("salary",adInfo.getSalary());
+                bundle.putString("location",adInfo.getLocation());
+                bundle.putString("subject",adInfo.getSubject());
+                bundle.putString("class",adInfo.getStudentClass());
+                bundle.putString("language",adInfo.getLanguage());
+                bundle.putString("schedule",adInfo.getSchedule());
+                bundle.putString("documentId",adInfo.getDocumentId());
+                bundle.putString("userUid",adInfo.getUserUid());
+                bundle.putLong("time",adInfo.getCreatedTime());
+
+                intent.putExtras(bundle);
+
                 startActivity(intent);
                 break;
             }
             case Constants.PROFILE_FIND_TUTOR_GUARDIAN:{
                 //show post for guardian
                 Intent intent = new Intent(requireActivity(), ShowTeacherDetailsActivity.class);
-                intent.putExtra("ad",adInfo);
+                Bundle bundle = new Bundle();
+                bundle.putString("tittle",adInfo.getTittle());
+                bundle.putString("salary",adInfo.getSalary());
+                bundle.putString("location",adInfo.getLocation());
+                bundle.putString("subject",adInfo.getSubject());
+                bundle.putString("class",adInfo.getStudentClass());
+                bundle.putString("language",adInfo.getLanguage());
+                bundle.putString("schedule",adInfo.getSchedule());
+                bundle.putString("documentId",adInfo.getDocumentId());
+                bundle.putString("userUid",adInfo.getUserUid());
+                bundle.putLong("time",adInfo.getCreatedTime());
+
+                intent.putExtras(bundle);
+
                 startActivity(intent);
                 break;
             }

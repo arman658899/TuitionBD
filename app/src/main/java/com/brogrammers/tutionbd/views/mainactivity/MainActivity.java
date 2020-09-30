@@ -15,6 +15,9 @@ import com.brogrammers.tutionbd.views.introslideractivity.IntroSliderActivity;
 import com.brogrammers.tutionbd.views.loginactivity.LoginActivity;
 import com.brogrammers.tutionbd.views.findtuitionortutoractivity.FindTuitionOrTutorActivity;
 import com.brogrammers.tutionbd.views.signupactivity.SignUpActivity;
+import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.initialization.InitializationStatus;
+import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -22,6 +25,12 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        MobileAds.initialize(this, new OnInitializationCompleteListener() {
+            @Override
+            public void onInitializationComplete(InitializationStatus initializationStatus) {
+            }
+        });
 
         findViewById(R.id.constraint1).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -54,7 +63,6 @@ public class MainActivity extends AppCompatActivity {
 
     private void startFindTuitionOrTutorActivity(){
         Intent intent = new Intent(MainActivity.this, FindTuitionOrTutorActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
     }
 

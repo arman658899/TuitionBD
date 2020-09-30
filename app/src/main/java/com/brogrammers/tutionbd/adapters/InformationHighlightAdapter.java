@@ -39,7 +39,7 @@ public class InformationHighlightAdapter extends RecyclerView.Adapter<Informatio
         holder.buttonAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (presenter!=null) presenter.onHighlightItemClicked(highlightItems.get(position));
+
             }
         });
     }

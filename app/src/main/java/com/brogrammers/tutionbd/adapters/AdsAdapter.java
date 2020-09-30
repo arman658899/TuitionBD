@@ -32,7 +32,7 @@ public class AdsAdapter extends RecyclerView.Adapter<AdViewHolder> {
     @NonNull
     @Override
     public AdViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new AdViewHolder(LayoutInflater.from(context).inflate(R.layout.postshowitem,parent,false));
+        return new AdViewHolder(LayoutInflater.from(context).inflate(R.layout.sampleview_ad_info,parent,false));
     }
 
     @Override
@@ -48,7 +48,7 @@ public class AdsAdapter extends RecyclerView.Adapter<AdViewHolder> {
                 if (listener!=null) listener.onItemSelected(ads.get(position));
             }
         });
-        holder.tvTime.setText(ads.get(position).getTuitionTime());
+        holder.tvClass.setText(ads.get(position).getStudentClass());
         holder.tvSchedule.setText(ads.get(position).getSchedule());
         holder.tvLanguage.setText(ads.get(position).getLanguage());
 
