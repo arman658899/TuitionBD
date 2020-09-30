@@ -21,10 +21,10 @@ public class SliderAdapter extends PagerAdapter {
         this.context = context;
     }
     int image[]={
-            R.drawable.intro1,
-            R.drawable.intro1,
-            R.drawable.intro1,
-            R.drawable.intro1,
+            R.drawable.intro,
+            R.drawable.intro,
+            R.drawable.intro,
+            R.drawable.intro,
     };
     int title[]={
             R.string.findTutor,

@@ -51,99 +51,100 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="15dp"
+            android:layout_marginLeft="15dp"
             android:layout_marginTop="5dp"
             android:text="Name"
-            android:textSize="16sp"
             android:textColor="@android:color/black"
+            android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.002"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginLeft="15dp" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <EditText
             android:id="@+id/name_Tv"
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"
             android:layout_marginTop="10dp"
+            android:layout_marginEnd="10dp"
             android:background="@drawable/edit_text_shape"
             android:ems="10"
             android:hint="Abdullah Al Hossain"
             android:inputType="textPersonName"
             android:paddingStart="10dp"
+            android:paddingLeft="10dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView8"
-            android:paddingLeft="10dp" />
+            app:layout_constraintTop_toBottomOf="@+id/textView8" />
 
         <TextView
             android:id="@+id/textView9"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="15dp"
+            android:layout_marginLeft="15dp"
             android:layout_marginTop="10dp"
-            android:textSize="16sp"
-            android:textColor="@android:color/black"
             android:text="@string/university_college"
+            android:textColor="@android:color/black"
+            android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/name_Tv"
-            android:layout_marginLeft="15dp" />
+            app:layout_constraintTop_toBottomOf="@+id/name_Tv" />
 
         <EditText
             android:id="@+id/university_tv"
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"
             android:layout_marginTop="10dp"
-            android:paddingStart="10dp"
+            android:layout_marginEnd="10dp"
             android:background="@drawable/edit_text_shape"
             android:ems="10"
             android:hint="Chittagong University"
             android:inputType="textPersonName"
+            android:paddingStart="10dp"
+            android:paddingLeft="10dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView9"
-            android:paddingLeft="10dp" />
+            app:layout_constraintTop_toBottomOf="@+id/textView9" />
 
         <TextView
             android:id="@+id/textView12"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="56dp"
+            android:layout_marginLeft="56dp"
             android:layout_marginTop="10dp"
             android:text="@string/department"
             android:textColor="@android:color/black"
             android:textSize="16sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/university_tv"
-            android:layout_marginLeft="56dp" />
+            app:layout_constraintTop_toBottomOf="@+id/university_tv" />
 
         <TextView
             android:id="@+id/textView14"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="128dp"
+            android:layout_marginLeft="128dp"
             android:layout_marginTop="10dp"
             android:layout_marginEnd="80dp"
+            android:layout_marginRight="80dp"
             android:text="@string/year"
             android:textColor="@android:color/black"
             android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/textView12"
-            app:layout_constraintTop_toBottomOf="@+id/university_tv"
-            android:layout_marginLeft="128dp"
-            android:layout_marginRight="80dp" />
+            app:layout_constraintTop_toBottomOf="@+id/university_tv" />
 
         <EditText
             android:id="@+id/department_name_et"
             android:layout_width="150dp"
             android:layout_height="40dp"
             android:layout_marginStart="30dp"
+            android:layout_marginLeft="30dp"
             android:layout_marginTop="8dp"
             android:background="@drawable/edit_text_shape"
             android:ems="10"
@@ -151,14 +152,14 @@
             android:hint="Cse"
             android:inputType="textPersonName"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView12"
-            android:layout_marginLeft="30dp" />
+            app:layout_constraintTop_toBottomOf="@+id/textView12" />
 
         <EditText
             android:id="@+id/year_et"
             android:layout_width="150dp"
             android:layout_height="40dp"
             android:layout_marginStart="38dp"
+            android:layout_marginLeft="38dp"
             android:layout_marginTop="8dp"
             android:background="@drawable/edit_text_shape"
             android:ems="10"
@@ -167,23 +168,22 @@
             android:inputType="textPersonName"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/department_name_et"
-            app:layout_constraintTop_toBottomOf="@+id/textView14"
-            android:layout_marginLeft="38dp" />
+            app:layout_constraintTop_toBottomOf="@+id/textView14" />
 
         <TextView
             android:id="@+id/textView16"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="15dp"
+            android:layout_marginLeft="15dp"
             android:layout_marginTop="15dp"
             android:layout_marginEnd="284dp"
+            android:layout_marginRight="284dp"
             android:text="@string/contact_number"
             android:textColor="@android:color/black"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/department_name_et"
-            android:layout_marginLeft="15dp"
-            android:layout_marginRight="284dp" />
+            app:layout_constraintTop_toBottomOf="@+id/department_name_et" />
 
         <EditText
             android:id="@+id/contact_number_et"
@@ -197,23 +197,23 @@
             android:hint="01843658899"
             android:inputType="number"
             android:paddingStart="10dp"
+            android:paddingLeft="10dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView16"
-            android:paddingLeft="10dp" />
+            app:layout_constraintTop_toBottomOf="@+id/textView16" />
 
         <TextView
             android:id="@+id/textView18"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="15dp"
+            android:layout_marginLeft="15dp"
             android:layout_marginTop="10dp"
             android:text="Address"
             android:textColor="@android:color/black"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/contact_number_et"
-            android:layout_marginLeft="15dp" />
+            app:layout_constraintTop_toBottomOf="@+id/contact_number_et" />
 
         <EditText
             android:id="@+id/address_et"
@@ -222,25 +222,25 @@
             android:layout_marginStart="10dp"
             android:layout_marginTop="10dp"
             android:layout_marginEnd="10dp"
-            android:paddingStart="10dp"
-            android:ems="10"
-            android:inputType="textPersonName"
-            android:hint="Fatema Villa,Dc road, Chawkbazar, Chittagong"
             android:background="@drawable/edit_text_shape"
+            android:ems="10"
+            android:hint="Fatema Villa,Dc road, Chawkbazar, Chittagong"
+            android:inputType="textPersonName"
+            android:paddingStart="10dp"
+            android:paddingLeft="10dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView18"
-            android:paddingLeft="10dp" />
+            app:layout_constraintTop_toBottomOf="@+id/textView18" />
 
         <Button
             android:id="@+id/up_nid_sId_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
+            android:background="@drawable/button_round_shape"
             android:paddingStart="5dp"
             android:paddingEnd="5dp"
             android:text="Upload NID/Student ID"
-            android:background="@drawable/button_round_shape"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/address_et" />
@@ -250,10 +250,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="16dp"
+            android:background="@drawable/button_round_shape"
+            android:text="Update Profile"
             android:textColor="@android:color/white"
             android:textStyle="bold"
-            android:text="Update Profile"
-            android:background="@drawable/button_round_shape"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/up_nid_sId_btn" />
