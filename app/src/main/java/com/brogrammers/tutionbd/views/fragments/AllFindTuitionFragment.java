@@ -15,6 +15,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import com.brogrammers.tutionbd.AppPreferences;
@@ -27,7 +28,6 @@ import com.brogrammers.tutionbd.listeners.OnRecyclerViewItemClickListener;
 import com.brogrammers.tutionbd.views.ShowTeacherDetailsActivity;
 import com.brogrammers.tutionbd.views.ShowGuardianDetailsActivity;
 import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.AdView;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.snackbar.BaseTransientBottomBar;
@@ -48,7 +48,6 @@ import static com.brogrammers.tutionbd.Constants.TAG;
 public class AllFindTuitionFragment extends Fragment implements OnRecyclerViewItemClickListener<AdInfo> {
     private List<AdInfo> ads;
     private CollectionReference collRef;
-    private AdView mAdView;
     private AdsAdapter adsAdapter;
     private RecyclerView recyclerView;
     private TextView tvNoPostFound;
@@ -96,10 +95,6 @@ public class AllFindTuitionFragment extends Fragment implements OnRecyclerViewIt
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        //test ad
-        mAdView = view.findViewById(R.id.adView);
-        AdRequest adRequest = new AdRequest.Builder().build();
-        mAdView.loadAd(adRequest);
 
 
         tvNoPostFound = view.findViewById(R.id.textview_no_post_found);
@@ -210,7 +205,7 @@ public class AllFindTuitionFragment extends Fragment implements OnRecyclerViewIt
                 //show post for teacher
                 Intent intent = new Intent(requireActivity(), ShowGuardianDetailsActivity.class);
 
-                Bundle bundle = new Bundle();
+                /*Bundle bundle = new Bundle();
                 bundle.putString("tittle",adInfo.getTittle());
                 bundle.putString("salary",adInfo.getSalary());
                 bundle.putString("location",adInfo.getLocation());
@@ -220,9 +215,9 @@ public class AllFindTuitionFragment extends Fragment implements OnRecyclerViewIt
                 bundle.putString("schedule",adInfo.getSchedule());
                 bundle.putString("documentId",adInfo.getDocumentId());
                 bundle.putString("userUid",adInfo.getUserUid());
-                bundle.putLong("time",adInfo.getCreatedTime());
+                bundle.putLong("time",adInfo.getCreatedTime());*/
 
-                intent.putExtras(bundle);
+                intent.putExtra("ad",adInfo);
                 startActivity(intent);
                 break;
             }
@@ -231,7 +226,7 @@ public class AllFindTuitionFragment extends Fragment implements OnRecyclerViewIt
 
 
                 Intent intent = new Intent(requireActivity(), ShowTeacherDetailsActivity.class);
-                Bundle bundle = new Bundle();
+                /*Bundle bundle = new Bundle();
                 bundle.putString("tittle",adInfo.getTittle());
                 bundle.putString("salary",adInfo.getSalary());
                 bundle.putString("location",adInfo.getLocation());
@@ -243,7 +238,10 @@ public class AllFindTuitionFragment extends Fragment implements OnRecyclerViewIt
                 bundle.putString("userUid",adInfo.getUserUid());
                 bundle.putLong("time",adInfo.getCreatedTime());
 
-                intent.putExtras(bundle);
+                intent.putExtras(bundle);*/
+
+                intent.putExtra("ad",adInfo);
+
 
                 startActivity(intent);
                 break;

@@ -60,6 +60,7 @@ public class SignUpActivityPresenter implements SignUpActivityVP.Presenter {
                     User user = new User(
                             userName,
                             gender,
+                            "",
                             mobileNumber,
                             ApplicationHelper.getDatabaseHelper().getAuth().getCurrentUser().getUid(),
                             downloadLink,

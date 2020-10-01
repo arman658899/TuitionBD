@@ -15,9 +15,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".views.PrivacyPolicyActivity"></activity>
+        <activity android:name=".views.ShowNidOrSIdCartActivity"></activity>
+        <activity android:name=".views.GuardianProfileActivity" />
+        <activity android:name=".views.PrivacyPolicyActivity" />
         <activity android:name=".views.AddIDCardPhotoActivity" />
-        <activity android:name=".views.ProfileActivity" />
+        <activity android:name=".views.TeacherProfileActivity" />
         <activity android:name=".views.ShowGuardianDetailsActivity" />
         <activity android:name=".views.ShowTeacherDetailsActivity" />
         <activity android:name=".views.locationactivity.SelectLocationActivity" />
@@ -44,13 +46,10 @@
             android:value="@integer/google_play_services_version" />
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyAdxN9B_XwTuifTiDLywe4beJYLwT_yeE0" />
-
-        <!-- Sample AdMob App ID: ca-app-pub-3940256099942544~3347511713 -->
+            android:value="AIzaSyAdxN9B_XwTuifTiDLywe4beJYLwT_yeE0" /> <!-- Sample AdMob App ID: ca-app-pub-3940256099942544~3347511713 -->
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
-            android:value="ca-app-pub-3940256099942544~3347511713"/>
-
+            android:value="ca-app-pub-3940256099942544~3347511713" />
     </application>
 
 </manifest>

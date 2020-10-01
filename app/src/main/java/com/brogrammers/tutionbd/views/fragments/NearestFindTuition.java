@@ -62,8 +62,6 @@ public class NearestFindTuition extends Fragment implements OnRecyclerViewItemCl
 
     private List<String> nearestPostIds;
 
-    //google ads
-    AdView mAdView;
 
     public NearestFindTuition() {
         // Required empty public constructor
@@ -113,10 +111,6 @@ public class NearestFindTuition extends Fragment implements OnRecyclerViewItemCl
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        //test ad
-        mAdView = view.findViewById(R.id.adView);
-        AdRequest adRequest = new AdRequest.Builder().build();
-        mAdView.loadAd(adRequest);
 
         tvNoPostFound = view.findViewById(R.id.textview_no_post_found);
 
@@ -230,7 +224,7 @@ public class NearestFindTuition extends Fragment implements OnRecyclerViewItemCl
             case Constants.PROFILE_FIND_TUITION_TEACHER:{
                 //show post for teacher
                 Intent intent = new Intent(requireActivity(), ShowGuardianDetailsActivity.class);
-                Bundle bundle = new Bundle();
+                /*Bundle bundle = new Bundle();
                 bundle.putString("tittle",adInfo.getTittle());
                 bundle.putString("salary",adInfo.getSalary());
                 bundle.putString("location",adInfo.getLocation());
@@ -242,7 +236,9 @@ public class NearestFindTuition extends Fragment implements OnRecyclerViewItemCl
                 bundle.putString("userUid",adInfo.getUserUid());
                 bundle.putLong("time",adInfo.getCreatedTime());
 
-                intent.putExtras(bundle);
+                intent.putExtras(bundle);*/
+                intent.putExtra("ad",adInfo);
+
 
                 startActivity(intent);
                 break;
@@ -250,7 +246,7 @@ public class NearestFindTuition extends Fragment implements OnRecyclerViewItemCl
             case Constants.PROFILE_FIND_TUTOR_GUARDIAN:{
                 //show post for guardian
                 Intent intent = new Intent(requireActivity(), ShowTeacherDetailsActivity.class);
-                Bundle bundle = new Bundle();
+               /* Bundle bundle = new Bundle();
                 bundle.putString("tittle",adInfo.getTittle());
                 bundle.putString("salary",adInfo.getSalary());
                 bundle.putString("location",adInfo.getLocation());
@@ -262,7 +258,9 @@ public class NearestFindTuition extends Fragment implements OnRecyclerViewItemCl
                 bundle.putString("userUid",adInfo.getUserUid());
                 bundle.putLong("time",adInfo.getCreatedTime());
 
-                intent.putExtras(bundle);
+                intent.putExtras(bundle);*/
+                intent.putExtra("ad",adInfo);
+
 
                 startActivity(intent);
                 break;

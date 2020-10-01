@@ -3,10 +3,12 @@ package com.brogrammers.tutionbd.views;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Dialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.brogrammers.tutionbd.AppPreferences;
@@ -32,6 +34,7 @@ import static android.graphics.Color.YELLOW;
 public class ShowTeacherDetailsActivity extends AppCompatActivity {
     private AdInfo adInfo;
     private TextView tvToolbarTittle;
+    private Button buttonNid;
     public TextView tvTittle,tvPostedDate,tvSalary,tvSubject,tvLocation,tvClass,tvSchedule,tvLanguage,tvPostType;
 
     //user ui
@@ -40,8 +43,9 @@ public class ShowTeacherDetailsActivity extends AppCompatActivity {
 
     ProfileManager profileManager;
     Dialog loadingDialog;
+    private String ID_CARD_LINK = "";
 
-    private String USER_UID;
+    //private String USER_UID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,7 +54,7 @@ public class ShowTeacherDetailsActivity extends AppCompatActivity {
 
         //adInfo = (AdInfo) getIntent().getExtras().getSerializable("ad");
 
-        USER_UID = getIntent().getStringExtra("userUid");
+        adInfo = (AdInfo) getIntent().getSerializableExtra("ad");
 
         /**Bundle bundle = new Bundle();
          bundle.putString("tittle",adInfo.getTittle());
@@ -79,6 +83,16 @@ public class ShowTeacherDetailsActivity extends AppCompatActivity {
         tvUserName = findViewById(R.id.name_tv);
         tvUniversity = findViewById(R.id.uni_clg_name_tv);
         tvDept = findViewById(R.id.department_name_tv);
+        buttonNid = findViewById(R.id.nid_card);
+
+        buttonNid.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ShowTeacherDetailsActivity.this,ShowNidOrSIdCartActivity.class);
+                intent.putExtra("link",ID_CARD_LINK);
+                startActivity(intent);
+            }
+        });
 
         //adview
         tvTittle = findViewById(R.id.tv_tittle);
@@ -106,7 +120,18 @@ public class ShowTeacherDetailsActivity extends AppCompatActivity {
                 //post for tutor
                 tvPostType.setText("Need Tuition");
             }
-            tvLocation.setText(getIntent().getStringExtra("location"));
+
+            tvLocation.setText(adInfo.getLocation());
+            tvTittle.setText(adInfo.getTittle());
+            tvSalary.setText(adInfo.getSalary());
+            tvSubject.setText(adInfo.getSubject());
+            tvClass.setText(adInfo.getStudentClass());
+            tvLanguage.setText(adInfo.getLanguage());
+            tvSchedule.setText(adInfo.getSchedule());
+            tvPostedDate.setText(getFormatedDate(adInfo.getCreatedTime()));
+
+
+            /*tvLocation.setText(getIntent().getStringExtra("location"));
             tvTittle.setText(getIntent().getStringExtra("tittle"));
             tvSalary.setText(getIntent().getStringExtra("salary"));
             tvSubject.setText(getIntent().getStringExtra("subject"));
@@ -114,7 +139,7 @@ public class ShowTeacherDetailsActivity extends AppCompatActivity {
             tvLanguage.setText(getIntent().getStringExtra("language"));
             tvSchedule.setText(getIntent().getStringExtra("schedule"));
             tvPostedDate.setText(getFormatedDate(getIntent().getLongExtra("time",Calendar.getInstance().getTimeInMillis())));
-
+*/
         }catch (Exception e){
             e.printStackTrace();
             showSnackbarMessage("Something error happened.");
@@ -134,9 +159,9 @@ public class ShowTeacherDetailsActivity extends AppCompatActivity {
         super.onResume();
 
 
-        if (USER_UID!=null){
+        if (adInfo!=null && adInfo.getUserUid()!=null){
             loadingDialog.show();
-            profileManager.getSingleUserDataSnapshot(USER_UID, new OnDataDownloadListener<User>() {
+            profileManager.getSingleUserDataSnapshot(adInfo.getUserUid(), new OnDataDownloadListener<User>() {
                 @Override
                 public void onStarted() {
 
@@ -150,6 +175,7 @@ public class ShowTeacherDetailsActivity extends AppCompatActivity {
                 @Override
                 public void onDownloading(User user) {
                     updateUserUI(user);
+
                 }
 
                 @Override
@@ -170,8 +196,18 @@ public class ShowTeacherDetailsActivity extends AppCompatActivity {
 
         tvUserName.setText(user.getUserName());
         tvMobile.setText(user.getUserMobile());
-        tvDept.setText(user.getSubject());
-        tvUniversity.setText(user.getCollege());
+        if (user.getSubject().isEmpty()){
+            tvDept.setText("not available");
+        }else tvDept.setText(user.getSubject());
+        if (user.getCollege().isEmpty() && user.getYear().isEmpty()){
+            tvUniversity.setText("not available");
+        }else tvUniversity.setText(user.getCollege()+", "+user.getYear());
+
+        if (!user.getIdCardLink().isEmpty()) {
+            ID_CARD_LINK = ""+user.getIdCardLink();
+            buttonNid.setVisibility(View.VISIBLE);
+        }
+
     }
 
     private void showSnackbarMessage(String message){

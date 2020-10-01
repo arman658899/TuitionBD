@@ -13,7 +13,7 @@ public class Constants {
 
     //contents for posta
     public static final String[] LANGUAGE_MEDIUM = {"Bangla Medium", "English Medium", "Both"};
-    public static final String[] WEEKLY_SCHEDULE = {"Any Day","Sat-Mon-Wed","Sun-Tue-Thu","Everyday","Negotiable"};
+    public static final String[] WEEKLY_SCHEDULE = {"1","2","3","4","5","6","7"};
 
     //gender types
     public static final String MALE = "Male";

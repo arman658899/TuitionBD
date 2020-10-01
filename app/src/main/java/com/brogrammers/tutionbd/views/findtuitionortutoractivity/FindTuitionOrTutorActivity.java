@@ -16,8 +16,11 @@ import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.Html;
+import android.util.DisplayMetrics;
+import android.view.Display;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -30,12 +33,16 @@ import com.brogrammers.tutionbd.Constants;
 import com.brogrammers.tutionbd.R;
 import com.brogrammers.tutionbd.adapters.TabAdapter;
 import com.brogrammers.tutionbd.beans.Slider;
+import com.brogrammers.tutionbd.views.GuardianProfileActivity;
 import com.brogrammers.tutionbd.views.PostForTuitionActivity;
 import com.brogrammers.tutionbd.views.PrivacyPolicyActivity;
-import com.brogrammers.tutionbd.views.ProfileActivity;
+import com.brogrammers.tutionbd.views.TeacherProfileActivity;
 import com.brogrammers.tutionbd.views.loginactivity.LoginActivity;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdSize;
+import com.google.android.gms.ads.AdView;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.snackbar.BaseTransientBottomBar;
@@ -66,12 +73,22 @@ public class FindTuitionOrTutorActivity extends AppCompatActivity implements Fin
     private ActionBarDrawerToggle mToggle;
     private ViewFlipper viewFlipper;
 
+    //google adaptive ad container
+    FrameLayout adContainer;
+    AdView mAdView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_find_tuition);
 
         presenter = new FindTuitionOrTutorActivityPresenter(this,this);
+
+        adContainer = findViewById(R.id.framelayout_adaptive_banner_ad_container);
+        mAdView = new AdView(this);
+        mAdView.setAdUnitId(getString(R.string.banner_ad));
+        adContainer.addView(mAdView);
+        loadBanner();
 
         viewFlipper = findViewById(R.id.viewflipper);
         drawerLayout = findViewById( R.id.drawerlayout);
@@ -135,6 +152,30 @@ public class FindTuitionOrTutorActivity extends AppCompatActivity implements Fin
         });
 
 
+    }
+
+    private void loadBanner() {
+
+        AdRequest adRequest =
+                new AdRequest.Builder()
+                        .build();
+
+        AdSize adSize = getAdSize();
+        mAdView.setAdSize(adSize);
+        mAdView.loadAd(adRequest);
+    }
+
+    private AdSize getAdSize() {
+        Display display = getWindowManager().getDefaultDisplay();
+        DisplayMetrics outMetrics = new DisplayMetrics();
+        display.getMetrics(outMetrics);
+
+        float widthPixels = outMetrics.widthPixels;
+        float density = outMetrics.density;
+
+        int adWidth = (int) (widthPixels / density);
+
+        return AdSize.getCurrentOrientationAnchoredAdaptiveBannerAdSize(this, adWidth);
     }
 
 
@@ -288,8 +329,19 @@ public class FindTuitionOrTutorActivity extends AppCompatActivity implements Fin
             //profile
             closeDrawer();
 
-            Intent intent = new Intent(this, ProfileActivity.class);
-            startActivity(intent);
+            switch (AppPreferences.getProfileType(this)){
+                case Constants.PROFILE_FIND_TUITION_TEACHER:{
+                    Intent intent = new Intent(this, TeacherProfileActivity.class);
+                    startActivity(intent);
+                    break;
+                }
+                case Constants.PROFILE_FIND_TUTOR_GUARDIAN:{
+                    Intent intent = new Intent(this, GuardianProfileActivity.class);
+                    startActivity(intent);
+                    break;
+                }
+                default:
+            }
         }
         if (id == R.id.logout){
             //logout

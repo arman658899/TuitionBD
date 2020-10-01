@@ -3,9 +3,12 @@ package com.brogrammers.tutionbd.views;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Dialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.format.DateFormat;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.brogrammers.tutionbd.AppPreferences;
@@ -30,29 +33,30 @@ import static android.graphics.Color.YELLOW;
 
 public class ShowGuardianDetailsActivity extends AppCompatActivity {
     private AdInfo adInfo;
+    private Button buttonNid;
     private PostManager postManager;
     private TextView tvToolbarTittle;
-    public TextView tvTittle,tvPostedDate,tvSalary,tvSubject,tvLocation,tvClass,tvSchedule,tvLanguage,tvPostType;
+    public TextView tvTittle, tvPostedDate, tvSalary, tvSubject, tvLocation, tvClass, tvSchedule, tvLanguage, tvPostType;
 
     //user ui
     private CircularImageView circularImageView;
-    private TextView tvMobile,tvUserName;
+    private TextView tvMobile, tvUserName;
 
     ProfileManager profileManager;
     Dialog loadingDialog;
+    private String ID_CARD_LINK = "";
 
     //post details
-    private String USER_UID;
+    //private String USER_UID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_find_tuition_post_details);
 
-        //adInfo = (AdInfo) getIntent().getExtras().getSerializable("ad");
+        adInfo = (AdInfo) getIntent().getExtras().getSerializable("ad");
 
-        USER_UID = getIntent().getStringExtra("userUid");
-
+        //USER_UID = getIntent().getStringExtra("userUid");
 
 
         loadingDialog = ApplicationHelper.getUtilsHelper().getLoadingDialog(this);
@@ -66,6 +70,16 @@ public class ShowGuardianDetailsActivity extends AppCompatActivity {
         circularImageView = findViewById(R.id.circularImageView);
         tvMobile = findViewById(R.id.contact_number_tv);
         tvUserName = findViewById(R.id.name_tv);
+        buttonNid = findViewById(R.id.nid_card);
+
+        buttonNid.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ShowGuardianDetailsActivity.this,ShowNidOrSIdCartActivity.class);
+                intent.putExtra("link",ID_CARD_LINK);
+                startActivity(intent);
+            }
+        });
 
         //adview
         tvTittle = findViewById(R.id.tv_tittle);
@@ -86,15 +100,25 @@ public class ShowGuardianDetailsActivity extends AppCompatActivity {
     }
 
     private void updateAdUi() {
-        try{
-            if (AppPreferences.getProfileType(this)== Constants.PROFILE_FIND_TUITION_TEACHER){
+        try {
+            if (AppPreferences.getProfileType(this) == Constants.PROFILE_FIND_TUITION_TEACHER) {
                 //post for tuition
                 tvPostType.setText("Need Tutor");
-            }else if (AppPreferences.getProfileType(this)==Constants.PROFILE_FIND_TUTOR_GUARDIAN){
+            } else if (AppPreferences.getProfileType(this) == Constants.PROFILE_FIND_TUTOR_GUARDIAN) {
                 //post for tutor
                 tvPostType.setText("Need Tuition");
             }
-            tvLocation.setText(getIntent().getStringExtra("location"));
+
+            tvLocation.setText(adInfo.getLocation());
+            tvTittle.setText(adInfo.getTittle());
+            tvSalary.setText(adInfo.getSalary());
+            tvSubject.setText(adInfo.getSubject());
+            tvClass.setText(adInfo.getStudentClass());
+            tvLanguage.setText(adInfo.getLanguage());
+            tvSchedule.setText(adInfo.getSchedule());
+            tvPostedDate.setText(getFormatedDate(adInfo.getCreatedTime()));
+
+           /* tvLocation.setText(getIntent().getStringExtra("location"));
             tvTittle.setText(getIntent().getStringExtra("tittle"));
             tvSalary.setText(getIntent().getStringExtra("salary"));
             tvSubject.setText(getIntent().getStringExtra("subject"));
@@ -103,8 +127,8 @@ public class ShowGuardianDetailsActivity extends AppCompatActivity {
             tvSchedule.setText(getIntent().getStringExtra("schedule"));
             tvPostedDate.setText(getFormatedDate(getIntent().getLongExtra("time",Calendar.getInstance().getTimeInMillis())));
 
-
-        }catch (Exception e){
+*/
+        } catch (Exception e) {
             e.printStackTrace();
             showSnackbarMessage("Something error happened.");
         }
@@ -115,16 +139,16 @@ public class ShowGuardianDetailsActivity extends AppCompatActivity {
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(createdTime);
 
-        return DateFormat.format("dd-MM-yyyy",calendar).toString();
+        return DateFormat.format("dd-MM-yyyy", calendar).toString();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
 
-        if (USER_UID!=null){
+        if (adInfo != null && adInfo.getUserUid()!=null) {
             loadingDialog.show();
-            profileManager.getSingleUserDataSnapshot(USER_UID, new OnDataDownloadListener<User>() {
+            profileManager.getSingleUserDataSnapshot(adInfo.getUserUid(), new OnDataDownloadListener<User>() {
                 @Override
                 public void onStarted() {
 
@@ -146,7 +170,7 @@ public class ShowGuardianDetailsActivity extends AppCompatActivity {
                     showSnackbarMessage("Please check your internet and try again.");
                 }
             });
-        }else showSnackbarMessage("Something error happened.");
+        } else showSnackbarMessage("Something error happened.");
 
     }
 
@@ -158,10 +182,14 @@ public class ShowGuardianDetailsActivity extends AppCompatActivity {
 
         tvUserName.setText(user.getUserName());
         tvMobile.setText(user.getUserMobile());
+        if (!user.getIdCardLink().isEmpty()) {
+            ID_CARD_LINK = ""+user.getIdCardLink();
+            buttonNid.setVisibility(View.VISIBLE);
+        }
     }
 
-    private void showSnackbarMessage(String message){
-        Snackbar.make(tvTittle,message, BaseTransientBottomBar.LENGTH_LONG)
+    private void showSnackbarMessage(String message) {
+        Snackbar.make(tvTittle, message, BaseTransientBottomBar.LENGTH_LONG)
                 .setBackgroundTint(YELLOW)
                 .setTextColor(BLACK)
                 .show();

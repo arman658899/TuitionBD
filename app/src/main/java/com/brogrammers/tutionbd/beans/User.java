@@ -3,7 +3,7 @@ package com.brogrammers.tutionbd.beans;
 import java.io.Serializable;
 
 public class User implements Serializable {
-    private String userName, gender,userMobile, userUid, userImageLink, documentId;
+    private String userName, gender,year,userMobile, userUid, userImageLink, documentId;
 
     //additional data for teacher
     private String college="",subject="",idCardLink="";
@@ -11,9 +11,10 @@ public class User implements Serializable {
     public User() {
     }
 
-    public User(String userName, String gender, String userMobile, String userUid, String userImageLink, String documentId, String college, String subject, String idCardLink) {
+    public User(String userName, String gender, String year, String userMobile, String userUid, String userImageLink, String documentId, String college, String subject, String idCardLink) {
         this.userName = userName;
         this.gender = gender;
+        this.year = year;
         this.userMobile = userMobile;
         this.userUid = userUid;
         this.userImageLink = userImageLink;
@@ -37,6 +38,14 @@ public class User implements Serializable {
 
     public void setGender(String gender) {
         this.gender = gender;
+    }
+
+    public String getYear() {
+        return year;
+    }
+
+    public void setYear(String year) {
+        this.year = year;
     }
 
     public String getUserMobile() {

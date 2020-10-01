@@ -122,7 +122,7 @@
                 android:id="@+id/tablayout"
                 app:tabMode="fixed"
                 app:tabGravity="start"
-                app:tabSelectedTextColor="@color/colorAccent"
+                app:tabSelectedTextColor="@color/colorPrimaryDark"
                 app:tabTextColor="@android:color/white"
                 app:tabIndicatorHeight="4dp"
                 android:layout_width="match_parent"
@@ -132,7 +132,13 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toTopOf="@id/viewpager"
-                app:tabIndicator="@color/colorAccent" />
+                app:tabIndicator="@color/colorPrimaryDark" />
+
+            <FrameLayout
+                android:layout_marginTop="8dp"
+                android:id="@+id/framelayout_adaptive_banner_ad_container"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
 
             <androidx.viewpager.widget.ViewPager
                 android:id="@+id/viewpager"

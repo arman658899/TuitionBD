@@ -94,7 +94,7 @@
                 android:drawableStart="@drawable/icon_schedule"
                 android:drawableLeft="@drawable/icon_schedule"
                 android:drawablePadding="4dp"
-                android:text="Weekly Schedule" />
+                android:text="Days/Week" />
 
             <TextView
                 android:id="@+id/textview_weekly_schedule"

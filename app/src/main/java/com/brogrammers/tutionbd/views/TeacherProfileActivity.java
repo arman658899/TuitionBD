@@ -18,15 +18,14 @@ import com.brogrammers.tutionbd.ApplicationHelper;
 import com.brogrammers.tutionbd.R;
 import com.brogrammers.tutionbd.listeners.OnUploadListener;
 import com.brogrammers.tutionbd.managers.ProfileManager;
-import com.brogrammers.tutionbd.views.findtuitionortutoractivity.FindTuitionOrTutorActivity;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.mikhaellopez.circularimageview.CircularImageView;
 
-public class ProfileActivity extends AppCompatActivity {
+public class TeacherProfileActivity extends AppCompatActivity {
     CircularImageView circularImageView;
     ImageView ivNID;
-    TextView tvName,tvMobile,tvUniversity,tvSubject;
+    TextView tvName,tvMobile,tvUniversity,tvSubject,tvYear;
     private AlertDialog dialogBoxForUpdate;
     private ProfileManager profileManager;
     private Dialog loadingDialog;
@@ -46,6 +45,7 @@ public class ProfileActivity extends AppCompatActivity {
         tvUniversity = findViewById(R.id.university_tv);
         tvMobile = findViewById(R.id.contact_number_et);
         tvSubject = findViewById(R.id.department_name_et);
+        tvYear = findViewById(R.id.department_name_year);
 
         //update ui
         Glide.with(this)
@@ -61,6 +61,7 @@ public class ProfileActivity extends AppCompatActivity {
         tvUniversity.setText(AppPreferences.UserInfo.getUserCollete(this));
         tvMobile.setText(AppPreferences.UserInfo.getUserMobileNumber(this));
         tvSubject.setText(AppPreferences.UserInfo.getUserSubject(this));
+        tvYear.setText(AppPreferences.UserInfo.getUserYear(this));
 
 
         findViewById(R.id.imageview_back).setOnClickListener(v -> onBackPressed());
@@ -91,7 +92,7 @@ public class ProfileActivity extends AppCompatActivity {
         findViewById(R.id.textview_edit_nid_photo).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(ProfileActivity.this,AddIDCardPhotoActivity.class);
+                Intent intent = new Intent(TeacherProfileActivity.this,AddIDCardPhotoActivity.class);
                 intent.putExtra("child","idCardLink");
                 intent.putExtra("mode",false);
                 startActivity(intent);
@@ -102,16 +103,24 @@ public class ProfileActivity extends AppCompatActivity {
         findViewById(R.id.textview_edit_profile_pic).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(ProfileActivity.this,AddIDCardPhotoActivity.class);
+                Intent intent = new Intent(TeacherProfileActivity.this,AddIDCardPhotoActivity.class);
                 intent.putExtra("child","userImageLink");
                 intent.putExtra("mode",true);
                 startActivity(intent);
             }
         });
+
+        //year
+        findViewById(R.id.textview_edit_year).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showAlertDialogForUpdate("Update Year/Semester","year","UPDATE",tvYear);
+            }
+        });
     }
 
     private void showAlertDialogForUpdate(String tittle, String childName, String buttonName, TextView root){
-        AlertDialog.Builder builder = new AlertDialog.Builder(ProfileActivity.this);
+        AlertDialog.Builder builder = new AlertDialog.Builder(TeacherProfileActivity.this);
         View itemView = getLayoutInflater().inflate(R.layout.diaglogview_update_data,null,false);
 
         TextView tvTittle = itemView.findViewById(R.id.textview_tittle);
@@ -157,14 +166,14 @@ public class ProfileActivity extends AppCompatActivity {
             @Override
             public void onUploaded() {
                 loadingDialog.dismiss();
-                Toast.makeText(ProfileActivity.this, "Successful.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(TeacherProfileActivity.this, "Successful.", Toast.LENGTH_SHORT).show();
                 root.setText(value);
             }
 
             @Override
             public void onFailed() {
                 loadingDialog.dismiss();
-                Toast.makeText(ProfileActivity.this, "Failed to update.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(TeacherProfileActivity.this, "Failed to update.", Toast.LENGTH_SHORT).show();
             }
         });
     }

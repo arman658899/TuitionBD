@@ -44,6 +44,7 @@ public class PostForTuitionActivity extends AppCompatActivity {
     private static final int SELECT_LOCATION_REQUEST = 110;
     private double mLat,mLon;
     private String mAddress,schedule = "",language = "";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
