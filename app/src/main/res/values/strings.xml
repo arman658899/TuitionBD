@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">TuitionBD</string>
+    <string name="app_name">TUITIONAPP</string>
 
     <string name="get_started">Get Started</string>
     <string name="findTutor">Find A Tutor</string>
@@ -42,4 +42,13 @@ In no event will we, nor other party involved in the design, development and mai
     purposes, any portion of the information provided by us, including any intellectual property
     rights of Tuition App or any person, firm or corporation having posted information for
     availability through the Services provided by us .\n
+
+    <string name="intro_1">Find A Tuition and Make Money</string>
+    <string name="intro_2">Find A Tutor For Your Lovely Kids</string>
+    <string name="intro_3">Find At Your Convenient Area</string>
+
+    <string name="desc_1">Browse or Post Ad Free.</string>
+    <string name="desc_2">Find Tuition or Tutor in suitable way.</string>
+    <string name="desc_3">Find Tutor for your children in your area.</string>
+
 </resources>

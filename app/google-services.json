@@ -1,42 +1,58 @@
 {
   "project_info": {
-    "project_number": "805694955093",
-    "firebase_url": "https://tutionbd-app.firebaseio.com",
-    "project_id": "tutionbd-app",
-    "storage_bucket": "tutionbd-app.appspot.com"
+    "project_number": "1022255239580",
+    "firebase_url": "https://tuitionapp-15996.firebaseio.com",
+    "project_id": "tuitionapp-15996",
+    "storage_bucket": "tuitionapp-15996.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:805694955093:android:86fbeee4533a712415bedc",
+        "mobilesdk_app_id": "1:1022255239580:android:5b0bc4db90935b8e84f859",
         "android_client_info": {
-          "package_name": "com.brogrammers.tutionbd"
+          "package_name": "com.brogrammers.tuitionapp"
         }
       },
       "oauth_client": [
         {
-          "client_id": "805694955093-q0jmk1fekdbd3liif58atigcsak91813.apps.googleusercontent.com",
+          "client_id": "1022255239580-h1adm3fjkakn75gjrf5pcepr9cj2ga9d.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.brogrammers.tutionbd",
+            "package_name": "com.brogrammers.tuitionapp",
+            "certificate_hash": "ed00c432574a7e9eb2b3055432eed05be9d36f23"
+          }
+        },
+        {
+          "client_id": "1022255239580-4j07889qc1jnivduhserhii1qp3k3h9e.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.brogrammers.tuitionapp",
+            "certificate_hash": "51e83a18560cf4c91a2fe919823e58c29364df9d"
+          }
+        },
+        {
+          "client_id": "1022255239580-beamlv0usdhnqpcd2pngk00nvb0oabkh.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.brogrammers.tuitionapp",
             "certificate_hash": "4e7b5b08bc26b6440afc1fd2b5f0f38003d2ec01"
           }
         },
         {
-          "client_id": "805694955093-3h3jbqck99fpa298klrqnlavhgu7i5dq.apps.googleusercontent.com",
+          "client_id": "1022255239580-u7k90jje9vr0b9ab43p46jfvg0ube8lq.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyBPbzDx4KxSfFzy2IcLeB7Wm5CNf7tQIL8"
+          "current_key": "AIzaSyAsVnhSHcUgFbNBSXAtVq9NphQVklNCwtY"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "805694955093-3h3jbqck99fpa298klrqnlavhgu7i5dq.apps.googleusercontent.com",
+              "client_id": "1022255239580-u7k90jje9vr0b9ab43p46jfvg0ube8lq.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

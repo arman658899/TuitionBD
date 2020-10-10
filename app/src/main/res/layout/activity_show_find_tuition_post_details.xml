@@ -81,6 +81,7 @@
 
                 <Button
                     android:id="@+id/nid_card"
+                    android:visibility="gone"
                     android:layout_width="120dp"
                     android:layout_height="30dp"
                     android:layout_marginEnd="16dp"
@@ -108,6 +109,7 @@
                     android:layout_height="match_parent">
 
                     <ImageView
+                        android:id="@+id/imageview_back"
                         android:layout_gravity="center"
                         app:srcCompat="@drawable/icon_back_circular"
                         android:layout_width="40dp"
@@ -118,7 +120,7 @@
                         android:layout_gravity="center"
                         android:textColor="@color/colorWhite"
                         android:textSize="18sp"
-                        tools:text="Details Information"
+                        android:text="Details Information"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="8dp" />

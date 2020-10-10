@@ -114,24 +114,43 @@
                     tools:text="International Islamic University Chittagong" />
 
                 <TextView
-                    android:id="@+id/textView11"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/department"
-                    android:textSize="12sp"
-                    app:layout_constraintStart_toStartOf="@+id/uni_clg_name_tv"
-                    app:layout_constraintTop_toBottomOf="@+id/uni_clg_name_tv" />
+                android:id="@+id/textView11"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/department"
+                android:textSize="12sp"
+                app:layout_constraintStart_toStartOf="@+id/uni_clg_name_tv"
+                app:layout_constraintTop_toBottomOf="@+id/uni_clg_name_tv" />
 
                 <TextView
                     android:id="@+id/department_name_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="16dp"
                     android:textStyle="bold"
-                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="@+id/textView11"
                     app:layout_constraintTop_toBottomOf="@+id/textView11"
                     tools:text="Cse" />
+
+                <TextView
+                    android:id="@+id/textView110"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/year"
+                    android:textSize="12sp"
+                    app:layout_constraintStart_toStartOf="@+id/department_name_tv"
+                    app:layout_constraintTop_toBottomOf="@+id/department_name_tv" />
+
+                <TextView
+                    android:id="@+id/tv_year"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="@+id/textView110"
+                    app:layout_constraintTop_toBottomOf="@+id/textView110"
+                    tools:text="8th Semester" />
+
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.appcompat.widget.Toolbar

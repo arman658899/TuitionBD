@@ -8,11 +8,11 @@ android {
     buildToolsVersion '30.0.2'
 
     defaultConfig {
-        applicationId "com.brogrammers.tutionbd"
+        applicationId "com.brogrammers.tuitionapp"
         minSdkVersion 16
         targetSdkVersion 30
-        versionCode 1
-        versionName "1.0"
+        versionCode 5
+        versionName "1.0.4"
 
         multiDexEnabled true
         android.defaultConfig.vectorDrawables.useSupportLibrary = true
@@ -22,7 +22,7 @@ android {
 
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
@@ -95,7 +95,7 @@ dependencies {
 
 
     // Add the Firebase Crashlytics SDK.
-    implementation 'com.google.firebase:firebase-crashlytics:17.2.1'
+    implementation 'com.google.firebase:firebase-crashlytics:17.2.2'
 
     //fcm
     implementation 'com.google.firebase:firebase-messaging:20.2.4'
