@@ -335,7 +335,7 @@ public class OtpVarificationActivity extends AppCompatActivity implements OtpVer
             PhoneAuthCredential credential = PhoneAuthProvider.getCredential(OTP_VERIFICATION_CODE, otpCode);
             signInWithPhoneAuthCredential(credential);
         } catch (Exception e) {
-            onDismissLoadingDialog();
+            loadingDialog.dismiss();
             onShowSnackbarMessage("Invalid OTP Code.");
         }
     }

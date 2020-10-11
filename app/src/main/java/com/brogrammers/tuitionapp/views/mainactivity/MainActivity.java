@@ -81,15 +81,14 @@ public class MainActivity extends AppCompatActivity {
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(intent);
             overridePendingTransition(R.anim.fade_in,R.anim.fade_in);
-        }else if (ApplicationHelper.getDatabaseHelper().getAuth().getCurrentUser()!=null){
-            if (AppPreferences.UserInfo.getUserName(this).isEmpty()
-                    || AppPreferences.UserInfo.getUserMobileNumber(this).isEmpty()){
+        }/*else if (ApplicationHelper.getDatabaseHelper().getAuth().getCurrentUser()!=null){
+            if (AppPreferences.UserInfo.getUserName(this).isEmpty()){
                 Intent intent = new Intent(this, SignUpActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
                 overridePendingTransition(R.anim.fade_in,R.anim.fade_in);
             }
-        }
+        }*/
     }
 
     @Override
