@@ -15,6 +15,11 @@ import com.brogrammers.tuitionapp.R;
 import com.brogrammers.tuitionapp.beans.AdInfo;
 import com.brogrammers.tuitionapp.listeners.OnRecyclerViewItemClickListener;
 import com.brogrammers.tuitionapp.viewholders.AdViewHolder;
+import com.google.android.ads.nativetemplates.NativeTemplateStyle;
+import com.google.android.ads.nativetemplates.TemplateView;
+import com.google.android.gms.ads.AdLoader;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.formats.UnifiedNativeAd;
 
 import java.util.Calendar;
 import java.util.List;
@@ -59,6 +64,26 @@ public class AdsAdapter extends RecyclerView.Adapter<AdViewHolder> {
             //post for tutor
             holder.tvPostType.setText("Need Tuition");
         }
+
+        if (position%10==0){
+            holder.templateView.setVisibility(View.VISIBLE);
+            AdLoader adLoader = new AdLoader.Builder(context, context.getString(R.string.native_adv_ad))
+                    .forUnifiedNativeAd(new UnifiedNativeAd.OnUnifiedNativeAdLoadedListener() {
+                        @Override
+                        public void onUnifiedNativeAdLoaded(UnifiedNativeAd unifiedNativeAd) {
+                            NativeTemplateStyle styles = new NativeTemplateStyle.Builder().build();
+                            holder.templateView.setStyles(styles);
+                            holder.templateView.setNativeAd(unifiedNativeAd);
+
+                        }
+                    })
+                    .build();
+
+            adLoader.loadAd(new AdRequest.Builder().build());
+        }else{
+            holder.templateView.setVisibility(View.GONE);
+        }
+
 
     }
 

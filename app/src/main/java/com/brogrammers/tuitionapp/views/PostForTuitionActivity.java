@@ -14,6 +14,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -25,10 +26,18 @@ import com.brogrammers.tuitionapp.Constants;
 import com.brogrammers.tuitionapp.R;
 import com.brogrammers.tuitionapp.beans.AdInfo;
 import com.brogrammers.tuitionapp.views.locationactivity.SelectLocationActivity;
+import com.google.android.gms.ads.AdError;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.LoadAdError;
+import com.google.android.gms.ads.rewarded.RewardItem;
+import com.google.android.gms.ads.rewarded.RewardedAd;
+import com.google.android.gms.ads.rewarded.RewardedAdCallback;
+import com.google.android.gms.ads.rewarded.RewardedAdLoadCallback;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.GeoPoint;
+import com.google.firebase.firestore.SetOptions;
 
 import org.imperiumlabs.geofirestore.GeoFirestore;
 
@@ -37,6 +46,7 @@ import java.util.HashMap;
 
 public class PostForTuitionActivity extends AppCompatActivity {
     private EditText etTittle,etSalary,etClass,etSubject;
+    private Button buttonUpload;
     private Dialog loadingDialog;
     private TextView tvLocation,tvTittle;
     private Spinner spinnerLanguage,spinnerSchedule;
@@ -45,37 +55,23 @@ public class PostForTuitionActivity extends AppCompatActivity {
     private static final int SELECT_LOCATION_REQUEST = 110;
     private double mLat=-1,mLon=-1;
     private String mAddress="",schedule = "",language = "";
+    private String documentId = "";
 
+    private AdInfo mAdInfo;
+    private boolean isUpdate = false;
+
+    //admob
+    private RewardedAd rewardedAd;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_post_for_tuition);
 
+        mAdInfo = (AdInfo) getIntent().getSerializableExtra("ad");
+        isUpdate = getIntent().getBooleanExtra("update",false);
+
         tvTittle = findViewById(R.id.textView5);
-
-        switch (AppPreferences.getProfileType(this)){
-            case Constants.PROFILE_FIND_TUITION_TEACHER:{
-                collRef = ApplicationHelper.getDatabaseHelper().getDb().collection(Constants.DB_FIND_TUITION_TO_GUARDIAN);
-                locationRef = ApplicationHelper.getDatabaseHelper().getDb().collection(Constants.DB_FIND_TUITION_LOCATION);
-                tvTittle.setText("Post for Tuition");
-                break;
-            }
-            case Constants.PROFILE_FIND_TUTOR_GUARDIAN:{
-                collRef = ApplicationHelper.getDatabaseHelper().getDb().collection(Constants.DB_FIND_TUTOR_TO_TEACHER);
-                locationRef = ApplicationHelper.getDatabaseHelper().getDb().collection(Constants.DB_FIND_TUTOR_LOCATION);
-                tvTittle.setText("Post for Tutor");
-                break;
-
-            }
-            default:
-        }
-
-        findViewById(R.id.imageView9).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onBackPressed();
-            }
-        });
+        buttonUpload = findViewById(R.id.button);
 
         loadingDialog = ApplicationHelper.getUtilsHelper().getLottieLoadingBeHappy(this);
         loadingDialog.setCancelable(false);
@@ -89,16 +85,42 @@ public class PostForTuitionActivity extends AppCompatActivity {
         spinnerLanguage = findViewById(R.id.spinner_language);
         spinnerSchedule = findViewById(R.id.spinner_weekly_scedule);
 
-        spinnerLanguage.setAdapter(new ArrayAdapter<String>(PostForTuitionActivity.this,R.layout.sampleview_only_textview,R.id.textview_item,Constants.LANGUAGE_MEDIUM));
-        spinnerSchedule.setAdapter(new ArrayAdapter<String>(PostForTuitionActivity.this,R.layout.sampleview_only_textview,R.id.textview_item,Constants.WEEKLY_SCHEDULE));
-        tvLocation.setOnClickListener(new View.OnClickListener() {
+        if (isUpdate) buttonUpload.setText("Update");
+        else buttonUpload.setText("Post");
+
+        switch (AppPreferences.getProfileType(this)){
+            case Constants.PROFILE_FIND_TUITION_TEACHER:{
+                collRef = ApplicationHelper.getDatabaseHelper().getDb().collection(Constants.DB_FIND_TUITION_TO_GUARDIAN);
+                locationRef = ApplicationHelper.getDatabaseHelper().getDb().collection(Constants.DB_FIND_TUITION_LOCATION);
+                tvTittle.setText("Post for Tuition");
+                etTittle.setHint("Need a tuition");
+                break;
+            }
+            case Constants.PROFILE_FIND_TUTOR_GUARDIAN:{
+                collRef = ApplicationHelper.getDatabaseHelper().getDb().collection(Constants.DB_FIND_TUTOR_TO_TEACHER);
+                locationRef = ApplicationHelper.getDatabaseHelper().getDb().collection(Constants.DB_FIND_TUTOR_LOCATION);
+                tvTittle.setText("Post for Tutor");
+                etTittle.setHint("Need a female tutor from DU");
+                break;
+
+            }
+            default:
+        }
+
+        findViewById(R.id.imageView9).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                statusCheck();
+                onBackPressed();
             }
         });
 
-        findViewById(R.id.button).setOnClickListener(new View.OnClickListener() {
+
+
+        spinnerLanguage.setAdapter(new ArrayAdapter<String>(PostForTuitionActivity.this,R.layout.sampleview_only_textview,R.id.textview_item,Constants.LANGUAGE_MEDIUM));
+        spinnerSchedule.setAdapter(new ArrayAdapter<String>(PostForTuitionActivity.this,R.layout.sampleview_only_textview,R.id.textview_item,Constants.WEEKLY_SCHEDULE));
+        tvLocation.setOnClickListener(v -> statusCheck());
+
+        buttonUpload.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //post for tuition
@@ -152,7 +174,20 @@ public class PostForTuitionActivity extends AppCompatActivity {
                 }
 
                 loadingDialog.show();
-                String documentId = collRef.document().getId();
+
+                if (isUpdate){
+                    try{
+                        documentId = mAdInfo.getDocumentId();
+                    }catch (Exception e){
+                        Log.d(Constants.TAG, "onClick: documentId null");
+                        e.printStackTrace();
+                    }
+                }else documentId = collRef.document().getId();
+
+                if (documentId.isEmpty()){
+                    Toast.makeText(PostForTuitionActivity.this, "Something error happened. Please try again later.", Toast.LENGTH_SHORT).show();
+                    return;
+                }
 
                 HashMap<String,Object> hashMap = new HashMap<>();
                 hashMap.put("tittle",tittle);
@@ -165,6 +200,7 @@ public class PostForTuitionActivity extends AppCompatActivity {
                 hashMap.put("documentId",documentId);
                 hashMap.put("userUid",ApplicationHelper.getDatabaseHelper().getAuth().getCurrentUser().getUid());
                 hashMap.put("createdTime",Calendar.getInstance().getTimeInMillis());
+                hashMap.put("approve",false);
 
                 /*AdInfo adInfo = new AdInfo(
                         tittle,
@@ -179,15 +215,19 @@ public class PostForTuitionActivity extends AppCompatActivity {
                         Calendar.getInstance().getTimeInMillis());*/
 
                 collRef.document(documentId)
-                        .set(hashMap)
+                        .set(hashMap, SetOptions.merge())
                         .addOnCompleteListener(new OnCompleteListener<Void>() {
                             @Override
                             public void onComplete(@NonNull Task<Void> task) {
                                 loadingDialog.dismiss();
                                 if (task.isSuccessful()){
+
+                                    if (rewardedAd.isLoaded()) showAd();
+
                                     updateUi();
                                     Toast.makeText(PostForTuitionActivity.this, "Post uploaded.", Toast.LENGTH_SHORT).show();
                                     if (mLat ==-1 || mLon == -1) return;
+                                    if (isUpdate) return;
 
                                     GeoFirestore geoFirestore = new GeoFirestore(locationRef);
                                     GeoPoint point = new GeoPoint(mLat,mLon);
@@ -201,6 +241,54 @@ public class PostForTuitionActivity extends AppCompatActivity {
             }
         });
 
+        //loading reward ad
+        loadAd();
+
+    }
+
+    private void loadAd(){
+        rewardedAd = new RewardedAd(this,getString(R.string.reward_ad));
+        RewardedAdLoadCallback callback = new RewardedAdLoadCallback(){
+            @Override
+            public void onRewardedAdLoaded() {
+                super.onRewardedAdLoaded();
+
+            }
+
+            @Override
+            public void onRewardedAdFailedToLoad(LoadAdError loadAdError) {
+                super.onRewardedAdFailedToLoad(loadAdError);
+            }
+        };
+        rewardedAd.loadAd(new AdRequest.Builder().build(),callback);
+    }
+
+    private void showAd(){
+        RewardedAdCallback adCallback = new RewardedAdCallback() {
+            @Override
+            public void onUserEarnedReward(@NonNull RewardItem rewardItem) {
+
+            }
+
+            @Override
+            public void onRewardedAdClosed() {
+                super.onRewardedAdClosed();
+                loadAd();
+            }
+
+            @Override
+            public void onRewardedAdFailedToShow(AdError adError) {
+                super.onRewardedAdFailedToShow(adError);
+            }
+
+            @Override
+            public void onRewardedAdOpened() {
+                super.onRewardedAdOpened();
+
+            }
+        };
+
+        rewardedAd.show(this,adCallback);
     }
 
     @Override
@@ -278,5 +366,66 @@ public class PostForTuitionActivity extends AppCompatActivity {
             sum += (i+1)*arrays[i];
         }
         return String.valueOf(sum);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        if (isUpdate){
+            //private EditText etTittle,etSalary,etClass,etSubject;
+            //    private Dialog loadingDialog;
+            //    private TextView tvLocation,tvTittle;
+            try{
+                etTittle.setText(mAdInfo.getTittle());
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+            try{
+                etSalary.setText(mAdInfo.getSalary());
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+            try{
+                etClass.setText(mAdInfo.getStudentClass());
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+            try{
+                etSubject.setText(mAdInfo.getSubject());
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+            try{
+                tvLocation.setText(mAdInfo.getLocation());
+                mAddress = mAdInfo.getLocation();
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+
+            for (int i=0; i<Constants.LANGUAGE_MEDIUM.length;i++){
+                try{
+                    if (mAdInfo.getLanguage().equals(Constants.LANGUAGE_MEDIUM[i])){
+                        spinnerLanguage.setSelection(i);
+                        break;
+                    }
+                }catch (Exception e){
+                    Log.d(Constants.TAG, "onResume: getLanguage is null");
+                    e.printStackTrace();
+                }
+            }
+            for (int i=0; i<Constants.WEEKLY_SCHEDULE.length;i++){
+                try{
+                    if (mAdInfo.getSchedule().equals(Constants.WEEKLY_SCHEDULE[i])){
+                        spinnerSchedule.setSelection(i);
+                        break;
+                    }
+                }catch (Exception e){
+                    Log.d(Constants.TAG, "onResume: getSchedule is null");
+                    e.printStackTrace();
+                }
+            }
+
+        }
     }
 }

@@ -233,4 +233,11 @@
             tools:text="Chittagong" />
     </LinearLayout>
 
+    <com.google.android.ads.nativetemplates.TemplateView
+        android:id="@+id/my_template"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:gnt_template_type="@layout/gnt_medium_template_view" />
+
 </LinearLayout>

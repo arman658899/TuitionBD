@@ -20,6 +20,11 @@ import com.brogrammers.tuitionapp.listeners.OnDataDownloadListener;
 import com.brogrammers.tuitionapp.managers.ProfileManager;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.google.android.ads.nativetemplates.NativeTemplateStyle;
+import com.google.android.ads.nativetemplates.TemplateView;
+import com.google.android.gms.ads.AdLoader;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.formats.UnifiedNativeAd;
 import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
 import com.mikhaellopez.circularimageview.CircularImageView;
@@ -45,6 +50,8 @@ public class ShowTeacherDetailsActivity extends AppCompatActivity {
 
     //private String USER_UID;
 
+    //admob
+    private TemplateView templateView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,6 +60,8 @@ public class ShowTeacherDetailsActivity extends AppCompatActivity {
         //adInfo = (AdInfo) getIntent().getExtras().getSerializable("ad");
 
         adInfo = (AdInfo) getIntent().getSerializableExtra("ad");
+
+        templateView = findViewById(R.id.my_template);
 
         /**Bundle bundle = new Bundle();
          bundle.putString("tittle",adInfo.getTittle());
@@ -153,11 +162,27 @@ public class ShowTeacherDetailsActivity extends AppCompatActivity {
         return DateFormat.format("dd-MM-yyyy",calendar).toString();
     }
 
+    private void loadAds() {
+        AdLoader adLoader = new AdLoader.Builder(this, getString(R.string.native_adv_ad))
+                .forUnifiedNativeAd(new UnifiedNativeAd.OnUnifiedNativeAdLoadedListener() {
+                    @Override
+                    public void onUnifiedNativeAdLoaded(UnifiedNativeAd unifiedNativeAd) {
+                        NativeTemplateStyle styles = new NativeTemplateStyle.Builder().build();
+                        templateView.setStyles(styles);
+                        templateView.setNativeAd(unifiedNativeAd);
+
+                    }
+                })
+                .build();
+
+        adLoader.loadAd(new AdRequest.Builder().build());
+    }
+
     @Override
     protected void onResume() {
         super.onResume();
 
-
+        loadAds();
         if (adInfo!=null && adInfo.getUserUid()!=null){
             loadingDialog.show();
             profileManager.getSingleUserDataSnapshot(adInfo.getUserUid(), new OnDataDownloadListener<User>() {

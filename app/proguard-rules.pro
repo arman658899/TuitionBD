@@ -19,3 +19,7 @@
 # If you keep the line number information, uncomment this to
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
+-keep class com.brogrammers.tuitionapp.beans.* { *; }
+-keep class com.brogrammers.tuitionapp.beans.AdInfo{ *; }
+-keep class com.brogrammers.tuitionapp.beans.User{ *; }
+-keep class com.brogrammers.tuitionapp.beans.Slider{ *; }

@@ -11,11 +11,11 @@
         android:layout_height="wrap_content">
 
         <com.google.android.material.appbar.CollapsingToolbarLayout
-            app:contentScrim="?attr/colorPrimary"
-            android:theme="@style/Theme.AppCompat.Light.DarkActionBar"
-            app:layout_scrollFlags="scroll|enterAlways|exitUntilCollapsed"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:theme="@style/Theme.AppCompat.Light.DarkActionBar"
+            app:contentScrim="?attr/colorPrimary"
+            app:layout_scrollFlags="scroll|enterAlways|exitUntilCollapsed">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/constraintLayout6"
@@ -55,13 +55,15 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
                     android:layout_marginLeft="8dp"
-                    android:text="01843658899"
+                    android:textIsSelectable="true"
+                    android:textColor="@color/colorWhite"
                     android:textSize="16sp"
                     android:textStyle="bold"
                     app:layout_constraintBottom_toBottomOf="@+id/contact_tv"
                     app:layout_constraintStart_toEndOf="@+id/contact_tv"
                     app:layout_constraintTop_toTopOf="@+id/contact_tv"
-                    app:layout_constraintVertical_bias="1.0" />
+                    app:layout_constraintVertical_bias="1.0"
+                    tools:text="01843658899" />
 
                 <TextView
                     android:id="@+id/name_tv"
@@ -70,6 +72,7 @@
                     android:layout_marginTop="8dp"
                     android:layout_marginEnd="8dp"
                     android:layout_marginRight="8dp"
+                    android:textColor="@color/colorWhite"
                     android:textSize="16sp"
                     android:textStyle="bold"
                     app:layout_constraintEnd_toStartOf="@+id/nid_card"
@@ -79,7 +82,6 @@
 
                 <Button
                     android:id="@+id/nid_card"
-                    android:visibility="gone"
                     android:layout_width="120dp"
                     android:layout_height="30dp"
                     android:layout_marginEnd="16dp"
@@ -87,6 +89,7 @@
                     android:background="@drawable/circular_shape_with_stroke"
                     android:text="ID Card"
                     android:textAllCaps="false"
+                    android:visibility="gone"
                     app:layout_constraintBottom_toBottomOf="@+id/department_name_tv"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="@+id/department_name_tv" />
@@ -97,6 +100,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/university_college"
+                    android:textColor="@color/colorWhite"
                     android:textSize="12sp"
                     app:layout_constraintStart_toStartOf="@+id/name_tv"
                     app:layout_constraintTop_toBottomOf="@+id/name_tv" />
@@ -107,6 +111,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="8dp"
                     android:layout_marginRight="8dp"
+                    android:textColor="@color/colorWhite"
                     android:textStyle="bold"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="@+id/textView4"
@@ -114,19 +119,21 @@
                     tools:text="International Islamic University Chittagong" />
 
                 <TextView
-                android:id="@+id/textView11"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/department"
-                android:textSize="12sp"
-                app:layout_constraintStart_toStartOf="@+id/uni_clg_name_tv"
-                app:layout_constraintTop_toBottomOf="@+id/uni_clg_name_tv" />
+                    android:id="@+id/textView11"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/department"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="12sp"
+                    app:layout_constraintStart_toStartOf="@+id/uni_clg_name_tv"
+                    app:layout_constraintTop_toBottomOf="@+id/uni_clg_name_tv" />
 
                 <TextView
                     android:id="@+id/department_name_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textStyle="bold"
+                    android:textColor="@color/colorWhite"
                     app:layout_constraintStart_toStartOf="@+id/textView11"
                     app:layout_constraintTop_toBottomOf="@+id/textView11"
                     tools:text="Cse" />
@@ -136,6 +143,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/year"
+                    android:textColor="@color/colorWhite"
                     android:textSize="12sp"
                     app:layout_constraintStart_toStartOf="@+id/department_name_tv"
                     app:layout_constraintTop_toBottomOf="@+id/department_name_tv" />
@@ -146,6 +154,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="16dp"
                     android:textStyle="bold"
+                    android:textColor="@color/colorWhite"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="@+id/textView110"
                     app:layout_constraintTop_toBottomOf="@+id/textView110"
@@ -155,22 +164,22 @@
 
             <androidx.appcompat.widget.Toolbar
                 android:id="@+id/toolbar"
-                android:theme="@style/ThemeOverlay.AppCompat.Light"
-                app:layout_collapseMode="pin"
                 android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize">
+                android:layout_height="?attr/actionBarSize"
+                android:theme="@style/ThemeOverlay.AppCompat.Light"
+                app:layout_collapseMode="pin">
 
                 <LinearLayout
-                    android:orientation="horizontal"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
 
                     <ImageView
                         android:id="@+id/imageview_back"
-                        android:layout_gravity="center"
-                        app:srcCompat="@drawable/icon_back_circular"
                         android:layout_width="40dp"
-                        android:layout_height="40dp"/>
+                        android:layout_height="40dp"
+                        android:layout_gravity="center"
+                        app:srcCompat="@drawable/icon_back_circular" />
 
                     <TextView
                         android:id="@+id/textview_toolbar_tittle"
@@ -179,6 +188,7 @@
                         android:layout_gravity="center"
                         android:layout_marginStart="8dp"
                         android:layout_marginLeft="8dp"
+                        android:textColor="@color/colorWhite"
                         android:text="Details Information"
                         android:textSize="18sp" />
 
@@ -191,40 +201,40 @@
     </com.google.android.material.appbar.AppBarLayout>
 
     <LinearLayout
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <LinearLayout
             android:id="@+id/linearlayout_container"
-            android:padding="8dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:padding="8dp">
 
             <LinearLayout
-                android:orientation="horizontal"
-                android:weightSum="2"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="2">
 
                 <TextView
                     android:id="@+id/post_type"
-                    android:layout_weight="1"
-                    android:drawableStart="@drawable/icon_info"
-                    android:drawablePadding="4dp"
-                    android:textSize="12sp"
-                    tools:text="Need Tuition"
-                    android:textColor="@color/colorBlue50"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:drawableLeft="@drawable/icon_info" />
+                    android:layout_weight="1"
+                    android:drawableStart="@drawable/icon_info"
+                    android:drawableLeft="@drawable/icon_info"
+                    android:drawablePadding="4dp"
+                    android:textColor="@color/colorBlue50"
+                    android:textSize="12sp"
+                    tools:text="Need Tuition" />
 
                 <TextView
                     android:id="@+id/tv_posted_time"
-                    android:layout_weight="1"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_weight="1"
                     android:gravity="end"
                     android:textSize="12sp"
                     tools:text="22-02-3030" />
@@ -232,11 +242,11 @@
             </LinearLayout>
 
             <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="10dp"
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:orientation="horizontal">
 
                 <ImageView
                     android:id="@+id/imageView10"
@@ -265,133 +275,73 @@
             </LinearLayout>
 
             <TextView
-                android:layout_weight="3"
                 android:id="@+id/tv_tittle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_weight="3"
                 android:textColor="@android:color/black"
                 android:textStyle="bold"
-                tools:text="TITLE"/>
+                tools:text="TITLE" />
 
             <LinearLayout
-                android:weightSum="2"
-                android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="6dp">
+                android:layout_marginTop="6dp"
+                android:orientation="horizontal"
+                android:weightSum="2">
 
 
                 <LinearLayout
-                    android:orientation="vertical"
-                    android:layout_weight="1"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:drawableStart="@drawable/icon_clock"
+                        android:drawableLeft="@drawable/icon_clock"
                         android:drawablePadding="4dp"
-                        android:text="Class"
 
-                        android:drawableLeft="@drawable/icon_clock" />
+                        android:text="Class" />
+
                     <TextView
                         android:id="@+id/textview_class"
-                        android:layout_marginStart="18dp"
-                        android:textColor="@android:color/black"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        tools:text="Class 7"
-                        android:layout_marginLeft="8dp" />
+                        android:layout_marginStart="18dp"
+                        android:layout_marginLeft="8dp"
+                        android:textColor="@android:color/black"
+                        tools:text="Class 7" />
 
 
                 </LinearLayout>
 
 
                 <LinearLayout
-                    android:orientation="vertical"
-                    android:layout_weight="1"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:drawableStart="@drawable/icon_schedule"
+                        android:drawableLeft="@drawable/icon_schedule"
                         android:drawablePadding="4dp"
-                        android:text="Days/Week"
-                        android:drawableLeft="@drawable/icon_schedule" />
+                        android:text="Days/Week" />
 
                     <TextView
                         android:id="@+id/textview_weekly_schedule"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="18dp"
+                        android:layout_marginLeft="18dp"
                         android:textColor="@android:color/black"
                         android:textSize="16dp"
-                        tools:text="Sat-Mon-Wed"
-                        android:layout_marginLeft="18dp" />
-
-                </LinearLayout>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:weightSum="2"
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="6dp">
-
-
-                <LinearLayout
-                    android:orientation="vertical"
-                    android:layout_weight="1"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content">
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:drawableStart="@drawable/icon_language"
-                        android:drawablePadding="4dp"
-                        android:text="Language"
-                        android:drawableLeft="@drawable/icon_language" />
-                    <TextView
-                        android:id="@+id/textview_language"
-                        android:layout_marginStart="18dp"
-                        android:textColor="@android:color/black"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        tools:text="English Medium"
-                        android:layout_marginLeft="8dp" />
-
-                </LinearLayout>
-
-
-                <LinearLayout
-                    android:orientation="vertical"
-                    android:layout_weight="1"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content">
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:drawableStart="@drawable/icon_schedule"
-                        android:drawablePadding="4dp"
-                        android:text="Tuition Subject"
-                        android:drawableLeft="@drawable/icon_schedule" />
-
-                    <TextView
-                        android:id="@+id/tv_subject"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="18dp"
-                        android:textColor="@android:color/black"
-                        android:textSize="16dp"
-                        tools:text="Math-English"
-                        android:layout_marginLeft="18dp" />
+                        tools:text="Sat-Mon-Wed" />
 
                 </LinearLayout>
 
@@ -401,19 +351,89 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="6dp"
+                android:orientation="horizontal"
+                android:weightSum="2">
+
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:drawableStart="@drawable/icon_language"
+                        android:drawableLeft="@drawable/icon_language"
+                        android:drawablePadding="4dp"
+                        android:text="Language" />
+
+                    <TextView
+                        android:id="@+id/textview_language"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="18dp"
+                        android:layout_marginLeft="8dp"
+                        android:textColor="@android:color/black"
+                        tools:text="English Medium" />
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:drawableStart="@drawable/icon_schedule"
+                        android:drawableLeft="@drawable/icon_schedule"
+                        android:drawablePadding="4dp"
+                        android:text="Tuition Subject" />
+
+                    <TextView
+                        android:id="@+id/tv_subject"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="18dp"
+                        android:layout_marginLeft="18dp"
+                        android:textColor="@android:color/black"
+                        android:textSize="16dp"
+                        tools:text="Math-English" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:layout_marginBottom="16dp"
                 android:orientation="horizontal">
 
                 <TextView
                     android:id="@+id/tv_location"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
                     android:drawableStart="@drawable/ic_location"
+                    android:drawableLeft="@drawable/ic_location"
                     android:drawablePadding="4dp"
                     android:textColor="@android:color/black"
-                    android:layout_gravity="center_vertical"
-                    tools:text="Chittagong"
-                    android:drawableLeft="@drawable/ic_location" />
+                    tools:text="Chittagong" />
             </LinearLayout>
+
+            <com.google.android.ads.nativetemplates.TemplateView
+                android:id="@+id/my_template"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:gnt_template_type="@layout/gnt_small_template_view" />
+
 
         </LinearLayout>
 

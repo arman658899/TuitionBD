@@ -1,6 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <string name="app_id">ca-app-pub-6147403694159931~1888612847</string>
+
     <string name="banner_ad">ca-app-pub-6147403694159931/4023821595</string>
+    <string name="interstitial_ad">ca-app-pub-6147403694159931/1395622399</string>
+    <string name="reward_ad">ca-app-pub-6147403694159931/3961064227</string>
+    <string name="native_adv_ad">ca-app-pub-6147403694159931/7150851263</string>
+
+
+    <!--Sample Ad Unit-->
+    <!--<string name="banner_ad">ca-app-pub-3940256099942544/6300978111</string>
+    <string name="interstitial_ad">ca-app-pub-3940256099942544/1033173712</string>
+    <string name="reward_ad">ca-app-pub-3940256099942544/8691691433</string>
+    <string name="native_adv_ad">ca-app-pub-3940256099942544/2247696110</string>-->
 
 </resources>

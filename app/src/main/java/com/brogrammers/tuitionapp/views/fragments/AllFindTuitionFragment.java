@@ -191,6 +191,7 @@ public class AllFindTuitionFragment extends Fragment implements OnRecyclerViewIt
                         }
                         loadingDialog.dismiss();
                         adsAdapter.notifyDataSetChanged();
+
                         if (ads.size()<=0) {
                            getAdDataFromServer();
                         }

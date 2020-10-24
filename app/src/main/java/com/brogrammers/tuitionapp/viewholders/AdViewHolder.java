@@ -8,10 +8,12 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.brogrammers.tuitionapp.R;
+import com.google.android.ads.nativetemplates.TemplateView;
 
 public class AdViewHolder extends RecyclerView.ViewHolder {
     public TextView tvTittle,tvClass,tvPostedDate,tvSalary,tvSubject,tvLocation,tvSchedule,tvLanguage,tvPostType;
     public LinearLayout container;
+    public TemplateView templateView;
     public AdViewHolder(@NonNull View itemView) {
         super(itemView);
         tvTittle = itemView.findViewById(R.id.tv_tittle);
@@ -25,5 +27,7 @@ public class AdViewHolder extends RecyclerView.ViewHolder {
         tvClass = itemView.findViewById(R.id.textview_class);
 
         container = itemView.findViewById(R.id.linearlayout_container);
+
+        templateView = itemView.findViewById(R.id.my_template);
     }
 }

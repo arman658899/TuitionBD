@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">TUITIONAPP</string>
+    <string name="app_name">TuitionApp</string>
 
     <string name="get_started">Get Started</string>
     <string name="findTutor">Find A Tutor</string>
@@ -50,5 +50,9 @@ In no event will we, nor other party involved in the design, development and mai
     <string name="desc_1">Browse or Post Ad Free.</string>
     <string name="desc_2">Find Tuition or Tutor in suitable way.</string>
     <string name="desc_3">Find Tutor for your children in your area.</string>
+    <string name="post_tittle">Tittle of the post</string>
+    <string name="class_hint">Class 9-10</string>
+    <string name="subject_hint">Bangla, English, Math</string>
+    <string name="tuition_fee_hint">4000-5000 BDT</string>
 
 </resources>

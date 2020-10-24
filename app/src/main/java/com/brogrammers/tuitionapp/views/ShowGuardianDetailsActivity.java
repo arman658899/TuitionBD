@@ -21,6 +21,11 @@ import com.brogrammers.tuitionapp.managers.PostManager;
 import com.brogrammers.tuitionapp.managers.ProfileManager;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.google.android.ads.nativetemplates.NativeTemplateStyle;
+import com.google.android.ads.nativetemplates.TemplateView;
+import com.google.android.gms.ads.AdLoader;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.formats.UnifiedNativeAd;
 import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
 import com.mikhaellopez.circularimageview.CircularImageView;
@@ -48,6 +53,9 @@ public class ShowGuardianDetailsActivity extends AppCompatActivity {
     //post details
     //private String USER_UID;
 
+    //admob
+    private TemplateView templateView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,6 +65,7 @@ public class ShowGuardianDetailsActivity extends AppCompatActivity {
 
         //USER_UID = getIntent().getStringExtra("userUid");
 
+        templateView = findViewById(R.id.my_template);
 
         loadingDialog = ApplicationHelper.getUtilsHelper().getLoadingDialog(this);
         loadingDialog.setCancelable(false);
@@ -145,6 +154,7 @@ public class ShowGuardianDetailsActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
 
+        loadAds();
         if (adInfo != null && adInfo.getUserUid()!=null) {
             loadingDialog.show();
             profileManager.getSingleUserDataSnapshot(adInfo.getUserUid(), new OnDataDownloadListener<User>() {
@@ -171,6 +181,22 @@ public class ShowGuardianDetailsActivity extends AppCompatActivity {
             });
         } else showSnackbarMessage("Something error happened.");
 
+    }
+
+    private void loadAds() {
+        AdLoader adLoader = new AdLoader.Builder(this, getString(R.string.native_adv_ad))
+                .forUnifiedNativeAd(new UnifiedNativeAd.OnUnifiedNativeAdLoadedListener() {
+                    @Override
+                    public void onUnifiedNativeAdLoaded(UnifiedNativeAd unifiedNativeAd) {
+                        NativeTemplateStyle styles = new NativeTemplateStyle.Builder().build();
+                        templateView.setStyles(styles);
+                        templateView.setNativeAd(unifiedNativeAd);
+
+                    }
+                })
+                .build();
+
+        adLoader.loadAd(new AdRequest.Builder().build());
     }
 
     private void updateUserUI(User user) {

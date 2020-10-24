@@ -33,6 +33,7 @@ import com.brogrammers.tuitionapp.R;
 import com.brogrammers.tuitionapp.adapters.TabAdapter;
 import com.brogrammers.tuitionapp.beans.Slider;
 import com.brogrammers.tuitionapp.views.GuardianProfileActivity;
+import com.brogrammers.tuitionapp.views.MyPostsActivity;
 import com.brogrammers.tuitionapp.views.PostForTuitionActivity;
 import com.brogrammers.tuitionapp.views.PrivacyPolicyActivity;
 import com.brogrammers.tuitionapp.views.TeacherProfileActivity;
@@ -291,6 +292,17 @@ public class FindTuitionOrTutorActivity extends AppCompatActivity implements Fin
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
+        if (id == R.id.my_posts){
+            if (ApplicationHelper.getDatabaseHelper().getAuth().getCurrentUser()!=null){
+                closeDrawer();
+                Intent intent = new Intent(FindTuitionOrTutorActivity.this, MyPostsActivity.class);
+                startActivity(intent);
+
+            }else{
+                closeDrawer();
+                Toast.makeText(this, "Please sign in.", Toast.LENGTH_SHORT).show();
+            }
+        }
         if(id==R.id.privacy_policy){
             //privacy policy activity
             closeDrawer();
